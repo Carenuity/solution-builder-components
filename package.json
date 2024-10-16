@@ -1,6 +1,6 @@
 {
   "name": "solution-builder-components",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Solution Builder UI component library",
   "license": "MIT",
   "author": "Paul Otieno",
@@ -14,9 +14,10 @@
     "rollup:watch": "rollup -c -w",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "lint": "eslint --fix",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "prettier": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.9.0",
@@ -38,15 +39,18 @@
     "@storybook/react-webpack5": "^8.3.5",
     "@storybook/test": "^8.3.5",
     "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
     "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.11.0",
+    "husky": "^9.1.6",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "rollup": "^4.24.0",
     "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^8.3.5",
     "tslib": "^2.7.0",
@@ -58,5 +62,9 @@
   "files": [
     "dist"
   ],
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "peerDependencies": {
+    "antd": "^5.21.3",
+    "react-dom": "^18.3.1"
+  }
 }
