@@ -52,7 +52,7 @@ const ShieldSelector: React.FC<IShieldSelector> = ({
 
             dispatch({
               type: 'SET',
-              shield: { category: cat, name: label, url: image },
+              shield: { category: cat, name: label, url: image, id: value },
             });
           }}
           options={options}

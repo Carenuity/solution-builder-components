@@ -5,3 +5,8 @@ export type ListApiResponse<Item> = {
 };
 
 export type IotShieldCategory = 'sensor' | 'microcontroller' | 'actuator';
+
+export type Avatar = {
+  id: string;
+  url: string;
+};

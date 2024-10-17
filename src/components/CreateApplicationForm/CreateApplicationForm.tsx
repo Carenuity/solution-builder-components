@@ -1,24 +1,39 @@
 import React, { useState } from 'react';
 import { Button, message, Steps, theme } from 'antd';
 import SelectShields from './SelectShields';
+import { CreateApplicationProvider } from './CreateApplicationProvider';
+import SelectSolutionTemplate from './SelectSolutionTemplate';
 
 const steps = [
   {
     title: 'Triple',
     content: <SelectShields />,
-    description: 'Select what you have',
+    description: `What's your setup?`,
     percent: 30,
   },
   {
-    title: 'Second',
-    content: <p>Second-content here</p>,
-    description: 'This is the second step, you can do something here.',
+    title: 'Solution',
+    content: <SelectSolutionTemplate />,
+    description: 'Select relevant template',
     percent: 60,
   },
   {
-    title: 'Last',
+    title: 'Metadata',
     content: 'Last-content',
-    description: 'This is the last step, you can do something here.',
+    description: 'Application metadata (ecosystemm & repository)',
+    percent: 100,
+  },
+  {
+    title: 'Category',
+    content: 'Last-content',
+    description:
+      'Select what you have (merged binary, accompanying binaries from Arduino IDE)',
+    percent: 100,
+  },
+  {
+    title: 'Binaries',
+    content: 'Last-content',
+    description: 'Application metadata (ecosystemm & repository)',
     percent: 100,
   },
 ];
@@ -53,28 +68,34 @@ const CreateApplicationForm: React.FC = () => {
 
   return (
     <>
-      <Steps current={current} percent={steps[current].percent} items={items} />
-      <div style={contentStyle}>{steps[current].content}</div>
-      <div style={{ marginTop: 24 }}>
-        {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button
-            type="primary"
-            onClick={() => message.success('Processing complete!')}
-          >
-            Done
-          </Button>
-        )}
-        {current > 0 && (
-          <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-            Previous
-          </Button>
-        )}
-      </div>
+      <CreateApplicationProvider>
+        <Steps
+          current={current}
+          percent={steps[current].percent}
+          items={items}
+        />
+        <div style={contentStyle}>{steps[current].content}</div>
+        <div style={{ marginTop: 24 }}>
+          {current < steps.length - 1 && (
+            <Button type="primary" onClick={() => next()}>
+              Next
+            </Button>
+          )}
+          {current === steps.length - 1 && (
+            <Button
+              type="primary"
+              onClick={() => message.success('Processing complete!')}
+            >
+              Done
+            </Button>
+          )}
+          {current > 0 && (
+            <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+              Previous
+            </Button>
+          )}
+        </div>
+      </CreateApplicationProvider>
     </>
   );
 };

@@ -3,6 +3,7 @@ import { IotShieldCategory } from '../../../../utils/types.utils';
 
 export type IoTShieldPreview = {
   name?: string;
+  id?: string;
   url: string;
 };
 
@@ -21,5 +22,5 @@ export interface ShieldPreviewReducerObject {
 
 export interface ShieldPreviewAction {
   type: 'SET';
-  shield: IotShield;
+  shield: IotShield & { id: string };
 }

@@ -1,9 +1,4 @@
-import { IotShieldCategory } from '../../../../utils/types.utils';
-
-type Avatar = {
-  id: string;
-  url: string;
-};
+import { Avatar, IotShieldCategory } from '../../../../utils/types.utils';
 
 export type IotShield = {
   id: string;
