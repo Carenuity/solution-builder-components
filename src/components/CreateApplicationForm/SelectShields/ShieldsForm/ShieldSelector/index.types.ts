@@ -4,6 +4,7 @@ import { IotShield } from '../index.types';
 export type IShieldSelector = {
   label: string;
   name: string;
+  defaultValue?: string;
   category: IotShieldCategory;
   shields: IotShield[];
 };

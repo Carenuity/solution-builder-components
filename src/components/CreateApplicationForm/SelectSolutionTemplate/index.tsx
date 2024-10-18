@@ -88,7 +88,13 @@ const SelectSolutionTemplate: React.FC = () => {
     <div>
       <Table<DataType>
         {...tableProps}
-        rowSelection={{ type: selectionType, ...rowSelection }}
+        rowSelection={{
+          type: selectionType,
+          ...rowSelection,
+          defaultSelectedRowKeys: state.solution?.id
+            ? [state.solution.id]
+            : undefined,
+        }}
         columns={columns}
         dataSource={solutions}
       />

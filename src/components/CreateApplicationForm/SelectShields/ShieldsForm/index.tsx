@@ -1,8 +1,9 @@
 import { Form, FormProps } from 'antd';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import ShieldSelector from './ShieldSelector';
 import { getIotShields } from './index.utils';
 import { IotShield } from './index.types';
+import { CreateApplicationContext } from '../../CreateApplicationProvider';
 
 // const formItemLayout = {
 //   labelCol: {
@@ -21,6 +22,7 @@ const ShieldsForm = () => {
   const [componentVariant] = useState<FormProps['variant']>('filled');
   const [formLayout] = useState<LayoutType>('vertical');
   const [shields, setShields] = useState<IotShield[]>([]);
+  const { state } = useContext(CreateApplicationContext);
 
   useLayoutEffect(() => {
     const abortController = new AbortController();
@@ -54,18 +56,21 @@ const ShieldsForm = () => {
           name="sensor"
           category={'sensor'}
           shields={shields}
+          defaultValue={state.sensor?.id}
         />
         <ShieldSelector
           label="Microcontroller"
           name={'board'}
           category={'microcontroller'}
           shields={shields}
+          defaultValue={state.microcontroller?.id}
         />
         <ShieldSelector
           label="Actuator"
           name={'actuator'}
           category={'actuator'}
           shields={shields}
+          defaultValue={state.actuator?.id}
         />
       </Form>
     </>

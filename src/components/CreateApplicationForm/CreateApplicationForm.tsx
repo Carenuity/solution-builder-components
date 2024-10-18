@@ -20,7 +20,7 @@ const steps = [
   {
     title: 'Metadata',
     content: 'Last-content',
-    description: 'Application metadata (ecosystemm & repository)',
+    description: 'Application metadata (ecosystem, application & repository)',
     percent: 100,
   },
   {
