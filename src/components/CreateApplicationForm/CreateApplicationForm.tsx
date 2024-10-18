@@ -3,32 +3,33 @@ import { Button, message, Steps, theme } from 'antd';
 import SelectShields from './SelectShields';
 import { CreateApplicationProvider } from './CreateApplicationProvider';
 import SelectSolutionTemplate from './SelectSolutionTemplate';
+import SetMetadata from './SetMetadata';
 
 const steps = [
   {
     title: 'Triple',
     content: <SelectShields />,
     description: `What's your setup?`,
-    percent: 30,
+    percent: 20,
   },
   {
     title: 'Solution',
     content: <SelectSolutionTemplate />,
     description: 'Select relevant template',
-    percent: 60,
+    percent: 40,
   },
   {
     title: 'Metadata',
-    content: 'Last-content',
-    description: 'Application metadata (ecosystem, application & repository)',
-    percent: 100,
+    content: <SetMetadata />,
+    description: 'Application metadata',
+    percent: 60,
   },
   {
     title: 'Category',
     content: 'Last-content',
     description:
       'Select what you have (merged binary, accompanying binaries from Arduino IDE)',
-    percent: 100,
+    percent: 80,
   },
   {
     title: 'Binaries',
@@ -64,6 +65,7 @@ const CreateApplicationForm: React.FC = () => {
     borderRadius: token.borderRadiusLG,
     border: `1px dashed ${token.colorBorder}`,
     marginTop: 16,
+    padding: '2rem',
   };
 
   return (

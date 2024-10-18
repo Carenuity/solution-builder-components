@@ -41,6 +41,24 @@ const reducer = (
             solution: action.data,
           };
 
+        case 'ecosystem':
+          return {
+            ...state,
+            ecosystem: action.data,
+          };
+
+        case 'application':
+          return {
+            ...state,
+            application: action.data,
+          };
+
+        case 'repository':
+          return {
+            ...state,
+            repository: action.repository,
+          };
+
         default:
           return state;
       }

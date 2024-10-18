@@ -9,7 +9,7 @@ const SelectShields: React.FC = () => {
     <>
       <ShieldPreviewProvider>
         <Row gutter={2}>
-          <Col xs={24} style={{ padding: '2rem' }}>
+          <Col xs={24}>
             <ShieldsForm />
           </Col>
           <Col xs={24}>

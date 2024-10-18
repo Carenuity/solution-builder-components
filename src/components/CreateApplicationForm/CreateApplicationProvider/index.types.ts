@@ -5,13 +5,23 @@ type DataItem = {
   name: string;
 };
 
-type ItemCategory = 'sensor' | 'board' | 'actuator' | 'solution';
+type ItemCategory =
+  | 'sensor'
+  | 'board'
+  | 'actuator'
+  | 'solution'
+  | 'ecosystem'
+  | 'application'
+  | 'repository';
 
 export type CreateApplicationData = {
   sensor?: DataItem;
   microcontroller?: DataItem;
   actuator?: DataItem;
   solution?: DataItem;
+  ecosystem?: DataItem;
+  application?: DataItem;
+  repository?: string;
 };
 
 // export type IoTShieldPreview = {
@@ -34,6 +44,7 @@ export interface CreateApplicationReducerObject {
 
 export interface CreateApplicationAction {
   type: 'SET';
-  data: DataItem;
+  data?: DataItem;
   category: ItemCategory;
+  repository?: string;
 }
