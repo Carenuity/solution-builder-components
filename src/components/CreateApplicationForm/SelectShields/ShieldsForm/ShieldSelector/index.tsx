@@ -1,7 +1,8 @@
-import { Form, Select } from 'antd';
+import { Avatar, Flex, Form, Select } from 'antd';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { IShieldSelector, OptionItem } from './index.types';
 import { ShieldPreviewContext } from '../../ShieldsPreviewProvider';
+import { PictureOutlined } from '@ant-design/icons';
 
 const ShieldSelector: React.FC<IShieldSelector> = ({
   label,
@@ -77,6 +78,19 @@ const ShieldSelector: React.FC<IShieldSelector> = ({
             });
           }}
           options={options}
+          optionRender={({ data: { image, label } }) => (
+            <>
+              <Flex align={'center'} gap={'middle'}>
+                <Avatar
+                  src={image}
+                  alt="icon"
+                  icon={<PictureOutlined />}
+                  shape={'square'}
+                />
+                <span>{label}</span>
+              </Flex>
+            </>
+          )}
         />
       </Form.Item>
     </>

@@ -7,7 +7,7 @@ import { CreateApplicationContext } from '../../CreateApplicationProvider';
 
 const SelectApplication = () => {
   const [options, setOptions] = useState<OptionItem[]>([]);
-  const { dispatch } = useContext(CreateApplicationContext);
+  const { state, dispatch } = useContext(CreateApplicationContext);
 
   useLayoutEffect(() => {
     const abortController = new AbortController();
@@ -38,7 +38,7 @@ const SelectApplication = () => {
         <Select
           showSearch
           placeholder="Search to Select"
-          //   defaultValue={defaultValue}
+          defaultValue={state.application?.id}
           optionFilterProp="label"
           filterSort={(optionA, optionB) =>
             (optionA?.label ?? '')

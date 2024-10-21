@@ -4,6 +4,7 @@ import {
   CreateApplicationAction,
   CreateApplicationReducerObject,
 } from './index.types';
+import { BinaryFileType } from '../SetBinaryFileType/index.types';
 
 // const imageFallback =
 //   'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
@@ -56,7 +57,13 @@ const reducer = (
         case 'repository':
           return {
             ...state,
-            repository: action.repository,
+            repository: action.value,
+          };
+
+        case 'binary_type':
+          return {
+            ...state,
+            binaryType: action.value as BinaryFileType,
           };
 
         default:

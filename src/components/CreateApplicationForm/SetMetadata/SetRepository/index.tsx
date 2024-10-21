@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { CreateApplicationContext } from '../../CreateApplicationProvider';
 
 const SetRepository = () => {
-  const { dispatch } = useContext(CreateApplicationContext);
+  const { state, dispatch } = useContext(CreateApplicationContext);
 
   return (
     <>
@@ -18,6 +18,7 @@ const SetRepository = () => {
       >
         <Input
           placeholder="Application source code repository"
+          defaultValue={state.repository}
           onBlur={(e) => {
             const { value } = e.target;
             const valid = /^https:\/\/github\.com\/.*/.test(value);
@@ -31,7 +32,7 @@ const SetRepository = () => {
               dispatch({
                 type: 'SET',
                 category: 'repository',
-                repository: value,
+                value,
               });
             }
           }}

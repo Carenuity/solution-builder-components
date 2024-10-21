@@ -4,6 +4,7 @@ import SelectShields from './SelectShields';
 import { CreateApplicationProvider } from './CreateApplicationProvider';
 import SelectSolutionTemplate from './SelectSolutionTemplate';
 import SetMetadata from './SetMetadata';
+import SetBinaryFileType from './SetBinaryFileType';
 
 const steps = [
   {
@@ -26,9 +27,8 @@ const steps = [
   },
   {
     title: 'Category',
-    content: 'Last-content',
-    description:
-      'Select what you have (merged binary, accompanying binaries from Arduino IDE)',
+    content: <SetBinaryFileType />,
+    description: 'Select what you have',
     percent: 80,
   },
   {
@@ -59,7 +59,7 @@ const CreateApplicationForm: React.FC = () => {
 
   const contentStyle: React.CSSProperties = {
     lineHeight: '260px',
-    textAlign: 'center',
+    // textAlign: 'center',
     color: token.colorTextTertiary,
     backgroundColor: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,

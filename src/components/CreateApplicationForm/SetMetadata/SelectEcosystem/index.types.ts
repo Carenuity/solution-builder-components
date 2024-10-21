@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { Avatar } from '../../../../utils/types.utils';
 
 export type IGetEcosystems = {
@@ -13,6 +12,6 @@ export type Ecosystem = {
 
 export type OptionItem = {
   value: string;
-  label: ReactNode;
-  name: string;
+  label: string;
+  image?: string;
 };

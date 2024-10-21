@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+import { BinaryFileType } from '../SetBinaryFileType/index.types';
 
 type DataItem = {
   id: string;
@@ -12,7 +13,8 @@ type ItemCategory =
   | 'solution'
   | 'ecosystem'
   | 'application'
-  | 'repository';
+  | 'repository'
+  | 'binary_type';
 
 export type CreateApplicationData = {
   sensor?: DataItem;
@@ -22,6 +24,7 @@ export type CreateApplicationData = {
   ecosystem?: DataItem;
   application?: DataItem;
   repository?: string;
+  binaryType?: BinaryFileType;
 };
 
 // export type IoTShieldPreview = {
@@ -46,5 +49,5 @@ export interface CreateApplicationAction {
   type: 'SET';
   data?: DataItem;
   category: ItemCategory;
-  repository?: string;
+  value?: string | BinaryFileType;
 }
