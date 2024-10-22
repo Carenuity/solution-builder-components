@@ -3,6 +3,7 @@ import {
   CreateApplicationData,
   CreateApplicationAction,
   CreateApplicationReducerObject,
+  BinaryRecord,
 } from './index.types';
 import { BinaryFileType } from '../SetBinaryFileType/index.types';
 
@@ -57,7 +58,7 @@ const reducer = (
         case 'repository':
           return {
             ...state,
-            repository: action.value,
+            repository: action.value as string,
           };
 
         case 'binary_type':
@@ -65,6 +66,18 @@ const reducer = (
             ...state,
             binaryType: action.value as BinaryFileType,
           };
+
+        case 'binary': {
+          const data = action.value as BinaryRecord;
+
+          return {
+            ...state,
+            binaries: {
+              ...state.binaries,
+              [data.kind!]: data,
+            },
+          };
+        }
 
         default:
           return state;

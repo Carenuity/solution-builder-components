@@ -18,7 +18,7 @@ const columns: TableColumnsType<DataType> = [
   },
 ];
 
-const defaultTitle = () => 'Solution Templates';
+const defaultTitle = () => 'Groups of solutions';
 
 const SelectSolutionTemplate: React.FC = () => {
   const [solutions, setSolutions] = useState<DataType[]>([]);

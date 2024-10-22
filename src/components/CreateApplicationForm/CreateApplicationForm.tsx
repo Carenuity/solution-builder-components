@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Button, message, Steps, theme } from 'antd';
+import { Button, Steps, theme } from 'antd';
 import SelectShields from './SelectShields';
 import { CreateApplicationProvider } from './CreateApplicationProvider';
 import SelectSolutionTemplate from './SelectSolutionTemplate';
 import SetMetadata from './SetMetadata';
 import SetBinaryFileType from './SetBinaryFileType';
+import UploadBinaries from './UploadBinaries';
+import CreateButton from './CreateButton';
+import { ICreateApplicationForm } from './CreateApplication.types';
 
 const steps = [
   {
@@ -16,30 +19,32 @@ const steps = [
   {
     title: 'Solution',
     content: <SelectSolutionTemplate />,
-    description: 'Select relevant template',
+    description: 'Choose grouping',
     percent: 40,
   },
   {
     title: 'Metadata',
     content: <SetMetadata />,
-    description: 'Application metadata',
+    description: 'Assign details',
     percent: 60,
   },
   {
-    title: 'Category',
+    title: 'Prepare',
     content: <SetBinaryFileType />,
     description: 'Select what you have',
     percent: 80,
   },
   {
-    title: 'Binaries',
-    content: 'Last-content',
-    description: 'Application metadata (ecosystemm & repository)',
+    title: 'Share',
+    content: <UploadBinaries />,
+    description: 'Upload binaries',
     percent: 100,
   },
 ];
 
-const CreateApplicationForm: React.FC = () => {
+const CreateApplicationForm: React.FC<ICreateApplicationForm> = ({
+  accessToken,
+}) => {
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
 
@@ -59,7 +64,6 @@ const CreateApplicationForm: React.FC = () => {
 
   const contentStyle: React.CSSProperties = {
     lineHeight: '260px',
-    // textAlign: 'center',
     color: token.colorTextTertiary,
     backgroundColor: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
@@ -84,12 +88,7 @@ const CreateApplicationForm: React.FC = () => {
             </Button>
           )}
           {current === steps.length - 1 && (
-            <Button
-              type="primary"
-              onClick={() => message.success('Processing complete!')}
-            >
-              Done
-            </Button>
+            <CreateButton accessToken={accessToken} />
           )}
           {current > 0 && (
             <Button style={{ margin: '0 8px' }} onClick={() => prev()}>

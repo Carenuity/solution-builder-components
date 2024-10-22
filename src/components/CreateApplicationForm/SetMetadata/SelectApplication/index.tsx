@@ -34,7 +34,7 @@ const SelectApplication = () => {
 
   return (
     <>
-      <Form.Item label={'Applications'} required>
+      <Form.Item label={'Type of Application'} required>
         <Select
           showSearch
           placeholder="Search to Select"

@@ -10,7 +10,7 @@ const ShieldsPreview = () => {
 
   return (
     <>
-      <Title level={3}>IoT Shields Preview</Title>
+      <Title level={3}>Boards Preview</Title>
       <Row gutter={{ md: 2 }}>
         <Col md={8} xs={24}>
           <ShieldCard

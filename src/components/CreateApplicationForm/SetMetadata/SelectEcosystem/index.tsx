@@ -34,7 +34,7 @@ const SelectEcosystem = () => {
 
   return (
     <>
-      <Form.Item label={'Ecosystems'} required>
+      <Form.Item label={'EcoSystem'} required>
         <Select
           placeholder="Select Ecosystem"
           defaultValue={state.ecosystem?.id}
