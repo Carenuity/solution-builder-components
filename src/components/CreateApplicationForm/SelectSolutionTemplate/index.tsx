@@ -78,11 +78,25 @@ const SelectSolutionTemplate: React.FC = () => {
       }
     }, 0);
 
+    // check to allow proceeding
+    const { solution } = state;
+    if (solution && !state.canProceed) {
+      dispatch({ category: 'proceed', type: 'SET' });
+    }
+
     return () => {
       clearTimeout(timeoutId);
       controller.abort();
     };
   }, [state]);
+
+  useEffect(() => {
+    // set can proceed flag to false
+    const { solution } = state;
+    if (state.canProceed && !solution) {
+      dispatch({ category: 'proceed', type: 'SET' });
+    }
+  }, []);
 
   return (
     <div>

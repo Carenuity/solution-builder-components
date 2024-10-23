@@ -1,5 +1,5 @@
 import { FormProps, Form } from 'antd';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BinaryFile from './BinaryFile';
 import { CreateApplicationContext } from '../CreateApplicationProvider';
 
@@ -8,7 +8,21 @@ type LayoutType = Parameters<typeof Form>[0]['layout'];
 const UploadBinaries = () => {
   const [componentVariant] = useState<FormProps['variant']>('filled');
   const [formLayout] = useState<LayoutType>('vertical');
-  const { state } = useContext(CreateApplicationContext);
+  const { state, dispatch } = useContext(CreateApplicationContext);
+
+  useEffect(() => {
+    const { binaries } = state;
+    if (state.canProceed && !binaries?.main) {
+      dispatch({ category: 'proceed', type: 'SET' });
+    }
+  }, []);
+
+  useEffect(() => {
+    const { binaries } = state;
+    if (binaries?.main && !state.canProceed) {
+      dispatch({ category: 'proceed', type: 'SET' });
+    }
+  }, [state]);
 
   return (
     <>
@@ -18,6 +32,11 @@ const UploadBinaries = () => {
         style={{ maxWidth: 600 }}
         initialValues={{ variant: componentVariant, layout: formLayout }}
       >
+        {!state.binaryType && (
+          <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
+            Return to step 1 `<em>Triple</em>` to create another application
+          </p>
+        )}
         {state.binaryType === 'merged' && (
           <BinaryFile kind={'main'} label="Binary" offset={0} />
         )}

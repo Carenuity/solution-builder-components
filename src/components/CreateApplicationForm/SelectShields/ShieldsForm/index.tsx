@@ -1,5 +1,5 @@
 import { Form, FormProps } from 'antd';
-import React, { useContext, useLayoutEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import ShieldSelector from './ShieldSelector';
 import { getIotShields } from './index.utils';
 import { IotShield } from './index.types';
@@ -22,7 +22,7 @@ const ShieldsForm = () => {
   const [componentVariant] = useState<FormProps['variant']>('filled');
   const [formLayout] = useState<LayoutType>('vertical');
   const [shields, setShields] = useState<IotShield[]>([]);
-  const { state } = useContext(CreateApplicationContext);
+  const { state, dispatch } = useContext(CreateApplicationContext);
 
   useLayoutEffect(() => {
     const abortController = new AbortController();
@@ -36,16 +36,28 @@ const ShieldsForm = () => {
       }
     }, 0);
 
+    // set can proceed flag to false
+    const { sensor, microcontroller, actuator } = state;
+    if (state.canProceed && !sensor && !microcontroller && !actuator) {
+      dispatch({ category: 'proceed', type: 'SET' });
+    }
+
     return () => {
       clearTimeout(timeoutId);
       abortController.abort();
     };
   }, []);
 
+  useEffect(() => {
+    const { sensor, microcontroller, actuator } = state;
+    if (actuator && microcontroller && sensor && !state.canProceed) {
+      dispatch({ category: 'proceed', type: 'SET' });
+    }
+  }, [state]);
+
   return (
     <>
       <Form
-        //   {...formItemLayout}
         layout={formLayout}
         variant={componentVariant}
         style={{ maxWidth: 600 }}

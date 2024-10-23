@@ -8,6 +8,7 @@ import SetBinaryFileType from './SetBinaryFileType';
 import UploadBinaries from './UploadBinaries';
 import CreateButton from './CreateButton';
 import { ICreateApplicationForm } from './CreateApplication.types';
+import NextButton from './NextButton';
 
 const steps = [
   {
@@ -82,11 +83,7 @@ const CreateApplicationForm: React.FC<ICreateApplicationForm> = ({
         />
         <div style={contentStyle}>{steps[current].content}</div>
         <div style={{ marginTop: 24 }}>
-          {current < steps.length - 1 && (
-            <Button type="primary" onClick={() => next()}>
-              Next
-            </Button>
-          )}
+          {current < steps.length - 1 && <NextButton onClick={() => next()} />}
           {current === steps.length - 1 && (
             <CreateButton accessToken={accessToken} />
           )}

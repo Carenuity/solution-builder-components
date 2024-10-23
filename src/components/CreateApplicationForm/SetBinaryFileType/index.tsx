@@ -1,5 +1,5 @@
 import { Avatar, Form, FormProps, Radio, Space } from 'antd';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import mergedImage from './assets/merged_binary.jpg';
 import arduinoImageIcon from './assets/binary_files.webp';
 import { BinaryFileType } from './index.types';
@@ -11,6 +11,20 @@ const SetBinaryFileType = () => {
   const { state, dispatch } = useContext(CreateApplicationContext);
   const [componentVariant] = useState<FormProps['variant']>('filled');
   const [formLayout] = useState<LayoutType>('vertical');
+
+  useEffect(() => {
+    const { binaryType } = state;
+    if (state.canProceed && !binaryType) {
+      dispatch({ category: 'proceed', type: 'SET' });
+    }
+  }, []);
+
+  useEffect(() => {
+    const { binaryType } = state;
+    if (binaryType && !state.canProceed) {
+      dispatch({ category: 'proceed', type: 'SET' });
+    }
+  }, [state]);
 
   return (
     <>

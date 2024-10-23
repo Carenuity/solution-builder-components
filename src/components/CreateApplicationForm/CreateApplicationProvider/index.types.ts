@@ -16,7 +16,8 @@ type ItemCategory =
   | 'application'
   | 'repository'
   | 'binary_type'
-  | 'binary';
+  | 'binary'
+  | 'proceed';
 
 export type BinaryRecord = {
   offset: number;
@@ -35,22 +36,9 @@ export type CreateApplicationData = {
   application?: DataItem;
   repository?: string;
   binaryType?: BinaryFileType;
-  canProceed?: boolean;
+  canProceed: boolean;
   binaries?: ApplicationBinaries;
 };
-
-// export type IoTShieldPreview = {
-//   name?: string;
-//   url: string;
-// };
-
-// type IotShield = {
-//   name: string;
-//   url: string;
-//   category: IotShieldCategory;
-// };
-
-// export type SMA = Record<IotShieldCategory, IoTShieldPreview>;
 
 export interface CreateApplicationReducerObject {
   state: CreateApplicationData;
@@ -58,7 +46,7 @@ export interface CreateApplicationReducerObject {
 }
 
 export interface CreateApplicationAction {
-  type: 'SET';
+  type: 'SET' | 'UNSET';
   data?: DataItem;
   category: ItemCategory;
   value?: string | BinaryFileType | BinaryRecord;

@@ -10,7 +10,9 @@ import { BinaryFileType } from '../SetBinaryFileType/index.types';
 // const imageFallback =
 //   'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
 
-export const createApplicationInitialState: CreateApplicationData = {};
+export const createApplicationInitialState: CreateApplicationData = {
+  canProceed: false,
+};
 
 const reducer = (
   state: CreateApplicationData,
@@ -79,9 +81,18 @@ const reducer = (
           };
         }
 
+        case 'proceed':
+          return {
+            ...state,
+            canProceed: !state.canProceed,
+          };
+
         default:
           return state;
       }
+
+    case 'UNSET':
+      return { canProceed: false };
 
     default:
       return state;
