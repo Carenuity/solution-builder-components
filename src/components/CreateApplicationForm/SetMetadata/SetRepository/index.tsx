@@ -10,6 +10,7 @@ const SetRepository = () => {
       <Form.Item
         name="url"
         label="Repository URL"
+        extra={`A GitHub repository url to this application's source code.`}
         rules={[
           { required: true },
           { type: 'url', warningOnly: true },

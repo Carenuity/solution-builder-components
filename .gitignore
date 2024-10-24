@@ -39,3 +39,5 @@ next-env.d.ts
 
 # gcloud
 env.yaml
+
+# "axios": "^1.7.7",

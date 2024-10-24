@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Avatar, Table } from 'antd';
+import { Image, Table } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
 import { DataType } from './index.types';
 import { CreateApplicationContext } from '../CreateApplicationProvider';
@@ -14,7 +14,21 @@ const columns: TableColumnsType<DataType> = [
   {
     title: 'Image',
     dataIndex: 'image',
-    render: (text: string) => <Avatar src={text} alt="solution image" />,
+    render: (text: string) => (
+      <>
+        {/* <Avatar
+          src={text}
+          alt="solution image"
+          shape={'square'}
+          size={'large'}
+        /> */}
+        <Image
+          src={text}
+          alt="solution image"
+          style={{ maxWidth: '3rem', height: 'auto', borderRadius: '.3rem' }}
+        />
+      </>
+    ),
   },
 ];
 
@@ -29,12 +43,6 @@ const SelectSolutionTemplate: React.FC = () => {
   // rowSelection object indicates the need for row selection
   const rowSelection: TableProps<DataType>['rowSelection'] = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-      // console.log(
-      //   `selectedRowKeys: ${selectedRowKeys[0]}`,
-      //   'selectedRows: ',
-      //   selectedRows
-      // );
-
       if (selectedRows[0]) {
         const id = selectedRowKeys[0] as string;
         dispatch({
