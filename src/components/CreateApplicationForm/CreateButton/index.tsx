@@ -2,8 +2,9 @@ import { Button, Spin } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { CreateApplicationContext } from '../CreateApplicationProvider';
 import { handleCreateApplication } from './index.utils';
-import { ChipFamily, ICreateButton } from './index.types';
+import { ICreateButton } from './index.types';
 import useSbNotification from '../../Notification';
+import { ChipFamily } from '../../../utils/types.utils';
 
 const CreateButton: React.FC<ICreateButton> = ({ accessToken }) => {
   const { state, dispatch } = useContext(CreateApplicationContext);

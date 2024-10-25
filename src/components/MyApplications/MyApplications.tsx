@@ -1,23 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Avatar,
-  Button,
-  Flex,
-  Image,
-  Popconfirm,
-  Space,
-  Table,
-  Tag,
-  Tooltip,
-} from 'antd';
+import { Button, Image, Popconfirm, Space, Table, Tag } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
-import {
-  FilterListItem,
-  MyApplicationDataItem,
-  MyApplicationDataType,
-} from './MyApplications.types';
+import { FilterListItem, MyApplicationDataType } from './MyApplications.types';
 import { imageFallback } from '../../utils/constants.utils';
-import { DeleteOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import WebInstallButtonHoc from '../WebInstallButton';
+import { getMyApplications } from './MyApplications.utils';
 
 type OnChange = NonNullable<TableProps<MyApplicationDataType>['onChange']>;
 type Filters = Parameters<OnChange>[1];
@@ -25,60 +13,10 @@ type Filters = Parameters<OnChange>[1];
 type GetSingle<T> = T extends (infer U)[] ? U : never;
 type Sorts = GetSingle<Parameters<OnChange>[2]>;
 
-const defaultTitle = () => 'My Applications';
-
-const _applications: MyApplicationDataType[] = [
-  {
-    key: '1',
-    tag: 'version 1',
-    name: 'Solution 1 with some other long word',
-    image: imageFallback,
-    ecosystem: {
-      id: '1',
-      image: imageFallback,
-      name: 'Cloudfree applications',
-    },
-    microcontroller: {
-      id: '2',
-      image: imageFallback,
-      name: 'Microcontroller 2',
-    },
-    type: { id: '1', image: imageFallback, name: 'Type 1' },
-  },
-  {
-    key: '2',
-    name: 'Solution 2',
-    image: imageFallback,
-    ecosystem: { id: '2', image: imageFallback, name: 'Ecosystem 2' },
-    microcontroller: {
-      id: '1',
-      image: imageFallback,
-      name: 'Microcontroller 1',
-    },
-    type: { id: '2', image: imageFallback, name: 'Type 2' },
-  },
-  {
-    key: '3',
-    name: 'Solution 1',
-    image: imageFallback,
-    ecosystem: { id: '1', image: imageFallback, name: 'Ecosystem 1' },
-    microcontroller: {
-      id: '3',
-      image: imageFallback,
-      name: 'Microcontroller 3',
-    },
-    type: { id: '3', image: imageFallback, name: 'Type 3' },
-  },
-];
-
-const MyApplications: React.FC = () => {
-  const [applications, setApplications] =
-    useState<MyApplicationDataType[]>(_applications);
+const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
+  const [applications, setApplications] = useState<MyApplicationDataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [ecosystemFilters, setEcosystemFilters] = useState<
-    FilterListItem[] | undefined
-  >();
-  const [boardFilters, setBoardFilters] = useState<
     FilterListItem[] | undefined
   >();
   const [typeFilters, setTypeFilters] = useState<
@@ -86,24 +24,8 @@ const MyApplications: React.FC = () => {
   >();
   const [filteredInfo, setFilteredInfo] = useState<Filters>({});
   const [sortedInfo, setSortedInfo] = useState<Sorts>({});
-
-  //   const [yScroll, setYScroll] = useState(false);
-  //   const [xScroll, setXScroll] = useState<string>();
-
-  //   const [selectionType] = useState<'checkbox' | 'radio'>('radio');
-
-  // rowSelection object indicates the need for row selection
-  //   const rowSelection: TableProps<DataType>['rowSelection'] = {
-  //     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-  //       if (selectedRows[0]) {
-  //         const id = selectedRowKeys[0] as string;
-  //       }
-  //     },
-  //     getCheckboxProps: (record: DataType) => ({
-  //       disabled: record.name === 'Disabled User', // Column configuration not to be checked
-  //       name: record.name,
-  //     }),
-  //   };
+  const [totalApplications, setTotalApplications] = useState(0);
+  const { InstallButton } = WebInstallButtonHoc();
 
   const handleChange: OnChange = (pagination, filters, sorter) => {
     console.log('Various parameters', pagination, filters, sorter);
@@ -131,6 +53,7 @@ const MyApplications: React.FC = () => {
       title: 'Solution',
       dataIndex: 'name',
       ellipsis: true,
+      fixed: 'left',
       width: 200,
       key: 'name',
       sorter: (a, b) => {
@@ -141,6 +64,13 @@ const MyApplications: React.FC = () => {
         }
       },
       sortDirections: ['descend', 'ascend'],
+      render: (_, record) => (
+        <>
+          <a title={record.name} href={record.repository}>
+            {record.name}
+          </a>
+        </>
+      ),
     },
     {
       title: 'Ecosystem',
@@ -149,48 +79,15 @@ const MyApplications: React.FC = () => {
       ellipsis: true,
       filters: ecosystemFilters,
       filteredValue: filteredInfo.ecosystem || null,
-      onFilter: (value, record) =>
-        record.ecosystem.name.includes(value as string),
-      render: ({ image, name }: MyApplicationDataItem) => (
-        <>
-          <Flex align={'center'} gap={'small'}>
-            <Avatar src={image} alt="solution image" />
-            <span>{name}</span>
-          </Flex>
-        </>
-      ),
-    },
-    {
-      title: 'Board',
-      dataIndex: 'microcontroller',
-      ellipsis: true,
-      width: 200,
-      filters: boardFilters,
-      filteredValue: filteredInfo.microcontroller || null,
-      onFilter: (value, record) =>
-        record.microcontroller.name.includes(value as string),
-      render: ({ image, name }: MyApplicationDataItem) => (
-        <>
-          <Flex align={'center'} gap={'small'}>
-            <Avatar src={image} alt="microcontroller image" />
-            <span>{name}</span>
-          </Flex>
-        </>
-      ),
-    },
-    {
-      title: 'Tag',
-      dataIndex: 'tag',
-      //   ellipsis: true,
-      width: 150,
-      render: (text: string | undefined) => (
-        <>
-          <Flex align={'center'} justify={'center'}>
-            {text && <Tag color={'green'}>text</Tag>}
-            {!text && <span>-</span>}
-          </Flex>
-        </>
-      ),
+      onFilter: (value, record) => record.ecosystem.includes(value as string),
+      // render: ({ image, name }: MyApplicationDataItem) => (
+      //   <>
+      //     <Flex align={'center'} gap={'small'}>
+      //       <Avatar src={image} alt="solution image" />
+      //       <span>{name}</span>
+      //     </Flex>
+      //   </>
+      // ),
     },
     {
       title: 'Type',
@@ -199,15 +96,49 @@ const MyApplications: React.FC = () => {
       ellipsis: true,
       filters: typeFilters,
       filteredValue: filteredInfo.type || null,
-      onFilter: (value, record) => record.type.name.includes(value as string),
-      render: ({ image, name }: MyApplicationDataItem) => (
+      onFilter: (value, record) => record.type.includes(value as string),
+      // render: ({ image, name }: MyApplicationDataItem) => (
+      //   <>
+      //     <Flex align={'center'} gap={'small'}>
+      //       <Avatar src={image} alt="application image" />
+      //       <span>{name}</span>
+      //     </Flex>
+      //   </>
+      // ),
+    },
+    {
+      title: 'Tag',
+      dataIndex: 'tag',
+      ellipsis: true,
+      width: 150,
+      render: (text: string | undefined) => (
         <>
-          <Flex align={'center'} gap={'small'}>
-            <Avatar src={image} alt="application image" />
-            <span>{name}</span>
-          </Flex>
+          {text && <Tag color={'green'}>text</Tag>}
+          {!text && <span>-</span>}
         </>
       ),
+    },
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      ellipsis: true,
+      width: 150,
+      render: (text: string | undefined) => {
+        if (text) {
+          const date = new Date(text);
+          const dateString = date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit',
+          });
+          return <>{dateString}</>;
+        }
+        return (
+          <>
+            <span>-</span>
+          </>
+        );
+      },
     },
     {
       title: 'Action',
@@ -227,25 +158,24 @@ const MyApplications: React.FC = () => {
               color={'danger'}
               variant={'outlined'}
               shape="circle"
+              title="Delete"
               icon={<DeleteOutlined />}
             />
           </Popconfirm>
-          <Tooltip title={'edit'}>
-            <Button
-              type={'link'}
-              color={'primary'}
-              variant={'outlined'}
-              shape="circle"
-              href={`/${record.key}`}
-              icon={<EditOutlined />}
-            />
-          </Tooltip>
-          <a>
-            <Space>
-              More actions
-              <DownOutlined />
-            </Space>
-          </a>
+          <Button
+            type={'link'}
+            color={'primary'}
+            variant={'outlined'}
+            shape="circle"
+            title="Edit"
+            href={`/${record.key}`}
+            icon={<EditOutlined />}
+          />
+          <InstallButton
+            manifest={record.manifest}
+            type={'primary'}
+            shape={'circle'}
+          />
         </Space>
       ),
     },
@@ -259,39 +189,44 @@ const MyApplications: React.FC = () => {
     loading,
     size: 'small',
     scroll,
-    title: defaultTitle,
+    title: () => `${totalApplications} Applications`,
     showHeader: true,
-    pagination: { position: ['none', 'none'] },
+    pagination: { position: ['none', 'bottomRight'] },
     onChange: handleChange,
   };
 
   useEffect(() => {
     const controller = new AbortController();
 
-    const ecoFilters: FilterListItem[] = [];
-    const boardFilters: FilterListItem[] = [];
-    const typeFilters: FilterListItem[] = [];
-
-    _applications.forEach(({ ecosystem, microcontroller, type }) => {
-      ecoFilters.push({ text: ecosystem.name, value: ecosystem.name });
-      boardFilters.push({
-        text: microcontroller.name,
-        value: microcontroller.name,
-      });
-      typeFilters.push({ text: type.name, value: type.name });
-    });
-
-    setEcosystemFilters(() => ecoFilters);
-    setBoardFilters(() => boardFilters);
-    setTypeFilters(() => typeFilters);
-
     const timeoutId = setTimeout(async () => {
+      const ecoFilters: FilterListItem[] = [];
+      const typeFilters: FilterListItem[] = [];
+
       setLoading(true);
       // Load my applications
-      // const data = await getMyApplications({
-      //   signal: controller.signal,
-      // });
-      // setApplications(() => data);
+      const data = await getMyApplications({
+        developerId,
+        signal: controller.signal,
+      });
+
+      const ecosystemSet: Set<string> = new Set();
+      const typeSet: Set<string> = new Set();
+
+      data.forEach(({ ecosystem, type }) => {
+        if (!ecosystemSet.has(ecosystem)) {
+          ecoFilters.push({ text: ecosystem, value: ecosystem });
+          ecosystemSet.add(ecosystem);
+        }
+
+        if (!typeSet.has(type)) {
+          typeFilters.push({ text: type, value: type });
+          typeSet.add(type);
+        }
+      });
+      setTotalApplications(data.length);
+      setApplications(() => data);
+      setEcosystemFilters(() => ecoFilters);
+      setTypeFilters(() => typeFilters);
       setLoading(false);
     }, 0);
 
@@ -305,13 +240,6 @@ const MyApplications: React.FC = () => {
     <div>
       <Table<MyApplicationDataType>
         {...tableProps}
-        // rowSelection={{
-        //   type: selectionType,
-        //   ...rowSelection,
-        //   defaultSelectedRowKeys: state.solution?.id
-        //     ? [state.solution.id]
-        //     : undefined,
-        // }}
         columns={columns}
         dataSource={applications}
         scroll={scroll}

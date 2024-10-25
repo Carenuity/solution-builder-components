@@ -1,7 +1,6 @@
+import { ChipFamily } from '../../../utils/types.utils';
 import { BinaryRecord } from '../CreateApplicationProvider/index.types';
 import { BinaryFileId } from '../UploadBinaries/BinaryFile/index.types';
-
-export type ChipFamily = 'ESP8266' | 'ESP32-C3' | 'ESP32';
 
 export type IHandleCreateApplication = {
   application_id?: string;

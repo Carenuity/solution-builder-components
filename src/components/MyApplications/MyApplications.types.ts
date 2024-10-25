@@ -2,7 +2,7 @@ import { Avatar } from '../../utils/types.utils';
 
 export type MyApplicationDataItem = {
   id: string;
-  image: string;
+  image?: string;
   name: string;
 };
 
@@ -11,21 +11,35 @@ export interface MyApplicationDataType {
   name: string;
   image: string;
   tag?: string;
-  ecosystem: MyApplicationDataItem;
-  microcontroller: MyApplicationDataItem;
-  type: MyApplicationDataItem;
+  date?: string;
+  ecosystem: string;
+  // microcontroller: MyApplicationDataItem;
+  type: string;
+  manifest: string;
+  repository: string;
 }
-
-export type SolutionTemplate = {
-  id: string;
-  name: string;
-  actuator_id: string;
-  microcontroller_id: string;
-  sensor_id: string;
-  avatars: Avatar[];
-};
 
 export type FilterListItem = {
   text: string;
   value: string;
+};
+
+type ApplicationDataItem = {
+  id: string;
+  name: string;
+  avatars: Avatar[];
+};
+
+export type ApplicationRecord = {
+  id: string;
+  manifest: string;
+  repository: string;
+  application: ApplicationDataItem;
+  solution: ApplicationDataItem;
+  ecosystem: {
+    id: string;
+    name: string;
+  };
+  tag?: string;
+  created_at?: string;
 };

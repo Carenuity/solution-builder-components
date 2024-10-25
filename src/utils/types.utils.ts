@@ -25,3 +25,5 @@ export type IApiErrorResponse = {
   statusCode: number;
   response: IErrorResponseObject;
 };
+
+export type ChipFamily = 'ESP8266' | 'ESP32-C3' | 'ESP32';
