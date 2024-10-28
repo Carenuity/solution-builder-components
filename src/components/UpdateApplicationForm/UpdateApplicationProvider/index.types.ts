@@ -1,10 +1,6 @@
 import { Dispatch } from 'react';
-import { BinaryFileId, IBinaryFileType } from '../../../utils/types.utils';
-
-export type ApplicationDataItem = {
-  id: string;
-  name: string;
-};
+import { BinaryFileId, BinaryFormat } from '../../../utils/types.utils';
+import { ApplicationDataItem } from '../../common/developer/index.types';
 
 type ItemCategory =
   | 'board'
@@ -15,10 +11,6 @@ type ItemCategory =
   | 'binary_type'
   | 'binary'
   | 'proceed';
-
-// | 'sensor'
-// | 'actuator'
-// | 'solution'
 
 export type ApplicationBinaryRecord = {
   offset: number;
@@ -31,15 +23,12 @@ type ApplicationBinaries = Partial<
 >;
 
 export type UpdateApplicationData = {
-  // sensor?: DataItem;
   microcontroller?: ApplicationDataItem;
-  // actuator?: DataItem;
-  // solution?: DataItem;
   ecosystem?: ApplicationDataItem;
   application?: ApplicationDataItem;
   repository?: string;
   tag?: string;
-  binaryType?: IBinaryFileType;
+  binaryType?: BinaryFormat;
   canProceed: boolean;
   binaries?: ApplicationBinaries;
 };
@@ -52,9 +41,5 @@ export interface UpdateApplicationReducerObject {
 export interface UpdateApplicationAction {
   type: 'SET' | 'UNSET';
   category: ItemCategory;
-  value?:
-    | string
-    | IBinaryFileType
-    | ApplicationBinaryRecord
-    | ApplicationDataItem;
+  value?: string | BinaryFormat | ApplicationBinaryRecord | ApplicationDataItem;
 }

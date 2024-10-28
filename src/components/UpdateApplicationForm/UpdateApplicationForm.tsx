@@ -3,10 +3,10 @@ import { Button, Steps, theme } from 'antd';
 import { IUpdateApplicationForm } from './UpdateApplication.types';
 import NextButton from './NextButton';
 import Details from './Details';
-import BinaryFileType from './BinaryFileType';
 import Binaries from './Binaries';
 import UpdateButton from './UpdateButton';
 import { UpdateApplicationProvider } from './UpdateApplicationProvider';
+import BinaryFormatForm from './BinaryFormatForm';
 
 const steps = [
   // {
@@ -29,7 +29,7 @@ const steps = [
   },
   {
     title: 'Prepare',
-    content: <BinaryFileType />,
+    content: <BinaryFormatForm />,
     description: 'Select what you have',
     percent: 60,
   },

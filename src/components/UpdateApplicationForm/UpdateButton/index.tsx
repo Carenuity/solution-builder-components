@@ -5,6 +5,7 @@ import { IUpdateButton } from './index.types';
 import useSbNotification from '../../Notification';
 import { ChipFamily } from '../../../utils/types.utils';
 import { UpdateApplicationContext } from '../UpdateApplicationProvider';
+import { getBoardChipFamily } from '../../common/developer/index.utils';
 
 const UpdateButton: React.FC<IUpdateButton> = ({ accessToken, id }) => {
   const { state, dispatch } = useContext(UpdateApplicationContext);
@@ -18,17 +19,7 @@ const UpdateButton: React.FC<IUpdateButton> = ({ accessToken, id }) => {
 
   useEffect(() => {
     const boardName = state.microcontroller?.name;
-    if (boardName) {
-      if (boardName.includes('D1')) {
-        setChipFamily('ESP8266');
-      } else if (boardName.includes('C3')) {
-        setChipFamily('ESP32-C3');
-      } else if (boardName.trim() === 'ESP32' || boardName.includes('ESP32')) {
-        setChipFamily('ESP32');
-      } else {
-        setChipFamily(undefined);
-      }
-    }
+    setChipFamily(getBoardChipFamily(boardName));
 
     return () => {
       clearTimeout(timeoutId);

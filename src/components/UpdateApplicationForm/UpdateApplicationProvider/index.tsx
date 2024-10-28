@@ -1,12 +1,12 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
 import {
   ApplicationBinaryRecord,
-  ApplicationDataItem,
   UpdateApplicationAction,
   UpdateApplicationData,
   UpdateApplicationReducerObject,
 } from './index.types';
-import { IBinaryFileType } from '../../../utils/types.utils';
+import { ApplicationDataItem } from '../../common/developer/index.types';
+import { BinaryFormat } from '../../../utils/types.utils';
 
 // const imageFallback =
 //   'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
@@ -73,7 +73,7 @@ const reducer = (
         case 'binary_type':
           return {
             ...state,
-            binaryType: action.value as IBinaryFileType,
+            binaryType: action.value as BinaryFormat,
           };
 
         case 'binary': {

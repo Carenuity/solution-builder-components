@@ -1,13 +1,12 @@
 import { PictureOutlined } from '@ant-design/icons';
-import { Avatar, Flex, Form, Select } from 'antd';
-import React, { useContext, useLayoutEffect, useState } from 'react';
-import { OptionItem } from './index.types';
-import { UpdateApplicationContext } from '../../UpdateApplicationProvider';
+import { Avatar, Flex, Form, Select, SelectProps } from 'antd';
+import React, { useLayoutEffect, useState } from 'react';
 import { getEcosystems } from '../../../../lib/developer/index.lib';
+import { OptionItem } from '../index.types';
 
-const SelectEcosystem = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const SelectEcosystem = React.forwardRef<any, SelectProps>((props, ref) => {
   const [options, setOptions] = useState<OptionItem[]>([]);
-  const { state, dispatch } = useContext(UpdateApplicationContext);
 
   useLayoutEffect(() => {
     const abortController = new AbortController();
@@ -36,17 +35,19 @@ const SelectEcosystem = () => {
     <>
       <Form.Item label={'EcoSystem'} required>
         <Select
+          ref={ref}
+          {...props}
           placeholder="Select Ecosystem"
-          defaultValue={state.ecosystem?.id}
-          onChange={(value, option) => {
-            const { label } = option as OptionItem;
+          // defaultValue={state.ecosystem?.id}
+          // onChange={(value, option) => {
+          //   const { label } = option as OptionItem;
 
-            dispatch({
-              type: 'SET',
-              category: 'ecosystem',
-              value: { id: value, name: label },
-            });
-          }}
+          //   dispatch({
+          //     type: 'SET',
+          //     category: 'ecosystem',
+          //     value: { id: value, name: label },
+          //   });
+          // }}
           options={options}
           optionRender={({ data: { label, image } }) => {
             return (
@@ -62,6 +63,6 @@ const SelectEcosystem = () => {
       </Form.Item>
     </>
   );
-};
+});
 
 export default SelectEcosystem;

@@ -1,8 +1,7 @@
 import { InboxOutlined } from '@ant-design/icons';
 import { Form, Upload, UploadProps } from 'antd';
-import React, { useContext } from 'react';
-import { IBinaryFile } from './index.types';
-import { UpdateApplicationContext } from '../../UpdateApplicationProvider';
+import React, { PropsWithRef } from 'react';
+import { UploadBinaryFileProps } from './index.types';
 import { BinaryFileId } from '../../../../utils/types.utils';
 
 const { Dragger } = Upload;
@@ -23,13 +22,17 @@ const hintFileName = ({ kind }: { kind: BinaryFileId }) => {
   }
 };
 
-const BinaryFile: React.FC<IBinaryFile> = ({ kind, label, offset }) => {
-  const { dispatch } = useContext(UpdateApplicationContext);
+const UploadBinaryFile = React.forwardRef<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any,
+  PropsWithRef<UploadBinaryFileProps>
+>(({ kind, label, ...props }, ref) => {
+  // const { dispatch } = useContext(UpdateApplicationContext);
 
-  const props: UploadProps = {
+  const uploadProps: UploadProps = {
     name: 'file',
     accept: '.bin,application/octet-stream',
-    multiple: false,
+    multiple: false /*
     onChange(info) {
       //   const { status } = info.file;
       const file = info.fileList[0]?.originFileObj;
@@ -45,7 +48,7 @@ const BinaryFile: React.FC<IBinaryFile> = ({ kind, label, offset }) => {
           },
         });
       }
-    },
+    },*/,
     onRemove: () => {
       //
     },
@@ -59,7 +62,7 @@ const BinaryFile: React.FC<IBinaryFile> = ({ kind, label, offset }) => {
   return (
     <>
       <Form.Item label={label} name={kind}>
-        <Dragger {...props} disabled={false}>
+        <Dragger ref={ref} {...props} {...uploadProps} disabled={false}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
@@ -78,6 +81,6 @@ const BinaryFile: React.FC<IBinaryFile> = ({ kind, label, offset }) => {
       </Form.Item>
     </>
   );
-};
+});
 
-export default BinaryFile;
+export default UploadBinaryFile;
