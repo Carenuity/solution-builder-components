@@ -63,6 +63,12 @@ const reducer = (
             repository: action.value as string,
           };
 
+        case 'tag':
+          return {
+            ...state,
+            tag: action.value as string,
+          };
+
         case 'binary_type':
           return {
             ...state,

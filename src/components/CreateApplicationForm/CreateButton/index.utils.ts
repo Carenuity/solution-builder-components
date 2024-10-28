@@ -12,6 +12,7 @@ export const handleCreateApplication = async ({
   solution_id,
   chip_family,
   repository,
+  tag,
   binaries,
   access_token,
   signal,
@@ -44,6 +45,12 @@ export const handleCreateApplication = async ({
     throw new Error('Repository url required! Return to step 3.');
   }
   formData.append('repository', repository);
+
+  // set tag
+  if (!tag) {
+    throw new Error('Tag is required! Return to step 3.');
+  }
+  formData.append('tag', tag);
 
   if (!binaries) {
     throw new Error('Unable to proceed! No binary file uploaded.');

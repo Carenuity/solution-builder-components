@@ -4,6 +4,7 @@ import SelectEcosystem from './SelectEcosystem';
 import SetRepository from './SetRepository';
 import { Form, FormProps } from 'antd';
 import { CreateApplicationContext } from '../CreateApplicationProvider';
+import SetTag from './SetTag';
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
 
@@ -13,8 +14,8 @@ const SetMetadata = () => {
   const { state, dispatch } = useContext(CreateApplicationContext);
 
   useEffect(() => {
-    const { application, ecosystem, repository } = state;
-    if (application && ecosystem && repository && !state.canProceed) {
+    const { application, ecosystem, repository, tag } = state;
+    if (application && ecosystem && repository && tag && !state.canProceed) {
       dispatch({ category: 'proceed', type: 'SET' });
     }
   }, [state]);
@@ -29,12 +30,12 @@ const SetMetadata = () => {
   return (
     <>
       <Form
-        //   {...formItemLayout}
         layout={formLayout}
         variant={componentVariant}
         style={{ maxWidth: 600 }}
         initialValues={{ variant: componentVariant, layout: formLayout }}
       >
+        <SetTag />
         <SetRepository />
         <SelectApplication />
         <SelectEcosystem />

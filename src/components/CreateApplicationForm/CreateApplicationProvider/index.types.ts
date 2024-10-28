@@ -15,6 +15,7 @@ type ItemCategory =
   | 'ecosystem'
   | 'application'
   | 'repository'
+  | 'tag'
   | 'binary_type'
   | 'binary'
   | 'proceed';
@@ -35,6 +36,7 @@ export type CreateApplicationData = {
   ecosystem?: DataItem;
   application?: DataItem;
   repository?: string;
+  tag?: string;
   binaryType?: BinaryFileType;
   canProceed: boolean;
   binaries?: ApplicationBinaries;

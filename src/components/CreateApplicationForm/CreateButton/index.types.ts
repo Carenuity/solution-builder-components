@@ -8,6 +8,7 @@ export type IHandleCreateApplication = {
   solution_id?: string;
   chip_family: ChipFamily;
   repository?: string;
+  tag?: string;
   binaries?: Partial<Record<BinaryFileId, BinaryRecord>>;
   access_token: string;
   signal: AbortSignal;
