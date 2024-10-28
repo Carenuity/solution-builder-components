@@ -27,3 +27,5 @@ export type IApiErrorResponse = {
 };
 
 export type ChipFamily = 'ESP8266' | 'ESP32-C3' | 'ESP32';
+export type BinaryFileId = 'boot' | 'bootloader' | 'partitions' | 'main';
+export type IBinaryFileType = 'merged' | 'arduino_parts';

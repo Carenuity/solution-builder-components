@@ -1,13 +1,13 @@
 import { Button, Spin } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
-import { CreateApplicationContext } from '../CreateApplicationProvider';
-import { handleCreateApplication } from './index.utils';
-import { ICreateButton } from './index.types';
+import { handleUpdateApplication } from './index.utils';
+import { IUpdateButton } from './index.types';
 import useSbNotification from '../../Notification';
 import { ChipFamily } from '../../../utils/types.utils';
+import { UpdateApplicationContext } from '../UpdateApplicationProvider';
 
-const CreateButton: React.FC<ICreateButton> = ({ accessToken }) => {
-  const { state, dispatch } = useContext(CreateApplicationContext);
+const UpdateButton: React.FC<IUpdateButton> = ({ accessToken, id }) => {
+  const { state, dispatch } = useContext(UpdateApplicationContext);
   const [chipFamily, setChipFamily] = useState<ChipFamily>();
   const [context, openNotification] = useSbNotification();
   const [isDisabled, setIsDisabled] = useState(!state.canProceed);
@@ -55,20 +55,20 @@ const CreateButton: React.FC<ICreateButton> = ({ accessToken }) => {
           timeoutId = setTimeout(async () => {
             setIsDisabled(true);
             try {
-              const response = await handleCreateApplication({
+              const response = await handleUpdateApplication({
                 signal,
-                access_token: accessToken,
+                id,
                 tag: state.tag,
+                access_token: accessToken,
                 application_id: state.application?.id,
                 ecosystem_id: state.ecosystem?.id,
-                solution_id: state.solution?.id,
                 repository: state.repository,
                 chip_family: chipFamily,
                 binaries: state.binaries,
               });
               dispatch({ category: 'proceed', type: 'UNSET' });
               openNotification({
-                message: 'Application successfully created',
+                message: 'Application successfully updated',
                 description: `Repository: ${response?.repository}`,
                 type: 'success',
               });
@@ -85,10 +85,10 @@ const CreateButton: React.FC<ICreateButton> = ({ accessToken }) => {
         }}
       >
         {isDisabled && <Spin size="small" />}
-        Create
+        Update
       </Button>
     </>
   );
 };
 
-export default CreateButton;
+export default UpdateButton;
