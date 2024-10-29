@@ -1,11 +1,13 @@
 import React, { createContext, ReactNode, useReducer } from 'react';
 import {
-  ApplicationBinaryRecord,
   UpdateApplicationAction,
   UpdateApplicationData,
   UpdateApplicationReducerObject,
 } from './index.types';
-import { ApplicationDataItem } from '../../common/developer/index.types';
+import {
+  ApplicationBinaryRecord,
+  ApplicationDataItem,
+} from '../../common/developer/index.types';
 import { BinaryFormat } from '../../../utils/types.utils';
 
 // const imageFallback =

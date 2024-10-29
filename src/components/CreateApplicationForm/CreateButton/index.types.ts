@@ -1,6 +1,5 @@
-import { ChipFamily } from '../../../utils/types.utils';
-import { BinaryRecord } from '../CreateApplicationProvider/index.types';
-import { BinaryFileId } from '../UploadBinaries/BinaryFile/index.types';
+import { BinaryFileId, ChipFamily } from '../../../utils/types.utils';
+import { ApplicationBinaryRecord } from '../../common/developer/index.types';
 
 export type IHandleCreateApplication = {
   application_id?: string;
@@ -9,7 +8,7 @@ export type IHandleCreateApplication = {
   chip_family: ChipFamily;
   repository?: string;
   tag?: string;
-  binaries?: Partial<Record<BinaryFileId, BinaryRecord>>;
+  binaries?: Partial<Record<BinaryFileId, ApplicationBinaryRecord>>;
   access_token: string;
   signal: AbortSignal;
 };

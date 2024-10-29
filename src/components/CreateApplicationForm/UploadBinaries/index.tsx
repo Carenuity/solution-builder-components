@@ -1,7 +1,16 @@
 import { FormProps, Form } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
-import BinaryFile from './BinaryFile';
 import { CreateApplicationContext } from '../CreateApplicationProvider';
+import UploadBinaryFile from '../../common/developer/UploadBinaryFile';
+import { RcFile } from 'antd/es/upload';
+import { BinaryFileId } from '../../../utils/types.utils';
+import {
+  BootBinaryOffset,
+  BootLoaderBinaryOffset,
+  MainBinaryOffset,
+  MergedBinaryOffset,
+  PartitionsBinaryOffset,
+} from '../../common/developer/index.constants';
 
 type LayoutType = Parameters<typeof Form>[0]['layout'];
 
@@ -24,6 +33,28 @@ const UploadBinaries = () => {
     }
   }, [state]);
 
+  const handleFileUpload = ({
+    file,
+    offset,
+    kind,
+  }: {
+    file?: RcFile;
+    kind?: BinaryFileId;
+    offset: number;
+  }) => {
+    if (file) {
+      dispatch({
+        category: 'binary',
+        type: 'SET',
+        value: {
+          file,
+          offset,
+          kind,
+        },
+      });
+    }
+  };
+
   return (
     <>
       <Form
@@ -37,24 +68,76 @@ const UploadBinaries = () => {
             Return to step 1 `<em>Triple</em>` to create another application
           </p>
         )}
+
         {state.binaryType === 'merged' && (
-          <BinaryFile kind={'main'} label="Binary" offset={0} />
+          <UploadBinaryFile
+            kind={'main'}
+            label="Binary"
+            onChange={(info) => {
+              //   const { status } = info.file;
+              const file = info.fileList[0]?.originFileObj;
+              handleFileUpload({
+                offset: MergedBinaryOffset,
+                file,
+                kind: 'main',
+              });
+            }}
+          />
         )}
 
         {state.binaryType === 'arduino_parts' && (
           <>
-            <BinaryFile kind={'boot'} label="Boot binary" offset={57344} />
-            <BinaryFile
+            <UploadBinaryFile
+              kind={'boot'}
+              label={'Boot binary'}
+              onChange={(info) => {
+                const file = info.fileList[0]?.originFileObj;
+                handleFileUpload({
+                  offset: BootBinaryOffset,
+                  file,
+                  kind: 'boot',
+                });
+              }}
+            />
+
+            <UploadBinaryFile
               kind={'bootloader'}
               label="Bootloader binary"
-              offset={0}
+              onChange={(info) => {
+                const file = info.fileList[0]?.originFileObj;
+                handleFileUpload({
+                  offset: BootLoaderBinaryOffset,
+                  file,
+                  kind: 'bootloader',
+                });
+              }}
             />
-            <BinaryFile
+
+            <UploadBinaryFile
               kind={'partitions'}
               label="Partitions binary"
-              offset={32768}
+              onChange={(info) => {
+                const file = info.fileList[0]?.originFileObj;
+                handleFileUpload({
+                  offset: PartitionsBinaryOffset,
+                  file,
+                  kind: 'partitions',
+                });
+              }}
             />
-            <BinaryFile kind={'main'} label="Main binary" offset={65536} />
+
+            <UploadBinaryFile
+              kind={'main'}
+              label="Main binary"
+              onChange={(info) => {
+                const file = info.fileList[0]?.originFileObj;
+                handleFileUpload({
+                  offset: MainBinaryOffset,
+                  file,
+                  kind: 'main',
+                });
+              }}
+            />
           </>
         )}
       </Form>

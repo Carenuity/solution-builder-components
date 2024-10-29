@@ -1,6 +1,9 @@
 import { Dispatch } from 'react';
 import { BinaryFileId, BinaryFormat } from '../../../utils/types.utils';
-import { ApplicationDataItem } from '../../common/developer/index.types';
+import {
+  ApplicationBinaryRecord,
+  ApplicationDataItem,
+} from '../../common/developer/index.types';
 
 type ItemCategory =
   | 'board'
@@ -11,12 +14,6 @@ type ItemCategory =
   | 'binary_type'
   | 'binary'
   | 'proceed';
-
-export type ApplicationBinaryRecord = {
-  offset: number;
-  file: Blob;
-  kind?: BinaryFileId;
-};
 
 type ApplicationBinaries = Partial<
   Record<BinaryFileId, ApplicationBinaryRecord>

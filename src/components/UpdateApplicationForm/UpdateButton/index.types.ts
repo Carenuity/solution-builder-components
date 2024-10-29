@@ -1,5 +1,5 @@
 import { BinaryFileId, ChipFamily } from '../../../utils/types.utils';
-import { ApplicationBinaryRecord } from '../UpdateApplicationProvider/index.types';
+import { ApplicationBinaryRecord } from '../../common/developer/index.types';
 
 export type IHandleUpdateApplication = {
   id: string;

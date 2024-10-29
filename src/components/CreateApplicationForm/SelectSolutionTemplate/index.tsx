@@ -48,7 +48,7 @@ const SelectSolutionTemplate: React.FC = () => {
         dispatch({
           type: 'SET',
           category: 'solution',
-          data: {
+          value: {
             id,
             name: selectedRows[0].name,
           },

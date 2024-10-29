@@ -94,7 +94,7 @@ export const ShieldPreviewProvider = ({
       createApplicationDispatch({
         category: 'actuator',
         type: 'SET',
-        data: { id: state.actuator.id, name: state.actuator.name },
+        value: { id: state.actuator.id, name: state.actuator.name },
       });
     }
 
@@ -102,7 +102,7 @@ export const ShieldPreviewProvider = ({
       createApplicationDispatch({
         category: 'sensor',
         type: 'SET',
-        data: { id: state.sensor.id, name: state.sensor.name },
+        value: { id: state.sensor.id, name: state.sensor.name },
       });
     }
 
@@ -110,7 +110,7 @@ export const ShieldPreviewProvider = ({
       createApplicationDispatch({
         category: 'board',
         type: 'SET',
-        data: {
+        value: {
           id: state.microcontroller.id,
           name: state.microcontroller.name,
         },

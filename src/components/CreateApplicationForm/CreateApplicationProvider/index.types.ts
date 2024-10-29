@@ -1,11 +1,9 @@
 import { Dispatch } from 'react';
-import { BinaryFileType } from '../SetBinaryFileType/index.types';
-import { BinaryFileId } from '../UploadBinaries/BinaryFile/index.types';
-
-type DataItem = {
-  id: string;
-  name: string;
-};
+import {
+  ApplicationBinaryRecord,
+  ApplicationDataItem,
+} from '../../common/developer/index.types';
+import { BinaryFileId, BinaryFormat } from '../../../utils/types.utils';
 
 type ItemCategory =
   | 'sensor'
@@ -20,24 +18,20 @@ type ItemCategory =
   | 'binary'
   | 'proceed';
 
-export type BinaryRecord = {
-  offset: number;
-  file: Blob;
-  kind?: BinaryFileId;
-};
-
-type ApplicationBinaries = Partial<Record<BinaryFileId, BinaryRecord>>;
+type ApplicationBinaries = Partial<
+  Record<BinaryFileId, ApplicationBinaryRecord>
+>;
 
 export type CreateApplicationData = {
-  sensor?: DataItem;
-  microcontroller?: DataItem;
-  actuator?: DataItem;
-  solution?: DataItem;
-  ecosystem?: DataItem;
-  application?: DataItem;
+  sensor?: ApplicationDataItem;
+  microcontroller?: ApplicationDataItem;
+  actuator?: ApplicationDataItem;
+  solution?: ApplicationDataItem;
+  ecosystem?: ApplicationDataItem;
+  application?: ApplicationDataItem;
   repository?: string;
   tag?: string;
-  binaryType?: BinaryFileType;
+  binaryType?: BinaryFormat;
   canProceed: boolean;
   binaries?: ApplicationBinaries;
 };
@@ -49,7 +43,7 @@ export interface CreateApplicationReducerObject {
 
 export interface CreateApplicationAction {
   type: 'SET' | 'UNSET';
-  data?: DataItem;
+  // data?: DataItem;
   category: ItemCategory;
-  value?: string | BinaryFileType | BinaryRecord;
+  value?: string | BinaryFormat | ApplicationBinaryRecord | ApplicationDataItem;
 }

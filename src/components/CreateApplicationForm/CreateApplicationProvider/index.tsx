@@ -3,9 +3,12 @@ import {
   CreateApplicationData,
   CreateApplicationAction,
   CreateApplicationReducerObject,
-  BinaryRecord,
 } from './index.types';
-import { BinaryFileType } from '../SetBinaryFileType/index.types';
+import {
+  ApplicationBinaryRecord,
+  ApplicationDataItem,
+} from '../../common/developer/index.types';
+import { BinaryFormat } from '../../../utils/types.utils';
 
 // const imageFallback =
 //   'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
@@ -24,37 +27,37 @@ const reducer = (
         case 'sensor':
           return {
             ...state,
-            sensor: action.data,
+            sensor: action.value as ApplicationDataItem,
           };
 
         case 'board':
           return {
             ...state,
-            microcontroller: action.data,
+            microcontroller: action.value as ApplicationDataItem,
           };
 
         case 'actuator':
           return {
             ...state,
-            actuator: action.data,
+            actuator: action.value as ApplicationDataItem,
           };
 
         case 'solution':
           return {
             ...state,
-            solution: action.data,
+            solution: action.value as ApplicationDataItem,
           };
 
         case 'ecosystem':
           return {
             ...state,
-            ecosystem: action.data,
+            ecosystem: action.value as ApplicationDataItem,
           };
 
         case 'application':
           return {
             ...state,
-            application: action.data,
+            application: action.value as ApplicationDataItem,
           };
 
         case 'repository':
@@ -72,11 +75,11 @@ const reducer = (
         case 'binary_type':
           return {
             ...state,
-            binaryType: action.value as BinaryFileType,
+            binaryType: action.value as BinaryFormat,
           };
 
         case 'binary': {
-          const data = action.value as BinaryRecord;
+          const data = action.value as ApplicationBinaryRecord;
 
           return {
             ...state,
