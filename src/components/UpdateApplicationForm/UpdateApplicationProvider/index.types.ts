@@ -1,12 +1,16 @@
 import { Dispatch } from 'react';
-import { BinaryFileId, BinaryFormat } from '../../../utils/types.utils';
+import {
+  BinaryFileId,
+  BinaryFormat,
+  ChipFamily,
+} from '../../../utils/types.utils';
 import {
   ApplicationBinaryRecord,
   ApplicationDataItem,
 } from '../../common/developer/index.types';
 
 type ItemCategory =
-  | 'board'
+  | 'chip_family'
   | 'ecosystem'
   | 'application'
   | 'repository'
@@ -20,7 +24,7 @@ type ApplicationBinaries = Partial<
 >;
 
 export type UpdateApplicationData = {
-  microcontroller?: ApplicationDataItem;
+  chipFamily?: ChipFamily;
   ecosystem?: ApplicationDataItem;
   application?: ApplicationDataItem;
   repository?: string;

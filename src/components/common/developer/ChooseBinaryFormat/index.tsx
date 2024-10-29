@@ -27,7 +27,8 @@ const ChooseBinaryFormat = React.forwardRef<any, PropsWithRef<RadioGroupProps>>(
                   size={'small'}
                   style={{ marginRight: '0.3rem' }}
                 />{' '}
-                One <strong>Merged</strong> file
+                One <strong>Merged</strong> file by Arduino IDE{' '}
+                <em>(preferred)</em>
               </Radio>
               <Radio value="arduino_parts">
                 <Avatar

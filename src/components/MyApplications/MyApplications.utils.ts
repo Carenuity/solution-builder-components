@@ -30,7 +30,6 @@ export const getMyApplications = async ({
 
     if (response.status === 200) {
       const applications = response.data.data.items;
-      console.log(applications);
       result = applications.map(
         ({
           application,

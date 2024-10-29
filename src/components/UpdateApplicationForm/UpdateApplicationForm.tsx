@@ -8,39 +8,6 @@ import UpdateButton from './UpdateButton';
 import { UpdateApplicationProvider } from './UpdateApplicationProvider';
 import BinaryFormatForm from './BinaryFormatForm';
 
-const steps = [
-  // {
-  //   title: 'Triple',
-  //   content: <SelectShields />,
-  //   description: `What's your setup?`,
-  //   percent: 20,
-  // },
-  // {
-  //   title: 'Solution',
-  //   content: <SelectSolutionTemplate />,
-  //   description: 'Choose grouping',
-  //   percent: 40,
-  // },
-  {
-    title: 'Metadata',
-    content: <Details />,
-    description: 'Assign details',
-    percent: 30,
-  },
-  {
-    title: 'Prepare',
-    content: <BinaryFormatForm />,
-    description: 'Select what you have',
-    percent: 60,
-  },
-  {
-    title: 'Share',
-    content: <Binaries />,
-    description: 'Upload binaries',
-    percent: 100,
-  },
-];
-
 const UpdateApplicationForm: React.FC<IUpdateApplicationForm> = ({
   accessToken,
   applicationId,
@@ -55,6 +22,27 @@ const UpdateApplicationForm: React.FC<IUpdateApplicationForm> = ({
   const prev = () => {
     setCurrent(current - 1);
   };
+
+  const steps = [
+    {
+      title: 'Metadata',
+      content: <Details applicationId={applicationId} />,
+      description: 'Assign details',
+      percent: 30,
+    },
+    {
+      title: 'Prepare',
+      content: <BinaryFormatForm />,
+      description: 'Select what you have',
+      percent: 60,
+    },
+    {
+      title: 'Share',
+      content: <Binaries />,
+      description: 'Upload binaries',
+      percent: 100,
+    },
+  ];
 
   const items = steps.map((item) => ({
     key: item.title,

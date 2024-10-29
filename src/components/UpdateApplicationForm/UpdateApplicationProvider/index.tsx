@@ -8,7 +8,7 @@ import {
   ApplicationBinaryRecord,
   ApplicationDataItem,
 } from '../../common/developer/index.types';
-import { BinaryFormat } from '../../../utils/types.utils';
+import { BinaryFormat, ChipFamily } from '../../../utils/types.utils';
 
 // const imageFallback =
 //   'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
@@ -30,10 +30,10 @@ const reducer = (
         //     sensor: action.data,
         //   };
 
-        case 'board':
+        case 'chip_family':
           return {
             ...state,
-            microcontroller: action.value as ApplicationDataItem,
+            chipFamily: action.value as ChipFamily,
           };
 
         // case 'actuator':

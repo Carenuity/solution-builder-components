@@ -23,8 +23,8 @@ const SetMetadata = () => {
   }, [state]);
 
   useEffect(() => {
-    const { application, ecosystem, repository } = state;
-    if (state.canProceed && !application && !ecosystem && !repository) {
+    const { application, ecosystem, repository, tag } = state;
+    if (state.canProceed && !application && !ecosystem && !repository && !tag) {
       dispatch({ category: 'proceed', type: 'SET' });
     }
   }, []);

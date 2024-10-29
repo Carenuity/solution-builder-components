@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   Application,
+  ApplicationPreview,
   Ecosystem,
   IGetApplicationTypes,
   IGetEcosystems,
@@ -64,4 +65,35 @@ export const getEcosystems = async ({ signal }: IGetEcosystems) => {
   }
 
   return ecosystems;
+};
+
+export const getApplicationPreview = async ({
+  applicationId,
+  signal,
+}: {
+  applicationId: string;
+  signal?: AbortSignal;
+}) => {
+  const url = `${solutionsApiHostname}/v1/binaries/${applicationId}`;
+
+  try {
+    const response = await axios.get<{
+      data: ApplicationPreview;
+    }>(url, {
+      params: {
+        mode: 'partial',
+        props: 'id,application_id,chip_family,ecosystem_id,repository,tag',
+      },
+      signal,
+    });
+
+    if (response.status === 200) {
+      const result = response.data.data;
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  return undefined;
 };

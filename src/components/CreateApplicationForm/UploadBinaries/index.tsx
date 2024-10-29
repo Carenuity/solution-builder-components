@@ -1,4 +1,4 @@
-import { FormProps, Form } from 'antd';
+import { FormProps, Form, Result, Button } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { CreateApplicationContext } from '../CreateApplicationProvider';
 import UploadBinaryFile from '../../common/developer/UploadBinaryFile';
@@ -64,9 +64,27 @@ const UploadBinaries = () => {
         initialValues={{ variant: componentVariant, layout: formLayout }}
       >
         {!state.binaryType && (
-          <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
-            Return to step 1 `<em>Triple</em>` to create another application
-          </p>
+          // <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
+          //   Return to step 1 `<em>Triple</em>` to create another application
+          // </p>
+          <Result
+            status="success"
+            title="Successfully created your application"
+            // subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+            extra={[
+              <Button
+                type="primary"
+                variant={'solid'}
+                color={'primary'}
+                key="add"
+                onClick={() => {
+                  window.location.reload();
+                }}
+              >
+                Add application
+              </Button>,
+            ]}
+          />
         )}
 
         {state.binaryType === 'merged' && (

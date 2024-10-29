@@ -1,4 +1,4 @@
-import { Avatar } from '../../utils/types.utils';
+import { Avatar, ChipFamily } from '../../utils/types.utils';
 
 export type IGetApplicationTypes = {
   signal: AbortSignal;
@@ -17,3 +17,11 @@ type DataItem = {
 export type Ecosystem = DataItem;
 
 export type Application = DataItem;
+export type ApplicationPreview = {
+  id: string;
+  tag: string;
+  application_id: string;
+  chip_family: ChipFamily;
+  ecosystem_id: string;
+  repository: string;
+};

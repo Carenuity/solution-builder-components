@@ -5,7 +5,6 @@ import { IUpdateButton } from './index.types';
 import useSbNotification from '../../Notification';
 import { ChipFamily } from '../../../utils/types.utils';
 import { UpdateApplicationContext } from '../UpdateApplicationProvider';
-import { getBoardChipFamily } from '../../common/developer/index.utils';
 
 const UpdateButton: React.FC<IUpdateButton> = ({ accessToken, id }) => {
   const { state, dispatch } = useContext(UpdateApplicationContext);
@@ -18,8 +17,7 @@ const UpdateButton: React.FC<IUpdateButton> = ({ accessToken, id }) => {
   let timeoutId: string | number | NodeJS.Timeout | undefined;
 
   useEffect(() => {
-    const boardName = state.microcontroller?.name;
-    setChipFamily(getBoardChipFamily(boardName));
+    setChipFamily(state.chipFamily);
 
     return () => {
       clearTimeout(timeoutId);
@@ -37,7 +35,7 @@ const UpdateButton: React.FC<IUpdateButton> = ({ accessToken, id }) => {
           if (!chipFamily) {
             openNotification({
               message:
-                'Please specify the microcontroller your application uses! Return to step 1',
+                'Unable to detect the chip family for this application! Contact the administrator for help',
               type: 'error',
             });
             return;
