@@ -5,6 +5,7 @@ import {
   ApplicationRecord,
   MyApplicationDataType,
 } from './MyApplications.types';
+import { processAxiosError } from '../../utils/common.utils';
 
 export const getMyApplications = async ({
   developerId,
@@ -58,4 +59,28 @@ export const getMyApplications = async ({
   }
 
   return result;
+};
+
+export const deleteMyApplication = async ({
+  accessToken,
+  applicationId,
+  signal,
+}: {
+  applicationId: string;
+  accessToken: string;
+  signal?: AbortSignal;
+}) => {
+  const url = `${solutionsApiHostname}/v1/binaries/${applicationId}`;
+  try {
+    await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      signal,
+    });
+  } catch (error) {
+    processAxiosError(error, (message) => {
+      throw new Error(message);
+    });
+  }
 };

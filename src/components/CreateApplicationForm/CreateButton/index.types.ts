@@ -15,6 +15,7 @@ export type IHandleCreateApplication = {
 
 export type ICreateApplicationResponse = {
   id: string;
+  tag: string;
   application_id: string;
   ecosystem_id: string;
   solution_id: string;

@@ -43,3 +43,10 @@ export type ApplicationRecord = {
   tag?: string;
   created_at?: string;
 };
+
+export type IMyApplications = {
+  developerId: string;
+  accessToken: string;
+  onDeleteApplication?: () => void;
+  editUrlCallback: (applicationId: string) => string;
+};

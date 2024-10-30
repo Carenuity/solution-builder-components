@@ -58,7 +58,7 @@ const UpdateButton: React.FC<IUpdateButton> = ({ accessToken, id }) => {
               dispatch({ category: 'proceed', type: 'UNSET' });
               openNotification({
                 message: 'Application successfully updated',
-                description: `Repository: ${response?.repository}`,
+                description: `Tag: ${response?.tag}`,
                 type: 'success',
               });
             } catch (error) {

@@ -20,6 +20,7 @@ export type IUpdateApplicationResponse = {
   ecosystem_id: string;
   chip_family: string;
   repository: string;
+  tag: string;
 };
 
 export type IUpdateButton = {

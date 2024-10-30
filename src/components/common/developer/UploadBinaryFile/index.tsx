@@ -26,7 +26,7 @@ const UploadBinaryFile = React.forwardRef<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any,
   PropsWithRef<UploadBinaryFileProps>
->(({ kind, label, ...props }, ref) => {
+>(({ kind, label, required, ...props }, ref) => {
   // const { dispatch } = useContext(UpdateApplicationContext);
 
   const uploadProps: UploadProps = {
@@ -61,7 +61,12 @@ const UploadBinaryFile = React.forwardRef<
 
   return (
     <>
-      <Form.Item label={label} name={kind}>
+      <Form.Item
+        label={label}
+        name={kind}
+        required={required}
+        tooltip={required ? 'This is a required field' : undefined}
+      >
         <Dragger ref={ref} {...props} {...uploadProps} disabled={false}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />

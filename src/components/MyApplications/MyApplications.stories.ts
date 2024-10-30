@@ -21,5 +21,12 @@ type Story = StoryObj<typeof meta>;
 export const HelloWorld: Story = {
   args: {
     developerId: '',
+    accessToken: ``,
+    onDeleteApplication: () => {
+      window.location.reload();
+    },
+    editUrlCallback(applicationId) {
+      return `/profile/binaries/edit/${applicationId}`;
+    },
   },
 };

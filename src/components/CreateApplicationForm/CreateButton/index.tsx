@@ -60,7 +60,7 @@ const CreateButton: React.FC<ICreateButton> = ({ accessToken }) => {
               dispatch({ category: 'proceed', type: 'UNSET' });
               openNotification({
                 message: 'Application successfully created',
-                description: `Repository: ${response?.repository}`,
+                description: `Tag: ${response?.tag}`,
                 type: 'success',
               });
             } catch (error) {

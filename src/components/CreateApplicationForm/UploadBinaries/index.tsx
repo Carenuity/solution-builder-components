@@ -61,6 +61,7 @@ const UploadBinaries = () => {
         layout={formLayout}
         variant={componentVariant}
         style={{ maxWidth: 600 }}
+        requiredMark={'optional'}
         initialValues={{ variant: componentVariant, layout: formLayout }}
       >
         {!state.binaryType && (
@@ -91,6 +92,7 @@ const UploadBinaries = () => {
           <UploadBinaryFile
             kind={'main'}
             label="Binary"
+            required={true}
             onChange={(info) => {
               //   const { status } = info.file;
               const file = info.fileList[0]?.originFileObj;
@@ -147,6 +149,7 @@ const UploadBinaries = () => {
             <UploadBinaryFile
               kind={'main'}
               label="Main binary"
+              required={true}
               onChange={(info) => {
                 const file = info.fileList[0]?.originFileObj;
                 handleFileUpload({

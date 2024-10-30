@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Image, Popconfirm, Space, Table, Tag } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
-import { FilterListItem, MyApplicationDataType } from './MyApplications.types';
+import {
+  FilterListItem,
+  IMyApplications,
+  MyApplicationDataType,
+} from './MyApplications.types';
 import { imageFallback } from '../../utils/constants.utils';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import WebInstallButtonHoc from '../WebInstallButton';
-import { getMyApplications } from './MyApplications.utils';
+import { deleteMyApplication, getMyApplications } from './MyApplications.utils';
+import useSbNotification from '../Notification';
 
 type OnChange = NonNullable<TableProps<MyApplicationDataType>['onChange']>;
 type Filters = Parameters<OnChange>[1];
@@ -13,7 +18,12 @@ type Filters = Parameters<OnChange>[1];
 type GetSingle<T> = T extends (infer U)[] ? U : never;
 type Sorts = GetSingle<Parameters<OnChange>[2]>;
 
-const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
+const MyApplications: React.FC<IMyApplications> = ({
+  developerId,
+  accessToken,
+  onDeleteApplication,
+  editUrlCallback,
+}) => {
   const [applications, setApplications] = useState<MyApplicationDataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [ecosystemFilters, setEcosystemFilters] = useState<
@@ -26,6 +36,10 @@ const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
   const [sortedInfo, setSortedInfo] = useState<Sorts>({});
   const [totalApplications, setTotalApplications] = useState(0);
   const { InstallButton } = WebInstallButtonHoc();
+  const [context, openNotification] = useSbNotification();
+
+  const applicationDeletionController = new AbortController();
+  let applicationDeletionTimeout: string | number | NodeJS.Timeout | undefined;
 
   const handleChange: OnChange = (pagination, filters, sorter) => {
     console.log('Various parameters', pagination, filters, sorter);
@@ -80,14 +94,6 @@ const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
       filters: ecosystemFilters,
       filteredValue: filteredInfo.ecosystem || null,
       onFilter: (value, record) => record.ecosystem.includes(value as string),
-      // render: ({ image, name }: MyApplicationDataItem) => (
-      //   <>
-      //     <Flex align={'center'} gap={'small'}>
-      //       <Avatar src={image} alt="solution image" />
-      //       <span>{name}</span>
-      //     </Flex>
-      //   </>
-      // ),
     },
     {
       title: 'Type',
@@ -97,14 +103,6 @@ const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
       filters: typeFilters,
       filteredValue: filteredInfo.type || null,
       onFilter: (value, record) => record.type.includes(value as string),
-      // render: ({ image, name }: MyApplicationDataItem) => (
-      //   <>
-      //     <Flex align={'center'} gap={'small'}>
-      //       <Avatar src={image} alt="application image" />
-      //       <span>{name}</span>
-      //     </Flex>
-      //   </>
-      // ),
     },
     {
       title: 'Tag',
@@ -113,7 +111,7 @@ const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
       width: 150,
       render: (text: string | undefined) => (
         <>
-          {text && <Tag color={'green'}>text</Tag>}
+          {text && <Tag color={'green'}>{text}</Tag>}
           {!text && <span>-</span>}
         </>
       ),
@@ -148,10 +146,50 @@ const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
       render: (_, record) => (
         <Space size="middle">
           <Popconfirm
-            title="Delete the application"
-            description="Are you sure to delete this application?"
+            title={
+              <>
+                {!record.tag && 'Delete the application?'}
+                {record.tag && (
+                  <>
+                    Delete{' '}
+                    <em style={{ textDecoration: 'underline' }}>
+                      {record.tag}
+                    </em>{' '}
+                    app?
+                  </>
+                )}
+              </>
+            }
+            description={'Are you sure to delete this application?'}
             okText="Confirm"
             cancelText="Cancel"
+            onConfirm={() => {
+              applicationDeletionTimeout = setTimeout(async () => {
+                try {
+                  await deleteMyApplication({
+                    accessToken,
+                    applicationId: record.key as string,
+                    signal: applicationDeletionController.signal,
+                  });
+
+                  openNotification({
+                    message: `Application ${record.tag ? '(' + record.tag + ')' : ''} deleted successfully`,
+                    type: 'success',
+                  });
+
+                  if (onDeleteApplication) {
+                    setTimeout(onDeleteApplication, 1000);
+                  }
+                } catch (error) {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  const err = error as any;
+                  openNotification({
+                    message: err.message,
+                    type: 'error',
+                  });
+                }
+              }, 0);
+            }}
           >
             <Button
               type={'default'}
@@ -168,7 +206,7 @@ const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
             variant={'outlined'}
             shape="circle"
             title="Edit"
-            href={`/${record.key}`}
+            href={editUrlCallback(record.key as string)}
             icon={<EditOutlined />}
           />
           <InstallButton
@@ -232,12 +270,15 @@ const MyApplications: React.FC<{ developerId: string }> = ({ developerId }) => {
 
     return () => {
       clearTimeout(timeoutId);
+      clearTimeout(applicationDeletionTimeout);
       controller.abort();
+      applicationDeletionController.abort();
     };
   }, []);
 
   return (
     <div>
+      {context}
       <Table<MyApplicationDataType>
         {...tableProps}
         columns={columns}
