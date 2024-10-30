@@ -1,0 +1,14 @@
+/.husky
+/.storybook
+/.vscode
+/node_modules
+/src
+.env
+.env.*
+.gitignore
+.npmrc
+.prettierrc
+.prettierignore
+commitlint.config.mjs
+eslint.config.mjs
+rollup.config.mjs
