@@ -1,3 +1,4 @@
+import { ButtonProps } from 'antd';
 import { Avatar } from '../../utils/types.utils';
 
 export type MyApplicationDataItem = {
@@ -44,9 +45,20 @@ export type ApplicationRecord = {
   created_at?: string;
 };
 
+export interface EspWebInstallButtonProps extends ButtonProps {
+  manifest: string;
+}
+
+type WebInstallButtonResult = {
+  InstallButton: React.ForwardRefExoticComponent<
+    EspWebInstallButtonProps & React.RefAttributes<HTMLButtonElement>
+  >;
+};
+
 export type IMyApplications = {
   developerId: string;
   accessToken: string;
   onDeleteApplication?: () => void;
   editUrlCallback: (applicationId: string) => string;
+  WebInstallButtonHOC: () => WebInstallButtonResult;
 };

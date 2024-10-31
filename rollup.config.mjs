@@ -16,26 +16,30 @@ export default [
     output: [
       {
         file: packageJson.main,
+        // intro: "'use client';",
         format: 'cjs',
         sourcemap: true,
       },
       {
         file: packageJson.module,
+        // dir: 'dist',
+        // preserveModules: true,
+        // intro: "'use client';",
         format: 'esm',
         sourcemap: true,
       },
     ],
     plugins: [
-      peerDepsExternal(),
-      resolve(),
-      commonjs(),
       typescript({
         tsconfig: './tsconfig.json',
       }),
+      peerDepsExternal(),
+      resolve(),
+      commonjs(),
       postcss(),
-      terser(),
       json(),
       image(),
+      terser(),
     ],
   },
   {

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { fn } from "@storybook/test";
 import MyApplication from './MyApplications';
+import { FlashButtonHOC } from '../WebInstallButton/WebInstallButton';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -22,6 +23,7 @@ export const HelloWorld: Story = {
   args: {
     developerId: '',
     accessToken: ``,
+    WebInstallButtonHOC: FlashButtonHOC,
     onDeleteApplication: () => {
       window.location.reload();
     },

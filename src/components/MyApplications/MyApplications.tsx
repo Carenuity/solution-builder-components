@@ -8,7 +8,6 @@ import {
 } from './MyApplications.types';
 import { imageFallback } from '../../utils/constants.utils';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import WebInstallButtonHoc from '../WebInstallButton';
 import { deleteMyApplication, getMyApplications } from './MyApplications.utils';
 import useSbNotification from '../Notification';
 
@@ -23,6 +22,7 @@ const MyApplications: React.FC<IMyApplications> = ({
   accessToken,
   onDeleteApplication,
   editUrlCallback,
+  WebInstallButtonHOC,
 }) => {
   const [applications, setApplications] = useState<MyApplicationDataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const MyApplications: React.FC<IMyApplications> = ({
   const [filteredInfo, setFilteredInfo] = useState<Filters>({});
   const [sortedInfo, setSortedInfo] = useState<Sorts>({});
   const [totalApplications, setTotalApplications] = useState(0);
-  const { InstallButton } = WebInstallButtonHoc();
+  const { InstallButton } = WebInstallButtonHOC();
   const [context, openNotification] = useSbNotification();
 
   const applicationDeletionController = new AbortController();
