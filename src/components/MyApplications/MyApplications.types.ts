@@ -1,4 +1,3 @@
-import { ButtonProps } from 'antd';
 import { Avatar } from '../../utils/types.utils';
 
 export type MyApplicationDataItem = {
@@ -14,7 +13,6 @@ export interface MyApplicationDataType {
   tag?: string;
   date?: string;
   ecosystem: string;
-  // microcontroller: MyApplicationDataItem;
   type: string;
   manifest: string;
   repository: string;
@@ -45,20 +43,20 @@ export type ApplicationRecord = {
   created_at?: string;
 };
 
-export interface EspWebInstallButtonProps extends ButtonProps {
-  manifest: string;
-}
+// export interface EspWebInstallButtonProps extends ButtonProps {
+//   manifest: string;
+// }
 
-type WebInstallButtonResult = {
-  InstallButton: React.ForwardRefExoticComponent<
-    EspWebInstallButtonProps & React.RefAttributes<HTMLButtonElement>
-  >;
-};
+// type WebInstallButtonResult = {
+//   InstallButton: React.ForwardRefExoticComponent<
+//     EspWebInstallButtonProps & React.RefAttributes<HTMLButtonElement>
+//   >;
+// };
 
 export type IMyApplications = {
   developerId: string;
   accessToken: string;
   onDeleteApplication?: () => void;
   editUrlCallback: (applicationId: string) => string;
-  WebInstallButtonHOC: () => WebInstallButtonResult;
+  manifestCallback?: (manifest: string) => void;
 };

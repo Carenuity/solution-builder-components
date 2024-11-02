@@ -30,6 +30,7 @@ export default [
       },
     ],
     plugins: [
+      image(),
       typescript({
         tsconfig: './tsconfig.json',
       }),
@@ -38,7 +39,6 @@ export default [
       commonjs(),
       postcss(),
       json(),
-      image(),
       terser(),
     ],
   },

@@ -1,6 +1,6 @@
 {
   "name": "test-carenuity-sbc",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Solution Builder UI component library",
   "license": "MIT",
   "author": "Paul Otieno",
@@ -48,11 +48,12 @@
     "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "esp-web-tools": "9.4.3",
     "globals": "^15.11.0",
     "husky": "^9.1.6",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
-    "react": "^18.3.1",
+    "react": "18",
     "rollup": "^4.24.0",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -72,7 +73,9 @@
     "@ant-design/icons": "^5.5.1",
     "antd": "^5.21.6",
     "axios": "^1.7.7",
-    "react-dom": "^18.3.1"
+    "esp-web-tools": "9.4.3",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

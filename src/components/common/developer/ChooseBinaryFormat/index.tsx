@@ -1,7 +1,8 @@
-import { Avatar, Form, Radio, RadioGroupProps, Space } from 'antd';
+import { Form, Radio, RadioGroupProps, Space } from 'antd';
 import React, { PropsWithRef } from 'react';
-import mergedImage from './assets/merged_binary.jpg';
-import arduinoImageIcon from './assets/binary_files.webp';
+// import mergedImage from './assets/merged_binary.jpg';
+// import arduinoImageIcon from './assets/binary_files.webp';
+import { FileOutlined, FileZipOutlined } from '@ant-design/icons';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ChooseBinaryFormat = React.forwardRef<any, PropsWithRef<RadioGroupProps>>(
@@ -20,24 +21,26 @@ const ChooseBinaryFormat = React.forwardRef<any, PropsWithRef<RadioGroupProps>>(
           >
             <Space direction={'vertical'}>
               <Radio value="merged">
-                <Avatar
+                <FileOutlined style={{ marginRight: '0.3rem' }} />
+                {/* <Avatar
                   src={mergedImage}
                   alt="merged binary icon"
                   shape={'square'}
                   size={'small'}
                   style={{ marginRight: '0.3rem' }}
-                />{' '}
+                />{' '} */}
                 One <strong>Merged</strong> file by Arduino IDE{' '}
                 <em>(preferred)</em>
               </Radio>
               <Radio value="arduino_parts">
-                <Avatar
+                <FileZipOutlined style={{ marginRight: '0.3rem' }} />
+                {/* <Avatar
                   src={arduinoImageIcon}
                   alt="merged binary icon"
                   shape={'square'}
                   size={'small'}
                   style={{ marginRight: '0.3rem' }}
-                />{' '}
+                />{' '} */}
                 Several files compiled by <strong>Arduino IDE</strong>
               </Radio>
             </Space>

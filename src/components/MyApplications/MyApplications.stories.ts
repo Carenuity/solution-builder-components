@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { fn } from "@storybook/test";
 import MyApplication from './MyApplications';
-import { FlashButtonHOC } from '../WebInstallButton/WebInstallButton';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -21,14 +20,16 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const HelloWorld: Story = {
   args: {
-    developerId: '',
+    developerId: 'a334c822-3011-7063-fcdf-780bd0d4ad38',
     accessToken: ``,
-    WebInstallButtonHOC: FlashButtonHOC,
     onDeleteApplication: () => {
       window.location.reload();
     },
     editUrlCallback(applicationId) {
       return `/profile/binaries/edit/${applicationId}`;
+    },
+    manifestCallback(manifest) {
+      alert(manifest);
     },
   },
 };

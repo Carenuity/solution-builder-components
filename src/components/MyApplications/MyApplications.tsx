@@ -22,7 +22,7 @@ const MyApplications: React.FC<IMyApplications> = ({
   accessToken,
   onDeleteApplication,
   editUrlCallback,
-  WebInstallButtonHOC,
+  manifestCallback,
 }) => {
   const [applications, setApplications] = useState<MyApplicationDataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,14 +35,13 @@ const MyApplications: React.FC<IMyApplications> = ({
   const [filteredInfo, setFilteredInfo] = useState<Filters>({});
   const [sortedInfo, setSortedInfo] = useState<Sorts>({});
   const [totalApplications, setTotalApplications] = useState(0);
-  const { InstallButton } = WebInstallButtonHOC();
   const [context, openNotification] = useSbNotification();
 
   const applicationDeletionController = new AbortController();
   let applicationDeletionTimeout: string | number | NodeJS.Timeout | undefined;
 
   const handleChange: OnChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter);
+    // console.log('Various parameters', pagination, filters, sorter);
     setFilteredInfo(filters);
     setSortedInfo(sorter as Sorts);
   };
@@ -98,7 +97,7 @@ const MyApplications: React.FC<IMyApplications> = ({
     {
       title: 'Type',
       dataIndex: 'type',
-      width: 250,
+      width: 200,
       ellipsis: true,
       filters: typeFilters,
       filteredValue: filteredInfo.type || null,
@@ -142,9 +141,10 @@ const MyApplications: React.FC<IMyApplications> = ({
       title: 'Action',
       dataIndex: 'key',
       fixed: 'right',
-      width: 150,
+      width: 100,
       render: (_, record) => (
         <Space size="middle">
+          {context}
           <Popconfirm
             title={
               <>
@@ -209,11 +209,6 @@ const MyApplications: React.FC<IMyApplications> = ({
             href={editUrlCallback(record.key as string)}
             icon={<EditOutlined />}
           />
-          <InstallButton
-            manifest={record.manifest}
-            type={'primary'}
-            shape={'circle'}
-          />
         </Space>
       ),
     },
@@ -276,11 +271,32 @@ const MyApplications: React.FC<IMyApplications> = ({
     };
   }, []);
 
+  // rowSelection object indicates the need for row selection
+  const rowSelection: TableProps<MyApplicationDataType>['rowSelection'] = {
+    onChange: (
+      selectedRowKeys: React.Key[],
+      selectedRows: MyApplicationDataType[]
+    ) => {
+      const id = selectedRowKeys[0] as string;
+      if (id) {
+        const application = selectedRows[0];
+
+        if (manifestCallback) {
+          manifestCallback(application.manifest);
+        }
+      }
+    },
+  };
+
   return (
     <div>
-      {context}
       <Table<MyApplicationDataType>
         {...tableProps}
+        rowSelection={{
+          type: 'radio',
+          ...rowSelection,
+          defaultSelectedRowKeys: undefined,
+        }}
         columns={columns}
         dataSource={applications}
         scroll={scroll}
