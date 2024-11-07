@@ -11,20 +11,20 @@ import {
   ShieldPreviewAction,
   ShieldPreviewReducerObject,
 } from './index.types';
-import { imageFallback } from '../../../../utils/constants.utils';
 import { CreateApplicationContext } from '../../CreateApplicationProvider';
 
-// const imageFallback =
-//   'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
+const sensorFallback = `https://firebasestorage.googleapis.com/v0/b/solution-builder-421307.appspot.com/o/defaults%2FS.png?alt=media&token=91b56c4a-6b40-4e5a-8617-0784000a3265`;
+const boardFallback = `https://firebasestorage.googleapis.com/v0/b/solution-builder-421307.appspot.com/o/defaults%2FM.png?alt=media&token=ab16e6f7-bde7-494e-8c18-d8cfba508ac6`;
+const actuatorFallback = `https://firebasestorage.googleapis.com/v0/b/solution-builder-421307.appspot.com/o/defaults%2FA.png?alt=media&token=08109a32-f812-46c5-8321-78a4ebb883f4`;
 
 export const shieldPreviewInitialState: Record<
   IotShieldCategory,
   IoTShieldPreview
 > = {
-  sensor: { url: imageFallback },
-  microcontroller: { url: imageFallback },
+  sensor: { url: sensorFallback },
+  microcontroller: { url: boardFallback },
   actuator: {
-    url: imageFallback,
+    url: actuatorFallback,
   },
 };
 
