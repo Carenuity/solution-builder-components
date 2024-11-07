@@ -1,4 +1,4 @@
-import { Button, Modal, Upload, message, Image as AntImage } from 'antd';
+import { Button, Modal, Upload, message, Image as AntImage, Flex } from 'antd';
 import { useTheme } from 'antd-style';
 import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import ReactCrop, {
@@ -8,7 +8,7 @@ import ReactCrop, {
   PercentCrop,
 } from 'react-image-crop';
 import { IImageCropper } from './ImageCropper.types';
-import { UploadOutlined } from '@ant-design/icons';
+import { ExpandOutlined, UploadOutlined } from '@ant-design/icons';
 import 'react-image-crop/dist/ReactCrop.css';
 import {
   setOffCanvasPreview,
@@ -71,16 +71,9 @@ const ImageCropper: React.FC<IImageCropper> = ({
       borderRadius: 0,
       paddingInlineStart: 5,
     },
-    // body: {
-    //   boxShadow: 'inset 0 0 5px #999',
-    //   borderRadius: 5,
-    // },
     mask: {
       backdropFilter: 'blur(7px)',
     },
-    // footer: {
-    //   borderTop: '1px solid #333',
-    // },
     content: {
       boxShadow: '0 0 30px #999',
     },
@@ -131,65 +124,88 @@ const ImageCropper: React.FC<IImageCropper> = ({
 
   return (
     <>
-      {finalImageUrl && (
-        <>
+      <>
+        <Flex vertical={true} align={'center'}>
+          {/* Preview image */}
           <AntImage
             src={finalImageUrl}
             alt={'final image'}
             fallback={imageFallback}
           />
-          <Button
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
+
+          <Flex
+            gap={'1rem'}
+            justify={'space-around'}
+            align={'center'}
+            style={{ marginTop: '1rem' }}
           >
-            Edit
-          </Button>
-        </>
-      )}
+            {/* Upload button */}
+            <Upload<File>
+              accept={'image/*'}
+              itemRender={() => <></>}
+              onChange={(info) => {
+                const file = info.file.originFileObj;
+                if (file) {
+                  setOriginalFile(file);
+                  setMimeType(file.type);
 
-      {!finalImageUrl && (
-        <Upload<File>
-          name={'image'}
-          listType={'text'}
-          onChange={(info) => {
-            const file = info.file.originFileObj;
-            if (file) {
-              setOriginalFile(file);
-              setMimeType(file.type);
+                  const reader = new FileReader();
+                  reader.readAsDataURL(file);
+                  reader.onload = (e) => {
+                    const dataUrl = e.target?.result as string;
+                    if (!dataUrl) {
+                      return;
+                    }
 
-              const reader = new FileReader();
-              reader.readAsDataURL(file);
-              reader.onload = (e) => {
-                const dataUrl = e.target?.result as string;
-                if (!dataUrl) {
-                  return;
+                    // handle image load
+                    const image = new Image();
+                    image.src = dataUrl;
+
+                    image.addEventListener('load', (e: Event) => {
+                      const ct = e.currentTarget as HTMLImageElement;
+                      const { naturalWidth, naturalHeight } = ct;
+                      if (
+                        naturalWidth < minWidth ||
+                        naturalHeight < minHeight
+                      ) {
+                        message.error(
+                          `Image must be at least ${minWidth} x ${minHeight} pixels`
+                        );
+                        setUploadedImgData('');
+                        return;
+                      }
+                      setUploadedImgData(dataUrl);
+                      setIsModalOpen(true);
+                    });
+                  };
                 }
+              }}
+            >
+              <Button
+                title={'Upload'}
+                shape={'circle'}
+                variant={'filled'}
+                color={'primary'}
+                icon={<UploadOutlined />}
+              />
+            </Upload>
 
-                // handle image load
-                const image = new Image();
-                image.src = dataUrl;
-
-                image.addEventListener('load', (e: Event) => {
-                  const ct = e.currentTarget as HTMLImageElement;
-                  const { naturalWidth, naturalHeight } = ct;
-                  if (naturalWidth < minWidth || naturalHeight < minHeight) {
-                    message.error(
-                      `Image must be at least ${minWidth} x ${minHeight} pixels`
-                    );
-                    setUploadedImgData('');
-                    return;
-                  }
-                  setUploadedImgData(dataUrl);
+            {/* Edit button  */}
+            {finalImageUrl && (
+              <Button
+                title={'Crop'}
+                shape={'circle'}
+                variant={'filled'}
+                color={'primary'}
+                icon={<ExpandOutlined />}
+                onClick={() => {
                   setIsModalOpen(true);
-                });
-              };
-            }
-          }}
-        >
-          <Button icon={<UploadOutlined />}>Click to upload</Button>
-        </Upload>
-      )}
+                }}
+              />
+            )}
+          </Flex>
+        </Flex>
+      </>
 
       <Modal
         title="Image Crop"
@@ -221,7 +237,6 @@ const ImageCropper: React.FC<IImageCropper> = ({
             worker.postMessage({
               originalImageDimensions,
               imageBlob: originalFile,
-              // offScreenCanvas: offScreen,
               crop: cropPixel,
               pixelRatio: window.devicePixelRatio,
               preferredWidth: minWidth,
@@ -229,11 +244,12 @@ const ImageCropper: React.FC<IImageCropper> = ({
             setIsModalOpen(false);
           }
         }}
-        onCancel={() => setIsModalOpen(false)}
-        okText={'Crop'}
-        // loading={true}
-        // footer={<>Footer</>}
-        // classNames={classNames}
+        okText={
+          <>
+            <ExpandOutlined style={{ marginRight: '.5rem' }} /> Crop
+          </>
+        }
+        footer={(_, { OkBtn }) => <OkBtn />}
         styles={modalStyles}
       >
         {uploadedImgData && (

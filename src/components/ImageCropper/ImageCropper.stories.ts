@@ -22,6 +22,6 @@ export const HelloWorld: Story = {
   args: {
     isCircularCrop: true,
     minHeight: 300,
-    minWidth: 300,
+    minWidth: 100,
   },
 };
