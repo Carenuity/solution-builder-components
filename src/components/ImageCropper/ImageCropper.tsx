@@ -1,12 +1,7 @@
-import { Button, Modal, Upload, message, Image as AntImage, Flex } from 'antd';
+import { Button, Modal, Upload, Image as AntImage, Flex } from 'antd';
 import { useTheme } from 'antd-style';
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
-import ReactCrop, {
-  centerCrop,
-  convertToPixelCrop,
-  makeAspectCrop,
-  PercentCrop,
-} from 'react-image-crop';
+import React, { useEffect, useRef, useState } from 'react';
+import ReactCrop, { PercentCrop } from 'react-image-crop';
 import { IImageCropper } from './ImageCropper.types';
 import { ExpandOutlined, UploadOutlined } from '@ant-design/icons';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -15,6 +10,12 @@ import {
   getSizedImageBlob,
 } from './ImageCropper.worker.js';
 import { imageFallback } from '../../utils/constants.utils';
+import {
+  generateOnImageLoad,
+  getModalStyles,
+  handleFileUpload,
+  handleOnCrop,
+} from './ImageCropper.utils';
 
 const workerCode = `
   const setOffCanvasPreview = ${setOffCanvasPreview.toString()}
@@ -46,12 +47,15 @@ const ImageCropper: React.FC<IImageCropper> = ({
   minHeight,
   minWidth,
   isCircularCrop,
+  aspectRatio,
+  onCropChange,
+  previewRender,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploadedImgData, setUploadedImgData] = useState<string>();
   const [mimeType, setMimeType] = useState<string>();
   const [originalFile, setOriginalFile] = useState<File>();
-  const [worker, setWorker] = useState<Worker | null>(null);
+  const [worker, setWorker] = useState<Worker>();
   const [finalImageUrl, setFinalImageUrl] = useState<string>();
   const imgRef = useRef<HTMLImageElement>(null);
   const [crop, setCrop] = useState<PercentCrop>({
@@ -63,38 +67,9 @@ const ImageCropper: React.FC<IImageCropper> = ({
   });
 
   const token = useTheme();
-  const ASPECT_RATIO = Math.floor(minWidth / minHeight);
-
-  const modalStyles = {
-    header: {
-      borderLeft: `5px solid ${token.colorPrimary}`,
-      borderRadius: 0,
-      paddingInlineStart: 5,
-    },
-    mask: {
-      backdropFilter: 'blur(7px)',
-    },
-    content: {
-      boxShadow: '0 0 30px #999',
-    },
-  };
-
-  const onImageLoad = (e: SyntheticEvent<HTMLImageElement, Event>) => {
-    const { width, height } = e.currentTarget;
-    const cropWidthInPercent = (minWidth / width) * 100;
-
-    const crop = makeAspectCrop(
-      {
-        unit: '%',
-        width: cropWidthInPercent,
-      },
-      ASPECT_RATIO,
-      width,
-      height
-    );
-    const centeredCrop = centerCrop(crop, width, height);
-    setCrop(centeredCrop);
-  };
+  const modalStyles = getModalStyles(token);
+  const ASPECT_RATIO = aspectRatio;
+  const onImageLoad = generateOnImageLoad({ aspectRatio, minWidth, setCrop });
 
   useEffect(() => {
     const w = new Worker(
@@ -109,9 +84,10 @@ const ImageCropper: React.FC<IImageCropper> = ({
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
-        const dataUrl = e.target?.result;
+        const dataUrl = e.target?.result as string;
         if (dataUrl) {
-          setFinalImageUrl(dataUrl as string);
+          setFinalImageUrl(dataUrl);
+          onCropChange({ dataUrl, file });
         }
       };
     };
@@ -127,11 +103,14 @@ const ImageCropper: React.FC<IImageCropper> = ({
       <>
         <Flex vertical={true} align={'center'}>
           {/* Preview image */}
-          <AntImage
-            src={finalImageUrl}
-            alt={'final image'}
-            fallback={imageFallback}
-          />
+          {previewRender && previewRender(finalImageUrl)}
+          {!previewRender && (
+            <AntImage
+              src={finalImageUrl}
+              alt={'final image'}
+              fallback={imageFallback}
+            />
+          )}
 
           <Flex
             gap={'1rem'}
@@ -145,40 +124,15 @@ const ImageCropper: React.FC<IImageCropper> = ({
               itemRender={() => <></>}
               onChange={(info) => {
                 const file = info.file.originFileObj;
-                if (file) {
-                  setOriginalFile(file);
-                  setMimeType(file.type);
-
-                  const reader = new FileReader();
-                  reader.readAsDataURL(file);
-                  reader.onload = (e) => {
-                    const dataUrl = e.target?.result as string;
-                    if (!dataUrl) {
-                      return;
-                    }
-
-                    // handle image load
-                    const image = new Image();
-                    image.src = dataUrl;
-
-                    image.addEventListener('load', (e: Event) => {
-                      const ct = e.currentTarget as HTMLImageElement;
-                      const { naturalWidth, naturalHeight } = ct;
-                      if (
-                        naturalWidth < minWidth ||
-                        naturalHeight < minHeight
-                      ) {
-                        message.error(
-                          `Image must be at least ${minWidth} x ${minHeight} pixels`
-                        );
-                        setUploadedImgData('');
-                        return;
-                      }
-                      setUploadedImgData(dataUrl);
-                      setIsModalOpen(true);
-                    });
-                  };
-                }
+                handleFileUpload({
+                  file,
+                  minHeight,
+                  minWidth,
+                  setIsModalOpen,
+                  setMimeType,
+                  setOriginalFile,
+                  setUploadedImgData,
+                });
               }}
             >
               <Button
@@ -211,38 +165,15 @@ const ImageCropper: React.FC<IImageCropper> = ({
         title="Image Crop"
         open={isModalOpen}
         onOk={() => {
-          if (worker) {
-            // Get image dimensions
-            const img = imgRef.current;
-            if (!img || !originalFile) {
-              message.error('Something went wrong! Try again.');
-              return;
-            }
-
-            const originalImageDimensions = {
-              naturalWidth: img.naturalWidth,
-              naturalHeight: img.naturalHeight,
-              width: img.width,
-              height: img.height,
-              mimeType,
-            };
-
-            // Get crop dimensions
-            const cropPixel = convertToPixelCrop(
-              crop,
-              imgRef.current?.width,
-              imgRef.current?.height
-            );
-
-            worker.postMessage({
-              originalImageDimensions,
-              imageBlob: originalFile,
-              crop: cropPixel,
-              pixelRatio: window.devicePixelRatio,
-              preferredWidth: minWidth,
-            });
-            setIsModalOpen(false);
-          }
+          handleOnCrop({
+            crop,
+            imgRef,
+            minWidth,
+            setIsModalOpen,
+            mimeType,
+            originalFile,
+            worker,
+          });
         }}
         okText={
           <>

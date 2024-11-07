@@ -21,7 +21,11 @@ type Story = StoryObj<typeof meta>;
 export const HelloWorld: Story = {
   args: {
     isCircularCrop: true,
-    minHeight: 300,
-    minWidth: 100,
+    minHeight: 500,
+    minWidth: 300,
+    aspectRatio: 16 / 9,
+    onCropChange: (params) => {
+      console.log(params);
+    },
   },
 };
