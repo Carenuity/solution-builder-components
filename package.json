@@ -20,6 +20,7 @@
     "prepare": "husky || true"
   },
   "dependencies": {
+    "antd-style": "^3.7.1",
     "react-highlight-words": "^0.20.0",
     "react-image-crop": "^11.0.7"
   },
@@ -73,9 +74,7 @@
   "peerDependencies": {
     "@ant-design/icons": "^5.5.1",
     "antd": "^5.21.6",
-    "antd-style": "^3.7.1",
     "axios": "^1.7.7",
-    "esp-web-tools": "9.4.3",
     "react": "^18",
     "react-dom": "^18"
   },

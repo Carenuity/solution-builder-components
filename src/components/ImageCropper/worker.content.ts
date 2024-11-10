@@ -1,4 +1,5 @@
-export const setOffCanvasPreview = async ({
+export const workerFileContent = `
+const setOffCanvasPreview = async ({
   originalImageDimensions,
   imageBlob,
   crop,
@@ -67,7 +68,7 @@ export const setOffCanvasPreview = async ({
   return file;
 };
 
-export const getSizedImageBlob = async ({
+const getSizedImageBlob = async ({
   mimeType,
   width,
   naturalWidth,
@@ -121,3 +122,5 @@ self.onmessage = async function (e) {
 
   self.postMessage({ file });
 };
+
+`;
