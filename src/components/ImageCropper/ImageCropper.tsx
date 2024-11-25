@@ -19,6 +19,7 @@ const ImageCropper: React.FC<IImageCropper> = ({
   minWidth,
   isCircularCrop,
   aspectRatio,
+  fallbackImageUrl,
   onCropChange,
   previewRender,
 }) => {
@@ -79,7 +80,7 @@ const ImageCropper: React.FC<IImageCropper> = ({
             <AntImage
               src={finalImageUrl}
               alt={'final image'}
-              fallback={imageFallback}
+              fallback={fallbackImageUrl || imageFallback}
             />
           )}
 
@@ -92,9 +93,7 @@ const ImageCropper: React.FC<IImageCropper> = ({
             {/* Upload button */}
             <Upload<File>
               accept={'image/*'}
-              itemRender={() => <></>}
-              onChange={(info) => {
-                const file = info.file.originFileObj;
+              beforeUpload={(file) => {
                 handleFileUpload({
                   file,
                   minHeight,
@@ -104,7 +103,9 @@ const ImageCropper: React.FC<IImageCropper> = ({
                   setOriginalFile,
                   setUploadedImgData,
                 });
+                return false;
               }}
+              itemRender={() => <></>}
             >
               <Button
                 title={'Upload'}

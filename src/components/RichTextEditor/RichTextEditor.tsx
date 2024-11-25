@@ -23,7 +23,7 @@ const formats = [
   'link',
 ];
 
-const RichTextEditor: React.FC = React.forwardRef<
+const RichTextEditor = React.forwardRef<
   ReactQuill,
   React.PropsWithRef<ReactQuillProps>
 >((props, ref) => {

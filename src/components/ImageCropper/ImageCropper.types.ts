@@ -10,6 +10,7 @@ export interface IImageCropper {
   minWidth: number;
   minHeight: number;
   isCircularCrop: boolean;
+  fallbackImageUrl?: string;
   aspectRatio: number;
   onCropChange: (params: IOnCropChangeParams) => void;
   previewRender?: (dataUrl?: string) => ReactNode;
