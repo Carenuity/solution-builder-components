@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "antd-style": "^3.7.1",
+    "countries-list": "^3.1.1",
     "react-highlight-words": "^0.20.0",
     "react-image-crop": "^11.0.7",
     "react-quill": "^2.0.0"

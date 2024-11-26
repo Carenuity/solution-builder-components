@@ -5,3 +5,4 @@ export { default as MyApplications } from './MyApplications';
 export { default as ImageCropper } from './ImageCropper';
 export { default as RichTextEditor } from './RichTextEditor';
 export { default as EditEcosystem } from './EditEcosystem';
+export { default as EditSchool } from './EditSchool';
