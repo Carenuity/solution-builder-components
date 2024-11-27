@@ -2,22 +2,23 @@ import { Col, Form, FormProps, Input, message, Row } from 'antd';
 import React, { PropsWithRef, useState } from 'react';
 import RichTextEditor from '../RichTextEditor';
 import ImageCropper from '../ImageCropper';
-import { CustomFormProps, EditCompanyFormFieldType } from './EditCompany.types';
-import SelectCountry from '../common/SelectCountry';
+import {
+  CustomFormProps,
+  EditApplicationFormFieldType,
+} from './EditApplication.types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const EditCompany = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
-  ({ SubmitButton, dispatch, mode, company, ...extraProps }, ref) => {
-    const [description, setDescription] = useState(company?.description);
+const EditApplication = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
+  ({ SubmitButton, dispatch, mode, application, ...extraProps }, ref) => {
+    const [description, setDescription] = useState(application?.description);
     const [logoFile, setLogoFile] = useState<File>();
     const [bannerFile, setBannerFile] = useState<File>();
 
     const componentVariant = 'filled';
     const formLayout = 'vertical';
 
-    const onFinish: FormProps<EditCompanyFormFieldType>['onFinish'] = ({
+    const onFinish: FormProps<EditApplicationFormFieldType>['onFinish'] = ({
       name,
-      country,
       description,
     }) => {
       const formData = new FormData();
@@ -27,22 +28,21 @@ const EditCompany = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
         formData.set('description', description);
       }
 
-      formData.set('country', country);
-
       if (mode === 'create') {
         if (logoFile) {
           formData.set('logo', logoFile);
         } else {
-          message.error('Please upload company logo!');
+          message.error('Please upload application logo!');
           return;
         }
 
         if (bannerFile) {
           formData.set('banner', bannerFile);
-        } else {
-          message.error('Please upload company banner!');
-          return;
         }
+        // else {
+        //   message.error('Please upload application banner!');
+        //   return;
+        // }
       }
 
       if (dispatch) {
@@ -60,7 +60,7 @@ const EditCompany = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
           {...extraProps}
           ref={ref}
         >
-          {/* Company name Field */}
+          {/* Application name Field */}
           <Form.Item
             name={'name'}
             label="Name"
@@ -69,26 +69,12 @@ const EditCompany = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
               { type: 'string', warningOnly: true },
               { type: 'string', max: 255 },
             ]}
-            initialValue={company?.name}
+            initialValue={application?.name}
           >
-            <Input placeholder="company name" maxLength={255} />
+            <Input placeholder="application name" maxLength={255} />
           </Form.Item>
 
-          {/* Company country Field */}
-          <Form.Item
-            name={'country'}
-            label="Country"
-            rules={[
-              { required: true },
-              { type: 'string', warningOnly: true },
-              { type: 'string', max: 150 },
-            ]}
-            initialValue={company?.country}
-          >
-            <SelectCountry />
-          </Form.Item>
-
-          {/* Company description Field */}
+          {/* Application description Field */}
           <Form.Item
             name={'description'}
             label="Description"
@@ -102,7 +88,7 @@ const EditCompany = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
           {mode === 'create' && (
             <Row gutter={16}>
               <Col xs={24} md={6}>
-                {/* Company logo Field */}
+                {/* Application logo Field */}
                 <Form.Item label="Logo" required>
                   <ImageCropper
                     fallbackImageUrl={`https://image-placeholder.com/images/actual-size/200x200.png`}
@@ -118,8 +104,8 @@ const EditCompany = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
               </Col>
 
               <Col className="gutter-row" md={18} xs={24}>
-                {/* Company banner Field */}
-                <Form.Item label="Banner" required>
+                {/* Application banner Field */}
+                <Form.Item label="Banner">
                   <ImageCropper
                     fallbackImageUrl={`https://image-placeholder.com/images/actual-size/1136x640.png`}
                     aspectRatio={16 / 9}
@@ -143,4 +129,4 @@ const EditCompany = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
   }
 );
 
-export default EditCompany;
+export default EditApplication;

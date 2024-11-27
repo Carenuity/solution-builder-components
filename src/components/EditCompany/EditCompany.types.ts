@@ -4,7 +4,7 @@ import { ComponentType } from 'react';
 export type EditCompanyFormFieldType = {
   name: string;
   country: string;
-  description: string;
+  description?: string;
 };
 
 export interface CustomFormProps extends FormProps {

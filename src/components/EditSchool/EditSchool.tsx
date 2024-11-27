@@ -23,7 +23,11 @@ const EditSchool = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
     }) => {
       const formData = new FormData();
       formData.set('name', name);
-      formData.set('description', description);
+
+      if (description) {
+        formData.set('description', description);
+      }
+
       formData.set('country', country);
       formData.set('url', url);
 
@@ -101,7 +105,7 @@ const EditSchool = React.forwardRef<any, PropsWithRef<CustomFormProps>>(
           <Form.Item
             name={'description'}
             label="Description"
-            rules={[{ required: true }, { type: 'string', warningOnly: true }]}
+            // rules={[{ required: true }, { type: 'string', warningOnly: true }]}
             initialValue={description}
           >
             <RichTextEditor value={description} onChange={setDescription} />

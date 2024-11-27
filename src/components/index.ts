@@ -6,3 +6,5 @@ export { default as ImageCropper } from './ImageCropper';
 export { default as RichTextEditor } from './RichTextEditor';
 export { default as EditEcosystem } from './EditEcosystem';
 export { default as EditSchool } from './EditSchool';
+export { default as EditCompany } from './EditCompany';
+export { default as EditApplication } from './EditApplication';
