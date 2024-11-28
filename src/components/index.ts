@@ -8,3 +8,4 @@ export { default as EditEcosystem } from './EditEcosystem';
 export { default as EditSchool } from './EditSchool';
 export { default as EditCompany } from './EditCompany';
 export { default as EditApplicationType } from './EditApplicationType';
+export { default as EditHandle } from './EditHandle';

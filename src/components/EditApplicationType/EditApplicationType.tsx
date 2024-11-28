@@ -11,8 +11,8 @@ const EditApplicationType = React.forwardRef<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any,
   PropsWithRef<CustomFormProps>
->(({ SubmitButton, dispatch, mode, application, ...extraProps }, ref) => {
-  const [description, setDescription] = useState(application?.description);
+>(({ SubmitButton, dispatch, mode, applicationType, ...extraProps }, ref) => {
+  const [description, setDescription] = useState(applicationType?.description);
   const [logoFile, setLogoFile] = useState<File>();
   const [bannerFile, setBannerFile] = useState<File>();
 
@@ -34,7 +34,7 @@ const EditApplicationType = React.forwardRef<
       if (logoFile) {
         formData.set('logo', logoFile);
       } else {
-        message.error('Please upload application logo!');
+        message.error('Please upload application type logo!');
         return;
       }
 
@@ -71,7 +71,7 @@ const EditApplicationType = React.forwardRef<
             { type: 'string', warningOnly: true },
             { type: 'string', max: 255 },
           ]}
-          initialValue={application?.name}
+          initialValue={applicationType?.name}
         >
           <Input placeholder="application name" maxLength={255} />
         </Form.Item>
