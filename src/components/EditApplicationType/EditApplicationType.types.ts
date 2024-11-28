@@ -1,7 +1,7 @@
 import { ButtonProps, FormProps } from 'antd';
 import { ComponentType } from 'react';
 
-export type EditApplicationFormFieldType = {
+export type EditApplicationTypeFormFieldType = {
   name: string;
   description?: string;
 };
@@ -9,6 +9,6 @@ export type EditApplicationFormFieldType = {
 export interface CustomFormProps extends FormProps {
   SubmitButton: ComponentType<ButtonProps>;
   mode: 'create' | 'update';
-  application?: EditApplicationFormFieldType;
+  application?: EditApplicationTypeFormFieldType;
   dispatch?: (formData: FormData) => void | Promise<void>;
 }
