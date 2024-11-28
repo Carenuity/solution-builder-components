@@ -12,7 +12,7 @@ export interface IImageCropper {
   isCircularCrop: boolean;
   fallbackImageUrl?: string;
   aspectRatio: number;
-  onCropChange: (params: IOnCropChangeParams) => void;
+  onCropChange?: (params: IOnCropChangeParams) => void;
   previewRender?: (dataUrl?: string) => ReactNode;
 }
 

@@ -9,3 +9,4 @@ export { default as EditSchool } from './EditSchool';
 export { default as EditCompany } from './EditCompany';
 export { default as EditApplicationType } from './EditApplicationType';
 export { default as EditHandle } from './EditHandle';
+export { default as EditImage } from './EditImage';

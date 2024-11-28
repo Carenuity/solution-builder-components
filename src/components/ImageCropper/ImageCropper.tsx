@@ -59,7 +59,9 @@ const ImageCropper: React.FC<IImageCropper> = ({
         const dataUrl = e.target?.result as string;
         if (dataUrl) {
           setFinalImageUrl(dataUrl);
-          onCropChange({ dataUrl, file });
+          if (onCropChange) {
+            onCropChange({ dataUrl, file });
+          }
         }
       };
     };
