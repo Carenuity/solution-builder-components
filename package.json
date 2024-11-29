@@ -22,6 +22,7 @@
   "dependencies": {
     "antd-style": "^3.7.1",
     "countries-list": "^3.1.1",
+    "qs": "^6.13.1",
     "react-highlight-words": "^0.20.0",
     "react-image-crop": "^11.0.7",
     "react-quill": "^2.0.0"
@@ -46,6 +47,7 @@
     "@storybook/react": "^8.4.5",
     "@storybook/react-webpack5": "^8.4.5",
     "@storybook/test": "^8.4.5",
+    "@types/qs": "^6.9.17",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "@types/react-highlight-words": "^0.20.0",
@@ -74,7 +76,7 @@
   ],
   "types": "dist/index.d.ts",
   "peerDependencies": {
-    "@ant-design/icons": "^5.5.1",
+    "@ant-design/icons": "^5.5.2",
     "antd": "^5.22.2",
     "axios": "^1.7.8",
     "react": "^18",
