@@ -4,6 +4,7 @@ import type { TableColumnsType, TableProps } from 'antd';
 import { DataType } from './index.types';
 import { CreateApplicationContext } from '../CreateApplicationProvider';
 import { getSolutionTemplates } from './index.utils';
+import SolutionTemplateNotFound from './index.not-found';
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -107,20 +108,32 @@ const SelectSolutionTemplate: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <Table<DataType>
-        {...tableProps}
-        rowSelection={{
-          type: selectionType,
-          ...rowSelection,
-          defaultSelectedRowKeys: state.solution?.id
-            ? [state.solution.id]
-            : undefined,
-        }}
-        columns={columns}
-        dataSource={solutions}
-      />
-    </div>
+    <>
+      <div>
+        {!loading && solutions.length === 0 && (
+          <SolutionTemplateNotFound
+            actuator={state.actuator?.name}
+            microcontroller={state.microcontroller?.name}
+            sensor={state.sensor?.name}
+          />
+        )}
+
+        {(loading || solutions.length > 0) && (
+          <Table<DataType>
+            {...tableProps}
+            rowSelection={{
+              type: selectionType,
+              ...rowSelection,
+              defaultSelectedRowKeys: state.solution?.id
+                ? [state.solution.id]
+                : undefined,
+            }}
+            columns={columns}
+            dataSource={solutions}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

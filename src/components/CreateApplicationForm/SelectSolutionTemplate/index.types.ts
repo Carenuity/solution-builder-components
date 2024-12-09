@@ -14,3 +14,14 @@ export type SolutionTemplate = {
   sensor_id: string;
   avatars: Avatar[];
 };
+
+export type TripleItem = {
+  id: 'Actuator' | 'Micro-controller' | 'Sensor';
+  name?: string;
+};
+
+export type SolutionTemplateNotFoundProps = {
+  sensor?: string;
+  microcontroller?: string;
+  actuator?: string;
+};

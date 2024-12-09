@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Steps, theme } from 'antd';
+import { Alert, Button, Flex, Steps, theme } from 'antd';
 import SelectShields from './SelectShields';
 import { CreateApplicationProvider } from './CreateApplicationProvider';
 import SelectSolutionTemplate from './SelectSolutionTemplate';
@@ -9,6 +9,7 @@ import UploadBinaries from './UploadBinaries';
 import CreateButton from './CreateButton';
 import { ICreateApplicationForm } from './CreateApplication.types';
 import NextButton from './NextButton';
+import { ExportOutlined } from '@ant-design/icons';
 
 const steps = [
   {
@@ -76,6 +77,37 @@ const CreateApplicationForm: React.FC<ICreateApplicationForm> = ({
   return (
     <>
       <CreateApplicationProvider>
+        <Alert
+          message={
+            <Flex justify={'end'} align={'center'}>
+              <div className="">
+                Feeling stuck?
+                <Button
+                  type={'link'}
+                  href={
+                    'https://www.hackster.io/Mwala/deploy-your-next-iot-application-on-solutions-carenuity-com-cc98f5'
+                  }
+                  target={'_blank'}
+                  referrerPolicy={'no-referrer'}
+                  style={{ padding: '.2rem' }}
+                  icon={<ExportOutlined />}
+                  iconPosition={'end'}
+                >
+                  Find help here
+                </Button>
+              </div>
+            </Flex>
+          }
+          type="info"
+          showIcon
+          style={{
+            borderRadius: 0,
+            borderTop: 0,
+            borderBottom: 0,
+            marginBottom: '.7rem',
+          }}
+        />
+
         <Steps
           current={current}
           percent={steps[current].percent}
