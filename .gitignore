@@ -43,3 +43,6 @@ env.yaml
 # "axios": "^1.7.7",
 .env
 .npmrc
+
+# storybook build
+storybook-static/

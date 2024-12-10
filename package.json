@@ -1,6 +1,6 @@
 {
   "name": "test-carenuity-sbc",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Solution Builder UI component library",
   "license": "MIT",
   "author": "Paul Otieno",
@@ -66,7 +66,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^8.4.5",
     "tslib": "^2.7.0",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "typescript-eslint": "^8.8.1"
   },
   "main": "dist/index.js",
@@ -77,8 +77,8 @@
   "types": "dist/index.d.ts",
   "peerDependencies": {
     "@ant-design/icons": "^5.5.2",
-    "antd": "^5.22.2",
-    "axios": "^1.7.8",
+    "antd": "^5.22.4",
+    "axios": "^1.7.9",
     "react": "^18",
     "react-dom": "^18"
   },

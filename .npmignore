@@ -12,3 +12,6 @@
 commitlint.config.mjs
 eslint.config.mjs
 rollup.config.mjs
+
+# storybook build
+/storybook-static
