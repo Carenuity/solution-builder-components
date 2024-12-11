@@ -5,7 +5,7 @@ import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 
 export default [
   {
-    ignores: ['dist/', 'node_modules/', 'src/stories/'],
+    ignores: ['dist/', 'node_modules/', 'src/stories/', 'storybook-static/'],
   },
   { files: ['src/**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   { languageOptions: { globals: globals.browser } },

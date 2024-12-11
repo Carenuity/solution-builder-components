@@ -66,10 +66,10 @@ const SolutionTemplateNotFound: React.FC<SolutionTemplateNotFoundProps> = ({
                 )}
               />
               <br />
-              This is required to proceed creating your application.
+              Solution groups are required to proceed sharing your application.
             </p>
-            To request it, click on the button below. We are truly sorry for
-            this inconvenience.
+            To request it, click on the button below. We are happy to expand for
+            this new solution group.
           </>
         }
         extra={[
@@ -81,7 +81,7 @@ const SolutionTemplateNotFound: React.FC<SolutionTemplateNotFoundProps> = ({
             icon={<MailOutlined />}
             href={`mailto:max.mergenthaler@chipglobe.com,paul.otieno@chipglobe.com,timothy.mwala@chipglobe.com?${generateMailContent({ actuator: actuator, board: microcontroller, sensor: sensor })}`}
           >
-            Request Solution Group
+            Request New Solution Group
           </Button>,
         ]}
       />
