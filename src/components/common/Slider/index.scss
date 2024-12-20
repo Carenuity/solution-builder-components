@@ -1,0 +1,99 @@
+$primary: #111a; // #262c56;
+$secondary: #3d8346; // #32396b;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.slider {
+  width: 100%;
+  background-color: $primary;
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.8rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider .icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 100%;
+  padding: 0.3rem;
+
+  display: flex;
+  align-items: center;
+}
+
+// Add hide class using js code
+.slider .icon.hide {
+  display: none;
+}
+
+.icon .left-arrow,
+.icon .right-arrow {
+  display: inline-block;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  text-align: center;
+  font:
+    200 1.5rem / 2.4rem 'poppins',
+    sans-serif;
+}
+
+.icon span:hover {
+  background-color: #fff2;
+  cursor: pointer;
+}
+
+.slider .icon:first-child {
+  left: 0;
+  background: linear-gradient(to right, $primary 45%, transparent);
+}
+
+.slider .icon:last-child {
+  background: linear-gradient(to left, $primary 45%, transparent);
+  justify-content: flex-end;
+  right: 0;
+}
+
+.slider .tabs {
+  max-width: 99%;
+  list-style: none;
+
+  display: flex;
+  gap: 0.8rem;
+
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.slider .tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs .tab {
+  white-space: nowrap;
+  background-color: $secondary;
+  padding: 0.2rem 0.45rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  border-radius: 1.5rem;
+  transition: 0.2s ease-in-out;
+}
+
+.tabs .tab:hover {
+  background-color: #fff2;
+  cursor: pointer;
+}
+
+// Add active class with js
+.tabs .tab.active {
+  background-color: whitesmoke;
+  color: #111;
+}
