@@ -11,8 +11,8 @@ $secondary: #3d8346; // #32396b;
   width: 100%;
   background-color: $primary;
   color: #fff;
-  padding: 0.5rem 0.8rem;
-  border-radius: 0.8rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 2rem;
   position: relative;
   overflow: hidden;
 }
@@ -63,7 +63,7 @@ $secondary: #3d8346; // #32396b;
 }
 
 .slider .tabs {
-  max-width: 99%;
+  max-width: 100%;
   list-style: none;
 
   display: flex;
@@ -80,9 +80,10 @@ $secondary: #3d8346; // #32396b;
 .tabs .tab {
   white-space: nowrap;
   background-color: $secondary;
-  padding: 0.2rem 0.45rem;
-  font-size: 1rem;
-  line-height: 1rem;
+  padding: 0.02rem 0.45rem;
+  padding-left: 0;
+  font-size: 1rem !important;
+  line-height: 1rem !important;
   border-radius: 1.5rem;
   transition: 0.2s ease-in-out;
 }

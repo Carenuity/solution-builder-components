@@ -1,4 +1,4 @@
-type SliderItem = {
+export type SliderItem = {
   avatar?: string;
   name: string;
   id: string;

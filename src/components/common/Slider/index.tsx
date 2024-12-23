@@ -86,10 +86,9 @@ const Slider: React.FC<SliderProps> = ({
                       src={avatar}
                       size={'small'}
                       icon={<CheckOutlined />}
-                      style={{ marginRight: '.3rem' }}
                     />
                   )}
-                  {name}
+                  <span style={{ marginLeft: '0.45rem' }}>{name}</span>
                 </Flex>
               </Link>
             </li>
