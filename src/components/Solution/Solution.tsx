@@ -53,11 +53,11 @@ const Solution: React.FC<SolutionProps> = (props) => {
 
         <Col xs={24} md={17}>
           <Tabs
-            defaultActiveKey="Preview"
+            defaultActiveKey={`Preview-${props.id}`}
             tabPosition={'bottom'}
             centered
             items={tabs.map(({ content, label, icon }) => ({
-              key: label,
+              key: `${label.toLowerCase()}-${props.id}`,
               label,
               children: content,
               icon,

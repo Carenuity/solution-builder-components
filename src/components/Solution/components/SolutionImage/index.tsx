@@ -1,15 +1,15 @@
-import { LoadingOutlined, ShareAltOutlined } from '@ant-design/icons';
-import { Flex, FloatButton, Image } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Flex, Image } from 'antd';
 import React, { useState } from 'react';
-import { borderRadius, screenThreshold } from '../../Solution.constants';
-import { useScreenSize } from '../../Solution.hooks';
+import { borderRadius } from '../../Solution.constants';
 import { SolutionImageProps } from './index.types';
+import ShareButton from './components/ShareButton';
 
 const SolutionImage: React.FC<SolutionImageProps> = ({
   imageUrl,
   fallbackImage,
+  ...shareButtonProps
 }) => {
-  const { width } = useScreenSize();
   const [loadingImage, setLoadingImage] = useState(true);
 
   return (
@@ -21,16 +21,8 @@ const SolutionImage: React.FC<SolutionImageProps> = ({
         height: '100%',
       }}
     >
-      <FloatButton
-        tooltip={'share'}
-        icon={<ShareAltOutlined />}
-        style={{
-          position: 'absolute',
-          bottom: width > screenThreshold ? '45%' : '-7%',
-          right: width > screenThreshold ? '-12%' : '45%',
-        }}
-        onClick={() => console.log('onClick')}
-      />
+      {/* Solution Share button */}
+      <ShareButton {...shareButtonProps} />
 
       {loadingImage && <LoadingOutlined style={{ fontSize: '2rem' }} />}
 

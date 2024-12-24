@@ -31,9 +31,9 @@ export type SolutionPreviewProps = {
   isVerified?: boolean;
   rating?: number;
   shopUrl?: string;
-  setApplicationPageUrl?: (id: string) => string;
+  setApplicationPageUrl?: (applicationId: string) => string;
   setManufacturerSolutionsPageUrl?: (
-    id: string,
+    manufacturerId: string,
     type: 'sensor' | 'micro-controller' | 'actuator'
   ) => string;
 };

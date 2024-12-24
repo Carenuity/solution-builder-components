@@ -1,7 +1,7 @@
 import {
-  CheckOutlined,
   CloseOutlined,
   CodeOutlined,
+  SafetyOutlined,
   ShoppingCartOutlined,
   StarOutlined,
   TeamOutlined,
@@ -171,7 +171,7 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
           {/* Verification Statistics */}
           {isVerified && (
             <SolutionStatistic
-              icon={<CheckOutlined />}
+              icon={<SafetyOutlined />}
               title={'Verification'}
               value={'Tested'}
               valueColor={'#3f8600'}

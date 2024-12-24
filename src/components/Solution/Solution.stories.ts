@@ -29,6 +29,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const HelloWorld: Story = {
   args: {
+    id: '1',
     applicationCategories: sliderProps.items,
     name: `Air-Quality-Meter: Air Quality (VOCs, CO2 and Humidity) by SGP30
               (SENSIRION) - C3-Mini`,
@@ -75,6 +76,11 @@ export const HelloWorld: Story = {
         case 'actuator':
           return `actuators/${id}`;
       }
+    },
+    generateCopyableUrl: (solutionId) =>
+      `https://solutions.carenuity.com/solutions/${solutionId}`,
+    generateEmbedding(solutionId) {
+      return `<iframe width="560" height="315" src="https://www.youtube.com/embed/l--a30OOf8k?si=qdLrk7g2qM7al6eD&id=${solutionId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
     },
   },
 };
