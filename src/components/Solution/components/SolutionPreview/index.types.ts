@@ -28,7 +28,7 @@ export type SolutionPreviewProps = {
   ecosystem?: SolutionEcosystem;
   contributors?: number;
   totalApplications?: number;
-  isVerified?: boolean;
+  // isVerified?: boolean;
   rating?: number;
   shopUrl?: string;
   setApplicationPageUrl?: (applicationId: string) => string;

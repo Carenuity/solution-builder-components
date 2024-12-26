@@ -1,7 +1,5 @@
 import {
-  CloseOutlined,
   CodeOutlined,
-  SafetyOutlined,
   ShoppingCartOutlined,
   StarOutlined,
   TeamOutlined,
@@ -23,7 +21,6 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
   name,
   sensor,
   contributors,
-  isVerified,
   rating,
   shopUrl,
   totalApplications,
@@ -169,7 +166,7 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
           )}
 
           {/* Verification Statistics */}
-          {isVerified && (
+          {/* {isVerified && (
             <SolutionStatistic
               icon={<SafetyOutlined />}
               title={'Verification'}
@@ -184,7 +181,7 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
               value={'Pending'}
               valueColor={'#DC3545'}
             />
-          )}
+          )} */}
 
           {/* Rating Statistics */}
           {rating && (

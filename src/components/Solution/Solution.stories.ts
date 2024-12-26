@@ -60,7 +60,7 @@ export const HelloWorld: Story = {
       logo: ecosystemImage,
     },
     contributors: 10,
-    isVerified: true,
+    // isVerified: true,
     rating: 5,
     totalApplications: 20,
     shopUrl: '#',

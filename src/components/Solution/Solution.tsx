@@ -2,7 +2,7 @@ import { Col, Row, Tabs } from 'antd';
 import React from 'react';
 import { SolutionProps, SolutionTab } from './Solution.types';
 import {
-  AppstoreOutlined,
+  DownloadOutlined,
   HomeOutlined,
   ReadOutlined,
 } from '@ant-design/icons';
@@ -25,8 +25,8 @@ const Solution: React.FC<SolutionProps> = (props) => {
       content: <SolutionPreview {...props} />,
     },
     {
-      label: 'Applications',
-      icon: <AppstoreOutlined />,
+      label: 'Install for free',
+      icon: <DownloadOutlined />,
       content: 'Something here',
     },
     {
@@ -57,7 +57,7 @@ const Solution: React.FC<SolutionProps> = (props) => {
             tabPosition={'bottom'}
             centered
             items={tabs.map(({ content, label, icon }) => ({
-              key: `${label.toLowerCase()}-${props.id}`,
+              key: `${label.toLowerCase().replaceAll(' ', '-')}-${props.id}`,
               label,
               children: content,
               icon,
