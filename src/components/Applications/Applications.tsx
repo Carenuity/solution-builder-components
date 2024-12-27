@@ -21,10 +21,13 @@ import {
   Flex,
   List,
   Popover,
+  Select,
   Space,
   Typography,
 } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useScreenSize } from '../common/hooks/ScreenSize.hook';
+import { screenThreshold } from '../Solution/Solution.constants';
 
 const { Text } = Typography;
 
@@ -46,6 +49,13 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
 );
 
 const Applications = () => {
+  const { width } = useScreenSize();
+  const [isMobile, setIsMobile] = useState(width < screenThreshold);
+
+  useEffect(() => {
+    setIsMobile(width < screenThreshold);
+  }, [width]);
+
   return (
     <>
       <List
@@ -141,6 +151,16 @@ const Applications = () => {
                     />
                   </Popover>
                 </>,
+                <Button
+                  href={'#'}
+                  target={'_blank'}
+                  referrerPolicy={'no-referrer'}
+                  title={'Repository'}
+                  type={'link'}
+                  size={'small'}
+                  icon={<GithubOutlined />}
+                  style={{ color: 'rgba(0,0,0,0.45)' }}
+                />,
                 <>
                   <Popover
                     title={'Request Modification'}
@@ -160,21 +180,22 @@ const Applications = () => {
               ]}
               extra={
                 <>
-                  <Flex
-                    vertical={true}
-                    justify={'center'}
-                    align={'center'}
-                    style={{ height: '100%' }}
-                  >
-                    <Button
-                      type={'primary'}
-                      shape={'round'}
-                      size={'large'}
-                      icon={<DownloadOutlined />}
+                  {!isMobile && (
+                    <Flex
+                      vertical={true}
+                      justify={'center'}
+                      align={'center'}
+                      style={{ height: '100%' }}
                     >
-                      Install
-                    </Button>
-                  </Flex>
+                      <Button
+                        type={'primary'}
+                        shape={'round'}
+                        icon={<DownloadOutlined />}
+                      >
+                        Install
+                      </Button>
+                    </Flex>
+                  )}
                 </>
               }
             >
@@ -188,151 +209,181 @@ const Applications = () => {
                         Embedded System Engineer
                       </Text>
 
-                      <Space direction={'horizontal'} wrap>
-                        <Button
-                          title="LinkedIn"
-                          href={'#'}
-                          type={'link'}
-                          target={'_blank'}
-                          referrerPolicy={'no-referrer'}
-                          icon={
-                            <Avatar
-                              icon={
-                                <LinkedinOutlined
-                                  style={{ color: '#0077B5' }}
-                                />
-                              }
-                              size={'small'}
-                              style={{ backgroundColor: 'transparent' }}
-                            />
-                          }
-                        />
-                        <Button
-                          title="Instagram"
-                          href={'#'}
-                          type={'link'}
-                          target={'_blank'}
-                          referrerPolicy={'no-referrer'}
-                          icon={
-                            <Avatar
-                              icon={
-                                <InstagramOutlined
-                                  style={{ color: '#c1558b' }}
-                                />
-                              }
-                              style={{ backgroundColor: 'transparent' }}
-                              size={'small'}
-                            />
-                          }
-                        />
-                        <Button
-                          title="Facebook"
-                          href={'#'}
-                          type={'link'}
-                          target={'_blank'}
-                          referrerPolicy={'no-referrer'}
-                          icon={
-                            <Avatar
-                              icon={
-                                <FacebookOutlined
-                                  style={{ color: '#3b5998' }}
-                                />
-                              }
-                              style={{ backgroundColor: 'transparent' }}
-                              size={'small'}
-                            />
-                          }
-                        />
-                        <Button
-                          title="X"
-                          href={'#'}
-                          type={'link'}
-                          target={'_blank'}
-                          referrerPolicy={'no-referrer'}
-                          icon={
-                            <Avatar
-                              icon={<XOutlined style={{ color: '#111' }} />}
-                              style={{ backgroundColor: 'transparent' }}
-                              size={'small'}
-                            />
-                          }
-                        />
-                        <Button
-                          title="Github"
-                          href={'#'}
-                          type={'link'}
-                          target={'_blank'}
-                          referrerPolicy={'no-referrer'}
-                          icon={
-                            <Avatar
-                              icon={
-                                <GithubOutlined style={{ color: '#24292e' }} />
-                              }
-                              style={{ backgroundColor: 'transparent' }}
-                              size={'small'}
-                            />
-                          }
-                        />
-                        <Button
-                          title="YouTube"
-                          href={'#'}
-                          type={'link'}
-                          target={'_blank'}
-                          referrerPolicy={'no-referrer'}
-                          icon={
-                            <Avatar
-                              icon={
-                                <YoutubeOutlined style={{ color: '#CD201F' }} />
-                              }
-                              style={{ backgroundColor: 'transparent' }}
-                              size={'small'}
-                            />
-                          }
-                        />
-                        <Button
-                          title="Hackster.io"
-                          href={'#'}
-                          type={'link'}
-                          target={'_blank'}
-                          referrerPolicy={'no-referrer'}
-                          icon={
-                            <Avatar
-                              src={
-                                'https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fsocial_handle%252F1733818250451_hackster-io.png%3Falt%3Dmedia%26token%3D5a5f8d36-82f9-4551-9086-3ea6a88ccc8e&w=48&q=75'
-                              }
-                              icon={
-                                <AndroidOutlined style={{ color: '#ccc' }} />
-                              }
-                              style={{ backgroundColor: 'transparent' }}
-                              size={'small'}
-                            />
-                          }
-                        />
-                        <Button
-                          title="Wokwi"
-                          href={'#'}
-                          type={'link'}
-                          target={'_blank'}
-                          referrerPolicy={'no-referrer'}
-                          icon={
-                            <Avatar
-                              src={
-                                'https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fsocial_handle%252F1733818219677_wokwi.png%3Falt%3Dmedia%26token%3Da1b269f3-1fc4-4d99-8965-7289c7512fb3&w=48&q=75'
-                              }
-                              icon={
-                                <AndroidOutlined style={{ color: '#ccc' }} />
-                              }
-                              style={{ backgroundColor: 'transparent' }}
-                              size={'small'}
-                            />
-                          }
-                        />
-                      </Space>
+                      {!isMobile && (
+                        <Space direction={'horizontal'} wrap>
+                          <Button
+                            title="LinkedIn"
+                            href={'#'}
+                            type={'link'}
+                            target={'_blank'}
+                            referrerPolicy={'no-referrer'}
+                            icon={
+                              <Avatar
+                                icon={
+                                  <LinkedinOutlined
+                                    style={{ color: '#0077B5' }}
+                                  />
+                                }
+                                size={'small'}
+                                style={{ backgroundColor: 'transparent' }}
+                              />
+                            }
+                          />
+                          <Button
+                            title="Instagram"
+                            href={'#'}
+                            type={'link'}
+                            target={'_blank'}
+                            referrerPolicy={'no-referrer'}
+                            icon={
+                              <Avatar
+                                icon={
+                                  <InstagramOutlined
+                                    style={{ color: '#c1558b' }}
+                                  />
+                                }
+                                style={{ backgroundColor: 'transparent' }}
+                                size={'small'}
+                              />
+                            }
+                          />
+                          <Button
+                            title="Facebook"
+                            href={'#'}
+                            type={'link'}
+                            target={'_blank'}
+                            referrerPolicy={'no-referrer'}
+                            icon={
+                              <Avatar
+                                icon={
+                                  <FacebookOutlined
+                                    style={{ color: '#3b5998' }}
+                                  />
+                                }
+                                style={{ backgroundColor: 'transparent' }}
+                                size={'small'}
+                              />
+                            }
+                          />
+                          <Button
+                            title="X"
+                            href={'#'}
+                            type={'link'}
+                            target={'_blank'}
+                            referrerPolicy={'no-referrer'}
+                            icon={
+                              <Avatar
+                                icon={<XOutlined style={{ color: '#111' }} />}
+                                style={{ backgroundColor: 'transparent' }}
+                                size={'small'}
+                              />
+                            }
+                          />
+                          <Button
+                            title="Github"
+                            href={'#'}
+                            type={'link'}
+                            target={'_blank'}
+                            referrerPolicy={'no-referrer'}
+                            icon={
+                              <Avatar
+                                icon={
+                                  <GithubOutlined
+                                    style={{ color: '#24292e' }}
+                                  />
+                                }
+                                style={{ backgroundColor: 'transparent' }}
+                                size={'small'}
+                              />
+                            }
+                          />
+                          <Button
+                            title="YouTube"
+                            href={'#'}
+                            type={'link'}
+                            target={'_blank'}
+                            referrerPolicy={'no-referrer'}
+                            icon={
+                              <Avatar
+                                icon={
+                                  <YoutubeOutlined
+                                    style={{ color: '#CD201F' }}
+                                  />
+                                }
+                                style={{ backgroundColor: 'transparent' }}
+                                size={'small'}
+                              />
+                            }
+                          />
+                          <Button
+                            title="Hackster.io"
+                            href={'#'}
+                            type={'link'}
+                            target={'_blank'}
+                            referrerPolicy={'no-referrer'}
+                            icon={
+                              <Avatar
+                                src={
+                                  'https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fsocial_handle%252F1733818250451_hackster-io.png%3Falt%3Dmedia%26token%3D5a5f8d36-82f9-4551-9086-3ea6a88ccc8e&w=48&q=75'
+                                }
+                                icon={
+                                  <AndroidOutlined style={{ color: '#ccc' }} />
+                                }
+                                style={{ backgroundColor: 'transparent' }}
+                                size={'small'}
+                              />
+                            }
+                          />
+                          <Button
+                            title="Wokwi"
+                            href={'#'}
+                            type={'link'}
+                            target={'_blank'}
+                            referrerPolicy={'no-referrer'}
+                            icon={
+                              <Avatar
+                                src={
+                                  'https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fsocial_handle%252F1733818219677_wokwi.png%3Falt%3Dmedia%26token%3Da1b269f3-1fc4-4d99-8965-7289c7512fb3&w=48&q=75'
+                                }
+                                icon={
+                                  <AndroidOutlined style={{ color: '#ccc' }} />
+                                }
+                                style={{ backgroundColor: 'transparent' }}
+                                size={'small'}
+                              />
+                            }
+                          />
+                        </Space>
+                      )}
                     </Flex>
                   </>
                 }
               />
-              {item.content}
+              {/* {item.content} */}
+              <Flex gap={10} vertical={isMobile}>
+                <Text>version:</Text>
+                <Select
+                  defaultValue="jelly"
+                  size={'small'}
+                  style={{ minWidth: 120 }}
+                  // onChange={handleChange}
+                  options={[
+                    { value: 'jack', label: 'Version 1' },
+                    { value: 'jelly', label: 'Jelly' },
+                    { value: 'Yiminghe', label: 'Version 3' },
+                  ]}
+                />
+
+                {isMobile && (
+                  <Button
+                    type={'primary'}
+                    shape={'round'}
+                    icon={<DownloadOutlined />}
+                  >
+                    Install
+                  </Button>
+                )}
+              </Flex>
             </List.Item>
           </Badge.Ribbon>
         )}

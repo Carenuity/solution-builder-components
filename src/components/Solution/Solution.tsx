@@ -1,19 +1,19 @@
-import { Col, Row, Tabs } from 'antd';
-import React from 'react';
-import { SolutionProps, SolutionTab } from './Solution.types';
 import {
   DownloadOutlined,
   HomeOutlined,
   ReadOutlined,
 } from '@ant-design/icons';
-import { useScreenSize } from './Solution.hooks';
+import { Col, Row, Tabs } from 'antd';
+import React from 'react';
+import { useScreenSize } from '../common/hooks/ScreenSize.hook';
 import {
-  screenThreshold,
   backgroundColor,
   borderRadius,
+  screenThreshold,
 } from './Solution.constants';
-import SolutionPreview from './components/SolutionPreview';
+import { SolutionProps, SolutionTab } from './Solution.types';
 import SolutionImage from './components/SolutionImage';
+import SolutionPreview from './components/SolutionPreview';
 
 const Solution: React.FC<SolutionProps> = (props) => {
   const { width } = useScreenSize();

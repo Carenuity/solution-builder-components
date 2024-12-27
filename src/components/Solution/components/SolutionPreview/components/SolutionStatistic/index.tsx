@@ -1,7 +1,7 @@
 import { Statistic, Typography } from 'antd';
 import React, { ReactNode, useEffect, useState } from 'react';
+import { useScreenSize } from '../../../../../common/hooks/ScreenSize.hook';
 import { screenThreshold } from '../../../../Solution.constants';
-import { useScreenSize } from '../../../../Solution.hooks';
 import { SolutionStatisticProps } from './index.types';
 
 const { Text } = Typography;

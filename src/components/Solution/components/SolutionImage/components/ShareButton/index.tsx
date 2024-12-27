@@ -1,24 +1,24 @@
-import React from 'react';
-import { ShareButtonProps, SolutionShareTab } from './index.types';
 import {
-  LinkOutlined,
+  AndroidOutlined,
   CodeOutlined,
   GlobalOutlined,
-  AndroidOutlined,
+  LinkOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
 import {
-  Row,
-  Col,
-  Tooltip,
   Button,
-  Popover,
-  Tabs,
+  Col,
   FloatButton,
+  Popover,
+  Row,
+  Tabs,
+  Tooltip,
   Typography,
 } from 'antd';
+import React from 'react';
+import { useScreenSize } from '../../../../../common/hooks/ScreenSize.hook';
 import { primaryColor, screenThreshold } from '../../../../Solution.constants';
-import { useScreenSize } from '../../../../Solution.hooks';
+import { ShareButtonProps, SolutionShareTab } from './index.types';
 
 const { Text, Paragraph } = Typography;
 
