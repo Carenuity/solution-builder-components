@@ -2,19 +2,23 @@ import { Popover } from 'antd';
 import React from 'react';
 import ActionButton from '../ActionButton';
 import { CommentOutlined, MessageFilled } from '@ant-design/icons';
+import { ApplicationReviewsProps } from './index.types';
 
-const ApplicationReviews = () => {
+const ApplicationReviews: React.FC<ApplicationReviewsProps> = ({
+  hasReviewed,
+  reviews,
+  tag,
+}) => {
   return (
     <>
       <Popover
-        title={'Application version-1 Reviews'}
-        content={<div>Reviews list here coming soon..!</div>}
+        title={`${tag} Reviews`}
+        content={<div>{reviews?.map((review) => <p>{review}</p>)}</div>}
       >
         <ActionButton
-          count={2}
           icon={<CommentOutlined />}
           actionedIcon={<MessageFilled />}
-          hasActioned={false}
+          hasActioned={hasReviewed}
           title={'Reviews'}
         />
       </Popover>

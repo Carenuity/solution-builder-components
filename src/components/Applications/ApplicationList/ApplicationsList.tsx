@@ -1,33 +1,53 @@
-import {
-  DislikeFilled,
-  DislikeOutlined,
-  DownloadOutlined,
-  GithubOutlined,
-  LikeFilled,
-  LikeOutlined,
-  SafetyCertificateOutlined,
-} from '@ant-design/icons';
-import { Button, Flex, List } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
+import { Button, List } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../common/hooks/ScreenSize.hook';
 import { screenThreshold } from '../../Solution/Solution.constants';
-import ApplicationDescription from '../components/ApplicationDescription';
-import ApplicationModificationRequest from '../components/ApplicationModificationRequest';
-import ActionButton from '../components/ActionButton';
-import ApplicationReviews from '../components/ApplicationReviews';
-import ActionText from '../components/ActionText';
-import ApplicationRecordTitleV1 from './components/ApplicationRecordTitleV1';
-import ApplicationDeveloperName from './components/ApplicationDeveloperName';
+import ApplicationListRecord from './components/ApplicationListRecord';
+import { ApplicationListRecordProps } from './components/ApplicationListRecord/index.types';
 
-const data = Array.from({ length: 23 }).map((_, i) => ({
-  href: 'https://ant.design',
-  title: `Version-${i}`,
-  avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
-  description:
-    'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-  content:
-    'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-}));
+const InstallButton = ({ manifest }: { manifest: string }) => {
+  return (
+    <Button
+      href={manifest}
+      type={'primary'}
+      shape={'round'}
+      size={'small'}
+      icon={<DownloadOutlined />}
+    >
+      Install
+    </Button>
+  );
+};
+
+const data = Array.from({ length: 23 }).map(
+  (_, i): ApplicationListRecordProps => ({
+    id: `werty-${i}`,
+    InstallButton,
+    tag: `Version-${i}`,
+    developer: {
+      id: `dev-${i}`,
+      name: `john ${i}`,
+      subtitle: 'Embedded Systems developer',
+      avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
+      socialHandles: [{ id: `handle-${i}`, url: '#' }],
+    },
+    manifest: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
+    repository: 'https://github.com/ant-design/ant-design',
+    downVotes: i * 1,
+    downloads: i * 3,
+    hasDownVoted: i % 3 === 0,
+    hasUpVoted: i % 2 === 0,
+    description:
+      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+    reviews: [
+      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+    ],
+    hasReviewed: i % 5 === 0,
+    totalValidators: i * 2,
+    upVotes: i * 3,
+  })
+);
 
 const ApplicationsList = () => {
   const { width } = useScreenSize();
@@ -49,74 +69,12 @@ const ApplicationsList = () => {
           pageSize: 3,
         }}
         dataSource={data}
-        footer={
-          <div>
-            <b>ant design</b> footer part
-          </div>
-        }
-        renderItem={(item) => (
-          <List.Item
-            key={item.title}
-            actions={[
-              <ActionText
-                icon={DownloadOutlined}
-                text="20"
-                key="list-vertical-star-o"
-              />,
-              <ActionButton
-                count={10}
-                icon={<LikeOutlined />}
-                actionedIcon={<LikeFilled />}
-                hasActioned={true}
-                title={'Likes'}
-              />,
-              <ActionButton
-                count={2}
-                icon={<DislikeOutlined />}
-                actionedIcon={<DislikeFilled />}
-                hasActioned={false}
-                title={'Dislikes'}
-              />,
-              <ApplicationReviews />,
-              <ActionText
-                icon={SafetyCertificateOutlined}
-                text="5"
-                key="list-vertical-star-o"
-              />,
-              <ApplicationDescription />,
-              <ActionButton
-                href={'#'}
-                target={'_blank'}
-                referrerPolicy={'no-referrer'}
-                title={'Repository'}
-                type={'link'}
-                icon={<GithubOutlined />}
-              />,
-              <ApplicationModificationRequest />,
-            ]}
-          >
-            <List.Item.Meta
-              title={
-                <ApplicationRecordTitleV1
-                  value={item.title}
-                  isVerified={true}
-                />
-              }
-              description={<ApplicationDeveloperName value={'John Doe'} />}
-            />
-
-            <Flex gap={10} vertical={isMobile}>
-              <Button
-                type={'primary'}
-                shape={'round'}
-                size={'small'}
-                icon={<DownloadOutlined />}
-              >
-                Install
-              </Button>
-            </Flex>
-          </List.Item>
-        )}
+        // footer={
+        //   <div>
+        //     <b>ant design</b> footer part
+        //   </div>
+        // }
+        renderItem={(item) => <ApplicationListRecord key={item.id} {...item} />}
       />
     </>
   );
