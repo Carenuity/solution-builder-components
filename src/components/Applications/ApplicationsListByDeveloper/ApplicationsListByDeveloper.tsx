@@ -26,8 +26,8 @@ import {
   Typography,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useScreenSize } from '../common/hooks/ScreenSize.hook';
-import { screenThreshold } from '../Solution/Solution.constants';
+import { useScreenSize } from '../../common/hooks/ScreenSize.hook';
+import { screenThreshold } from '../../Solution/Solution.constants';
 
 const { Text } = Typography;
 
@@ -48,7 +48,7 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
   </Space>
 );
 
-const Applications = () => {
+const ApplicationsListByDeveloper = () => {
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
 
@@ -392,4 +392,4 @@ const Applications = () => {
   );
 };
 
-export default Applications;
+export default ApplicationsListByDeveloper;

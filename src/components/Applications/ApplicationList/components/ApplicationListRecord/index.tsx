@@ -1,11 +1,11 @@
 import {
-  DownloadOutlined,
   LikeOutlined,
   LikeFilled,
   DislikeOutlined,
   DislikeFilled,
   SafetyCertificateOutlined,
   GithubOutlined,
+  CloudDownloadOutlined,
 } from '@ant-design/icons';
 import { Flex, List } from 'antd';
 import React, { ReactNode, useEffect, useState } from 'react';
@@ -19,6 +19,7 @@ import ApplicationRecordTitleV1 from '../ApplicationRecordTitleV1';
 import { ApplicationListRecordProps } from './index.types';
 import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
 import { screenThreshold } from '../../../../Solution/Solution.constants';
+import MoreApplicationActions from '../../../components/MoreApplicationActions';
 
 const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
   developer,
@@ -53,23 +54,23 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
       return;
     }
 
+    const _actions: ReactNode[] = [];
+
     // Set Downloads
     if (downloads) {
-      setActions((old) => [
-        ...old,
+      _actions.push(
         <ActionText
           key={`downloads-${id}`}
           title={'Downloads'}
-          icon={DownloadOutlined}
+          icon={CloudDownloadOutlined}
           text={String(downloads)}
-        />,
-      ]);
+        />
+      );
     }
 
     // Set Up-Votes
     if (upVotes) {
-      setActions((old) => [
-        ...old,
+      _actions.push(
         <ActionButton
           key={`likes-${id}`}
           count={upVotes}
@@ -77,14 +78,13 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
           actionedIcon={<LikeFilled />}
           hasActioned={hasUpVoted}
           title={'Likes'}
-        />,
-      ]);
+        />
+      );
     }
 
     // Set Down-Votes
     if (downVotes) {
-      setActions((old) => [
-        ...old,
+      _actions.push(
         <ActionButton
           key={`dislikes-${id}`}
           count={downVotes}
@@ -92,21 +92,20 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
           actionedIcon={<DislikeFilled />}
           hasActioned={hasDownVoted}
           title={'Dislikes'}
-        />,
-      ]);
+        />
+      );
     }
 
     // Set Beta Tests
     if (totalValidators) {
-      setActions((old) => [
-        ...old,
+      _actions.push(
         <ActionText
           title={'Beta Tests'}
           icon={SafetyCertificateOutlined}
           text={String(totalValidators)}
           key={`validations-${id}`}
-        />,
-      ]);
+        />
+      );
 
       // Set Verification Status
       setIsVerified(totalValidators > 0);
@@ -114,28 +113,28 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
 
     // Set Reviews
     if (reviews) {
-      setActions((old) => [
-        ...old,
+      _actions.push(
         <ApplicationReviews
           key={`reviews-${id}`}
           tag={applicationName}
           reviews={reviews}
           hasReviewed={hasReviewed}
-        />,
-      ]);
+        />
+      );
     }
 
     // Set Description
     if (description) {
-      setActions((old) => [
-        ...old,
-        <ApplicationDescription key={`description-${id}`} />,
-      ]);
+      _actions.push(
+        <ApplicationDescription
+          key={`description-${id}`}
+          description={description}
+        />
+      );
     }
 
     // Set Repository
-    setActions((old) => [
-      ...old,
+    _actions.push(
       <ActionButton
         href={repository}
         target={'_blank'}
@@ -143,11 +142,23 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
         title={'Repository'}
         type={'link'}
         icon={<GithubOutlined />}
-      />,
-    ]);
+      />
+    );
 
     // Set Modification Request
-    setActions((old) => [...old, <ApplicationModificationRequest />]);
+    _actions.push(<ApplicationModificationRequest />);
+
+    const [action1, action2, action3, ...moreActions] = _actions;
+
+    // Set Show More Button
+    if (moreActions) {
+      const moreActionsDropdown = (
+        <MoreApplicationActions actions={moreActions} />
+      );
+      setActions(() => [action1, action2, action3, moreActionsDropdown]);
+    } else {
+      setActions(() => _actions);
+    }
   }, []);
 
   return (

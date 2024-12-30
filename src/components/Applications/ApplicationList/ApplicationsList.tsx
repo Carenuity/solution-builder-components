@@ -1,10 +1,11 @@
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined, LinkOutlined } from '@ant-design/icons';
 import { Button, List } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../common/hooks/ScreenSize.hook';
 import { screenThreshold } from '../../Solution/Solution.constants';
 import ApplicationListRecord from './components/ApplicationListRecord';
 import { ApplicationListRecordProps } from './components/ApplicationListRecord/index.types';
+import { ApplicationsListProps } from './ApplicationsList.types';
 
 const InstallButton = ({ manifest }: { manifest: string }) => {
   return (
@@ -49,9 +50,17 @@ const data = Array.from({ length: 23 }).map(
   })
 );
 
-const ApplicationsList = () => {
+const ApplicationsList: React.FC<ApplicationsListProps> = ({
+  solutionId,
+  setSolutionPageUrl,
+}) => {
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
+  // const [data, setData] = useState<ApplicationListRecordProps[]>();
+
+  // useEffect(() => {
+  //   alert('Loaded!');
+  // }, []);
 
   useEffect(() => {
     setIsMobile(width < screenThreshold);
@@ -62,19 +71,32 @@ const ApplicationsList = () => {
       <List
         itemLayout={isMobile ? 'vertical' : 'horizontal'}
         size={'small'}
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 3,
-        }}
         dataSource={data}
-        // footer={
-        //   <div>
-        //     <b>ant design</b> footer part
-        //   </div>
-        // }
         renderItem={(item) => <ApplicationListRecord key={item.id} {...item} />}
+        loadMore={
+          <>
+            <div
+              style={{
+                textAlign: 'center',
+                marginTop: 12,
+                height: 32,
+                lineHeight: '32px',
+              }}
+            >
+              {setSolutionPageUrl && (
+                <Button
+                  size={'small'}
+                  shape={'round'}
+                  type={'link'}
+                  href={setSolutionPageUrl(solutionId)}
+                  icon={<LinkOutlined />}
+                >
+                  Load More
+                </Button>
+              )}
+            </div>
+          </>
+        }
       />
     </>
   );

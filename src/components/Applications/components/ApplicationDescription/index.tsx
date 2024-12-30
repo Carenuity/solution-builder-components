@@ -2,20 +2,14 @@ import { Popover } from 'antd';
 import React from 'react';
 import ActionButton from '../ActionButton';
 import { ReadOutlined } from '@ant-design/icons';
+import { ApplicationDescriptionProps } from './index.types';
 
-const ApplicationDescription = () => {
+const ApplicationDescription: React.FC<ApplicationDescriptionProps> = ({
+  description,
+}) => {
   return (
     <>
-      <Popover
-        title={'Description'}
-        content={
-          <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-            veritatis? Voluptate omnis animi eaque tenetur sunt deserunt magni
-            adipisci incidunt!
-          </div>
-        }
-      >
+      <Popover title={'Description'} content={<div>{description}</div>}>
         <ActionButton icon={<ReadOutlined />} title={'Description'} />
       </Popover>
     </>
