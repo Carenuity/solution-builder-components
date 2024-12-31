@@ -25,7 +25,7 @@ const { Text, Paragraph } = Typography;
 const ShareButton: React.FC<ShareButtonProps> = ({
   id,
   name,
-  generateCopyableUrl,
+  generateSolutionPageUrl,
   generateEmbedding,
 }) => {
   const { width } = useScreenSize();
@@ -36,7 +36,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
       icon: <LinkOutlined />,
       content: (
         <>
-          {generateCopyableUrl && (
+          {generateSolutionPageUrl && (
             <Paragraph
               copyable
               style={{
@@ -45,7 +45,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                 padding: '.5rem 2rem',
               }}
             >
-              {generateCopyableUrl(id)}
+              {generateSolutionPageUrl(id)}
             </Paragraph>
           )}
         </>

@@ -1,78 +1,99 @@
-import { DownloadOutlined, LinkOutlined } from '@ant-design/icons';
-import { Button, List } from 'antd';
+import {
+  DownloadOutlined,
+  LinkOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
+import { Button, List, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../common/hooks/ScreenSize.hook';
 import { screenThreshold } from '../../Solution/Solution.constants';
 import ApplicationListRecord from './components/ApplicationListRecord';
-import { ApplicationListRecordProps } from './components/ApplicationListRecord/index.types';
-import { ApplicationsListProps } from './ApplicationsList.types';
-
-const InstallButton = ({ manifest }: { manifest: string }) => {
-  return (
-    <Button
-      href={manifest}
-      type={'primary'}
-      shape={'round'}
-      size={'small'}
-      icon={<DownloadOutlined />}
-    >
-      Install
-    </Button>
-  );
-};
-
-const data = Array.from({ length: 23 }).map(
-  (_, i): ApplicationListRecordProps => ({
-    id: `werty-${i}`,
-    InstallButton,
-    tag: `Version-${i}`,
-    developer: {
-      id: `dev-${i}`,
-      name: `john ${i}`,
-      subtitle: 'Embedded Systems developer',
-      avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
-      socialHandles: [{ id: `handle-${i}`, url: '#' }],
-    },
-    manifest: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
-    repository: 'https://github.com/ant-design/ant-design',
-    downVotes: i * 1,
-    downloads: i * 3,
-    hasDownVoted: i % 3 === 0,
-    hasUpVoted: i % 2 === 0,
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    reviews: [
-      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-    ],
-    hasReviewed: i % 5 === 0,
-    totalValidators: i * 2,
-    upVotes: i * 3,
-  })
-);
+import {
+  ApplicationData,
+  ApplicationsListProps,
+} from './ApplicationsList.types';
 
 const ApplicationsList: React.FC<ApplicationsListProps> = ({
   solutionId,
-  setSolutionPageUrl,
+  limit,
+  InstallButton,
+  generateSolutionPageUrl,
+  onInitialApplicationsLoad,
+  onLoadMoreApplications,
 }) => {
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
-  // const [data, setData] = useState<ApplicationListRecordProps[]>();
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true);
+  const [data, setData] = useState<ApplicationData[]>([]);
 
-  // useEffect(() => {
-  //   alert('Loaded!');
-  // }, []);
+  const controller = new AbortController();
+
+  useEffect(() => {
+    if (!window.document) return;
+
+    onInitialApplicationsLoad(solutionId, { signal: controller.signal, limit })
+      .then((_initialData) => {
+        setInitialLoading(false);
+        setData(_initialData);
+        setPage((prevPageNumber) => (prevPageNumber += 1));
+      })
+      .catch((err) => {
+        setInitialLoading(false);
+        message.error(err.message);
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   useEffect(() => {
     setIsMobile(width < screenThreshold);
   }, [width]);
 
+  const onLoadMore = () => {
+    if (onLoadMoreApplications) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [lastApplicationItem, ..._] = [...data].reverse();
+      setLoading(true);
+      onLoadMoreApplications(solutionId, {
+        signal: controller.signal,
+        limit,
+        offset: { page, lastItem: { id: lastApplicationItem.id } },
+      })
+        .then((moreData) => {
+          setLoading(false);
+          if (moreData.length === 0) {
+            setHasMoreData(false);
+            return;
+          }
+          setPage((prevPageNumber) => (prevPageNumber += 1));
+          setData((prevData) => [...prevData, ...moreData]);
+        })
+        .catch((err) => {
+          setLoading(false);
+          message.error(err.message);
+        });
+    }
+  };
+
   return (
     <>
       <List
+        loading={initialLoading}
         itemLayout={isMobile ? 'vertical' : 'horizontal'}
         size={'small'}
         dataSource={data}
-        renderItem={(item) => <ApplicationListRecord key={item.id} {...item} />}
+        renderItem={(item) => (
+          <ApplicationListRecord
+            key={item.id}
+            {...item}
+            InstallButton={InstallButton}
+          />
+        )}
         loadMore={
           <>
             <div
@@ -83,15 +104,28 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                 lineHeight: '32px',
               }}
             >
-              {setSolutionPageUrl && (
+              {generateSolutionPageUrl && (
                 <Button
                   size={'small'}
                   shape={'round'}
                   type={'link'}
-                  href={setSolutionPageUrl(solutionId)}
+                  href={generateSolutionPageUrl(solutionId)}
                   icon={<LinkOutlined />}
                 >
                   Load More
+                </Button>
+              )}
+
+              {onLoadMoreApplications && hasMoreData && (
+                <Button
+                  disabled={loading}
+                  shape={'round'}
+                  type={'primary'}
+                  icon={loading ? <LoadingOutlined /> : <DownloadOutlined />}
+                  onClick={onLoadMore}
+                >
+                  {!loading && 'Load More'}
+                  {loading && 'Loading...'}
                 </Button>
               )}
             </div>
