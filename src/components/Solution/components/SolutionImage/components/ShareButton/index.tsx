@@ -15,7 +15,7 @@ import {
   Tooltip,
   Typography,
 } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../../../../common/hooks/ScreenSize.hook';
 import { primaryColor, screenThreshold } from '../../../../Solution.constants';
 import { ShareButtonProps, SolutionShareTab } from './index.types';
@@ -29,6 +29,15 @@ const ShareButton: React.FC<ShareButtonProps> = ({
   generateEmbedding,
 }) => {
   const { width } = useScreenSize();
+  const [isMobile, setIsMobile] = useState(width < screenThreshold);
+
+  useEffect(() => {
+    if (!window.document) {
+      return;
+    }
+
+    setIsMobile(width < screenThreshold);
+  }, [width]);
 
   const tabs: SolutionShareTab[] = [
     {
@@ -99,12 +108,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({
   return (
     <>
       <Popover
-        placement={width > screenThreshold ? 'right' : 'bottom'}
+        placement={isMobile ? 'bottom' : 'right'}
         title={
-          <Text
-            ellipsis
-            style={{ maxWidth: width > screenThreshold ? '22rem' : '100%' }}
-          >
+          <Text ellipsis style={{ maxWidth: isMobile ? '100%' : '22rem' }}>
             Share {name}
           </Text>
         }
@@ -130,10 +136,13 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           icon={<ShareAltOutlined />}
           style={{
             position: 'absolute',
-            bottom: width > screenThreshold ? '45%' : '-7%',
-            right: width > screenThreshold ? '-12%' : '45%',
+            ...(isMobile
+              ? {
+                  bottom: '-7%',
+                  right: '45%',
+                }
+              : { top: '37%', transform: `translateY(-37%)`, right: '-1rem' }),
           }}
-          onClick={() => console.log('onClick')}
         />
       </Popover>
     </>

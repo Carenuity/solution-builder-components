@@ -1,9 +1,10 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Flex, Image } from 'antd';
-import React, { useState } from 'react';
-import { borderRadius } from '../../Solution.constants';
+import React, { useEffect, useState } from 'react';
+import { borderRadius, screenThreshold } from '../../Solution.constants';
 import { SolutionImageProps } from './index.types';
 import ShareButton from './components/ShareButton';
+import { useScreenSize } from '../../../common/hooks/ScreenSize.hook';
 
 const SolutionImage: React.FC<SolutionImageProps> = ({
   imageUrl,
@@ -11,10 +12,20 @@ const SolutionImage: React.FC<SolutionImageProps> = ({
   ...shareButtonProps
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
+  const { width } = useScreenSize();
+  const [isMobile, setIsMobile] = useState(width < screenThreshold);
+
+  useEffect(() => {
+    if (!window.document) {
+      return;
+    }
+
+    setIsMobile(width < screenThreshold);
+  }, [width]);
 
   return (
     <Flex
-      justify={'center'}
+      justify={isMobile ? 'center' : 'start'}
       align={'center'}
       style={{
         position: 'relative',

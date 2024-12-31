@@ -49,11 +49,11 @@ const Solution: React.FC<SolutionProps> = (props) => {
           }),
         }}
       >
-        <Col xs={24} md={7}>
+        <Col xs={24} md={7} lg={5} xl={4}>
           <SolutionImage {...props} />
         </Col>
 
-        <Col xs={24} md={17}>
+        <Col xs={24} md={17} lg={19} xl={20}>
           <Tabs
             defaultActiveKey={`${props.defaultView}-${props.id}`}
             tabPosition={'bottom'}
