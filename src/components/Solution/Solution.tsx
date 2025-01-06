@@ -17,6 +17,7 @@ import SolutionPreview from './components/SolutionPreview';
 import './Solution.css';
 import SolutionApplications from './components/SolutionApplications';
 import { useResizeObserver } from '../common/hooks/ResizeObserver';
+import SolutionDescription from './components/SolutionDescription';
 
 const Solution: React.FC<SolutionProps> = (props) => {
   const { width } = useScreenSize();
@@ -43,11 +44,13 @@ const Solution: React.FC<SolutionProps> = (props) => {
     const height = observerEntries[contentId].contentRect.height;
     const appsVH = Math.ceil((62.3931 * height) / 100);
     const previewVH = Math.ceil((76.923 * height) / 100);
+    const moreVH = Math.ceil((67.09401 * height) / 100);
 
     setViewport((old) => ({
       ...old,
       applicationsView: { height: appsVH },
       preview: { height: previewVH },
+      more: { height: moreVH },
     }));
   }, [observerEntries]);
 
@@ -77,7 +80,12 @@ const Solution: React.FC<SolutionProps> = (props) => {
     {
       label: 'More',
       icon: <ReadOutlined />,
-      content: 'Something here',
+      content: (
+        <SolutionDescription
+          description={props.description}
+          viewport={{ height: viewport.more?.height || 0 }}
+        />
+      ),
     },
   ];
 

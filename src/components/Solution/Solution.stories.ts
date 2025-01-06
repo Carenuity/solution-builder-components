@@ -66,6 +66,7 @@ export const HelloWorld: Story = {
     rating: 5,
     totalApplications: 20,
     shopUrl: '#',
+    description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium voluptatum consequuntur sit inventore explicabo maxime excepturi nihil iure eum dolorum rerum cum iusto nemo, itaque ea quaerat culpa a aspernatur impedit ut eaque possimus libero aliquid. Dolor architecto, vel harum quaerat distinctio pariatur quisquam asperiores eaque odio rem tempora quia consequatur expedita voluptatibus nam recusandae alias modi minus minima adipisci perferendis ad corrupti consectetur dignissimos! Rerum illum saepe quos dolorum accusamus doloribus provident cum nemo, deleniti fugiat sint incidunt amet similique harum numquam praesentium sit rem quia, eos molestias libero, explicabo iure consequuntur eaque. Quibusdam commodi saepe ipsa deserunt expedita perferendis, quis maxime molestiae nesciunt consectetur eius corrupti, libero tempora sint. Aspernatur tempore provident hic eligendi deleniti, earum eveniet aut voluptatum amet unde. Delectus neque hic, harum, nostrum commodi culpa voluptas repellat possimus, corrupti eveniet ducimus! Provident culpa doloribus eveniet nihil minus cupiditate beatae iste esse totam libero. Ipsa, adipisci!`,
     setApplicationPageUrl: (id) => `/applications/${id}`,
     setManufacturerSolutionsPageUrl: (id, type) => {
       switch (type) {
