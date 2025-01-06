@@ -13,7 +13,9 @@ const ApplicationReviews: React.FC<ApplicationReviewsProps> = ({
     <>
       <Popover
         title={`${tag} Reviews`}
-        content={<div>{reviews?.map((review) => <p>{review}</p>)}</div>}
+        content={
+          <div>{reviews?.map((review, i) => <p key={i}>{review}</p>)}</div>
+        }
       >
         <ActionButton
           icon={<CommentOutlined />}

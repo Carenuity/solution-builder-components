@@ -42,17 +42,20 @@ export const HelloWorld: Story = {
     limit: 5,
     InstallButton: InstallButton,
     onInitialApplicationsLoad: async (solutionId, { limit }) => {
-      return generateApplicationsData({ count: limit, page: 1 });
+      const data = generateApplicationsData({ count: limit, page: 0 });
+
+      return { data, cursor: String(data.length) };
     },
-    onLoadMoreApplications: async (solutionId, { limit, offset }) => {
+    onLoadMoreApplications: async (solutionId, { limit, cursor }) => {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve(
-            generateApplicationsData({
-              count: limit,
-              page: offset?.page || 1,
-            })
-          );
+          const page = Number(cursor);
+          const data = generateApplicationsData({
+            count: limit,
+            page,
+          });
+
+          resolve({ data, cursor: String(data.length + page) });
         }, 5000);
       });
     },

@@ -35,7 +35,11 @@ const SolutionImage: React.FC<SolutionImageProps> = ({
       {/* Solution Share button */}
       <ShareButton {...shareButtonProps} />
 
-      {loadingImage && <LoadingOutlined style={{ fontSize: '2rem' }} />}
+      {loadingImage && (
+        <div style={{ width: '100%', textAlign: 'center' }}>
+          <LoadingOutlined style={{ fontSize: '2rem' }} />
+        </div>
+      )}
 
       <Image
         src={imageUrl}

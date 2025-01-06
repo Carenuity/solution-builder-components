@@ -141,7 +141,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                   bottom: '-7%',
                   right: '45%',
                 }
-              : { top: '37%', transform: `translateY(-37%)`, right: '-1rem' }),
+              : { top: '45%', transform: `translateY(-45%)`, right: '-1rem' }),
           }}
         />
       </Popover>

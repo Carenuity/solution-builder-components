@@ -10,6 +10,8 @@ import Slider from '../../../common/Slider';
 import SolutionHardware from './components/SolutionHardware';
 import SolutionStatistic from './components/SolutionStatistic';
 import { SolutionPreviewProps } from './index.types';
+import { useScreenSize } from '../../../common/hooks/ScreenSize.hook';
+import { screenThreshold } from '../../Solution.constants';
 
 const { Title } = Typography;
 
@@ -24,16 +26,20 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
   rating,
   shopUrl,
   totalApplications,
+  viewport,
   setApplicationPageUrl,
   setManufacturerSolutionsPageUrl,
 }) => {
+  const { width } = useScreenSize();
   return (
     <>
       <Flex
         vertical={true}
+        justify={'space-between'}
         gap={5}
         style={{
           paddingRight: '.5rem',
+          height: width > screenThreshold ? viewport.height : undefined,
         }}
       >
         {/* Title */}

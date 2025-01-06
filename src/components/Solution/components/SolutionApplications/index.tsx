@@ -2,16 +2,19 @@ import { AppstoreOutlined, PlusOutlined } from '@ant-design/icons';
 import { Flex, Space, Button, Typography } from 'antd';
 import React from 'react';
 import { ApplicationsList } from '../../../Applications';
-import { primaryColor } from '../../Solution.constants';
+import { primaryColor, screenThreshold } from '../../Solution.constants';
 import { SolutionApplicationsProps } from './index.types';
+import { useScreenSize } from '../../../common/hooks/ScreenSize.hook';
 
 const { Text } = Typography;
 
 const SolutionApplications: React.FC<SolutionApplicationsProps> = ({
   id,
+  applicationsViewport,
   generateCreateApplicationUrl,
   ...applicationListProps
 }) => {
+  const { width } = useScreenSize();
   return (
     <>
       <Flex justify={'space-between'}>
@@ -40,7 +43,8 @@ const SolutionApplications: React.FC<SolutionApplicationsProps> = ({
 
       <div
         style={{
-          height: '9rem',
+          height:
+            width > screenThreshold ? applicationsViewport.height : '9rem',
           overflowY: 'scroll',
         }}
       >

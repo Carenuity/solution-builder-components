@@ -136,6 +136,7 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
     // Set Repository
     _actions.push(
       <ActionButton
+        key={`repository-${id}`}
         href={repository}
         target={'_blank'}
         referrerPolicy={'no-referrer'}
@@ -146,14 +147,19 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
     );
 
     // Set Modification Request
-    _actions.push(<ApplicationModificationRequest />);
+    _actions.push(
+      <ApplicationModificationRequest key={`modification-${id}`} />
+    );
 
     const [action1, action2, action3, ...moreActions] = _actions;
 
     // Set Show More Button
     if (moreActions) {
       const moreActionsDropdown = (
-        <MoreApplicationActions actions={moreActions} />
+        <MoreApplicationActions
+          key={`more-app-actions-${id}`}
+          actions={moreActions}
+        />
       );
       setActions(() => [action1, action2, action3, moreActionsDropdown]);
     } else {

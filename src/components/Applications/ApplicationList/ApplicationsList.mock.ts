@@ -7,8 +7,7 @@ export const generateApplicationsData = ({
   count: number;
   page: number;
 }) => {
-  const offset = count * page - count;
-  const getId = (i: number) => i + offset;
+  const getId = (i: number) => i + page;
 
   return Array.from({ length: count }).map(
     (_, i): ApplicationData => ({

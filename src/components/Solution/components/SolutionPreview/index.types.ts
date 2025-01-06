@@ -35,4 +35,5 @@ export type SolutionPreviewProps = {
     manufacturerId: string,
     type: 'sensor' | 'micro-controller' | 'actuator'
   ) => string;
+  viewport: { height: number };
 };

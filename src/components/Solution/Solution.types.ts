@@ -9,8 +9,13 @@ export interface SolutionTab {
   content: ReactNode;
 }
 
-export type SolutionProps = SolutionPreviewProps &
+export type SolutionProps = Omit<SolutionPreviewProps, 'viewport'> &
   SolutionImageProps &
-  SolutionApplicationsProps & {
+  Omit<SolutionApplicationsProps, 'applicationsViewport'> & {
     defaultView: 'preview' | 'install-for-free' | 'more';
   };
+
+export type SolutionViewport = {
+  applicationsView?: { height: number };
+  preview?: { height: number };
+};

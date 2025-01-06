@@ -24,7 +24,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
   const [initialLoading, setInitialLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  const [cursor, setCursor] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [data, setData] = useState<ApplicationData[]>([]);
@@ -35,10 +35,10 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
     if (!window.document) return;
 
     onInitialApplicationsLoad(solutionId, { signal: controller.signal, limit })
-      .then((_initialData) => {
+      .then(({ cursor: c, data: _initialData }) => {
         setInitialLoading(false);
         setData(_initialData);
-        setPage((prevPageNumber) => (prevPageNumber += 1));
+        setCursor(c);
       })
       .catch((err) => {
         setInitialLoading(false);
@@ -56,21 +56,19 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
 
   const onLoadMore = () => {
     if (onLoadMoreApplications) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [lastApplicationItem, ..._] = [...data].reverse();
       setLoading(true);
       onLoadMoreApplications(solutionId, {
         signal: controller.signal,
         limit,
-        offset: { page, lastItem: { id: lastApplicationItem.id } },
+        cursor,
       })
-        .then((moreData) => {
+        .then(({ cursor: c, data: moreData }) => {
           setLoading(false);
           if (moreData.length === 0) {
             setHasMoreData(false);
             return;
           }
-          setPage((prevPageNumber) => (prevPageNumber += 1));
+          setCursor(c);
           setData((prevData) => [...prevData, ...moreData]);
         })
         .catch((err) => {

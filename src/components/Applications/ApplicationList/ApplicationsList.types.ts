@@ -11,9 +11,10 @@ export type LoadApplicationsFunction = (
   options: {
     signal?: AbortSignal;
     limit: number;
-    offset?: { page: number; lastItem: { id: string } };
+    // offset?: { page: number; lastItem: { id: string } };
+    cursor?: string;
   }
-) => Promise<ApplicationData[]>;
+) => Promise<{ cursor?: string; data: ApplicationData[] }>;
 
 export type ApplicationsListProps = ApplicationInstallButton & {
   solutionId: string;

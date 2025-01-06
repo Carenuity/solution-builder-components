@@ -87,7 +87,8 @@ export const HelloWorld: Story = {
     limit: 5,
     InstallButton: InstallButton,
     onInitialApplicationsLoad: async (solutionId, { limit }) => {
-      return generateApplicationsData({ count: limit, page: 1 });
+      const data = generateApplicationsData({ count: limit, page: 0 });
+      return { data, cursor: String(data.length) };
     },
     generateCreateApplicationUrl: (solutionId) =>
       `/${solutionId}/applications/create`,
