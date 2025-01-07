@@ -20,6 +20,15 @@ import { ApplicationListRecordProps } from './index.types';
 import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
 import { screenThreshold } from '../../../../Solution/Solution.constants';
 import MoreApplicationActions from '../../../components/MoreApplicationActions';
+// import dynamic from 'next/dynamic';
+
+// const ApplicationDescription = dynamic(
+//   () => import('../../../components/ApplicationDescription'),
+//   {
+//     loading: () => <p>Loading...</p>,
+//     ssr: false,
+//   }
+// );
 
 const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
   developer,
@@ -37,6 +46,7 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
   tag,
   upVotes,
   totalValidators,
+  solutionName,
 }) => {
   const { width } = useScreenSize();
   const [actions, setActions] = useState<ReactNode[]>([]);
@@ -129,6 +139,9 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
         <ApplicationDescription
           key={`description-${id}`}
           description={description}
+          developerName={developer.name}
+          solutionName={solutionName}
+          tag={tag}
         />
       );
     }

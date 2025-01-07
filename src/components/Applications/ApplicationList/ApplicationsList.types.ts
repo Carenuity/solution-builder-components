@@ -1,9 +1,12 @@
 import { ApplicationListRecordProps } from './components/ApplicationListRecord/index.types';
 
-export type ApplicationData = Omit<ApplicationListRecordProps, 'InstallButton'>;
+export type ApplicationData = Omit<
+  ApplicationListRecordProps,
+  'InstallButton' | 'solutionName'
+>;
 type ApplicationInstallButton = Omit<
   ApplicationListRecordProps,
-  keyof ApplicationData
+  keyof ApplicationData | 'solutionName'
 >;
 
 export type LoadApplicationsFunction = (
@@ -17,7 +20,7 @@ export type LoadApplicationsFunction = (
 ) => Promise<{ cursor?: string; data: ApplicationData[] }>;
 
 export type ApplicationsListProps = ApplicationInstallButton & {
-  solutionId: string;
+  solution: { id: string; name?: string };
   limit: number;
   generateSolutionPageUrl?: (solutionId: string) => string;
   onInitialApplicationsLoad: LoadApplicationsFunction;

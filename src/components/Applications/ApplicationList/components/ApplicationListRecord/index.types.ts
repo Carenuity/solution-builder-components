@@ -31,4 +31,5 @@ export interface ApplicationListRecordProps {
   tag?: string;
   developer: ApplicationDeveloper;
   InstallButton: React.ComponentType<InstallButtonInterface>;
+  solutionName?: string;
 }

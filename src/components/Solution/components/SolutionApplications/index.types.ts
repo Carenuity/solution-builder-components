@@ -2,9 +2,10 @@ import { ApplicationsListProps } from '../../../Applications/ApplicationList/App
 
 export type SolutionApplicationsProps = Omit<
   ApplicationsListProps,
-  'solutionId'
+  'solution'
 > & {
   id: string;
+  name: string;
   applicationsViewport: { height: number };
   generateCreateApplicationUrl?: (solutionId: string) => string;
 };

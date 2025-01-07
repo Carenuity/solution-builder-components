@@ -14,7 +14,7 @@ import {
 } from './ApplicationsList.types';
 
 const ApplicationsList: React.FC<ApplicationsListProps> = ({
-  solutionId,
+  solution,
   limit,
   InstallButton,
   generateSolutionPageUrl,
@@ -34,7 +34,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   useEffect(() => {
     if (!window.document) return;
 
-    onInitialApplicationsLoad(solutionId, { signal: controller.signal, limit })
+    onInitialApplicationsLoad(solution.id, { signal: controller.signal, limit })
       .then(({ cursor: c, data: _initialData }) => {
         setInitialLoading(false);
         setData(_initialData);
@@ -57,7 +57,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   const onLoadMore = () => {
     if (onLoadMoreApplications) {
       setLoading(true);
-      onLoadMoreApplications(solutionId, {
+      onLoadMoreApplications(solution.id, {
         signal: controller.signal,
         limit,
         cursor,
@@ -90,6 +90,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
             key={item.id}
             {...item}
             InstallButton={InstallButton}
+            solutionName={solution.name}
           />
         )}
         loadMore={
@@ -107,7 +108,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                   size={'small'}
                   shape={'round'}
                   type={'link'}
-                  href={generateSolutionPageUrl(solutionId)}
+                  href={generateSolutionPageUrl(solution.id)}
                   icon={<LinkOutlined />}
                 >
                   Load More

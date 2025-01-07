@@ -38,7 +38,10 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const HelloWorld: Story = {
   args: {
-    solutionId: '1',
+    solution: {
+      id: '1',
+      name: `Air-Quality-Meter: Air Quality (VOCs, CO2 and Humidity) by SGP30 (SENSIRION)`,
+    },
     limit: 5,
     InstallButton: InstallButton,
     onInitialApplicationsLoad: async (solutionId, { limit }) => {

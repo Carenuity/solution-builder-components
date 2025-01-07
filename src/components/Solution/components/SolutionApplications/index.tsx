@@ -10,6 +10,7 @@ const { Text } = Typography;
 
 const SolutionApplications: React.FC<SolutionApplicationsProps> = ({
   id,
+  name,
   applicationsViewport,
   generateCreateApplicationUrl,
   ...applicationListProps
@@ -48,7 +49,7 @@ const SolutionApplications: React.FC<SolutionApplicationsProps> = ({
           overflowY: 'scroll',
         }}
       >
-        <ApplicationsList solutionId={id} {...applicationListProps} />
+        <ApplicationsList solution={{ id, name }} {...applicationListProps} />
       </div>
     </>
   );
