@@ -39,16 +39,12 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
         gap={5}
         style={{
           paddingRight: '.5rem',
+          paddingTop: '.3rem',
           height: width > screenThreshold ? viewport.height : undefined,
         }}
       >
         {/* Title */}
-        <Title
-          level={5}
-          ellipsis={true}
-          title={name}
-          style={{ paddingTop: '.3rem' }}
-        >
+        <Title level={5} ellipsis={true} title={name}>
           {name}
         </Title>
 

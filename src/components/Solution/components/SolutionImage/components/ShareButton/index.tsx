@@ -9,6 +9,7 @@ import {
   Button,
   Col,
   FloatButton,
+  message,
   Popover,
   Row,
   Tabs,
@@ -19,17 +20,23 @@ import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../../../../common/hooks/ScreenSize.hook';
 import { primaryColor, screenThreshold } from '../../../../Solution.constants';
 import { ShareButtonProps, SolutionShareTab } from './index.types';
+import { shareSolution } from './index.utils';
 
 const { Text, Paragraph } = Typography;
 
 const ShareButton: React.FC<ShareButtonProps> = ({
   id,
   name,
+  imageUrl,
   generateSolutionPageUrl,
   generateEmbedding,
 }) => {
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
+
+  const solutionPageUrl = generateSolutionPageUrl
+    ? generateSolutionPageUrl(id)
+    : undefined;
 
   useEffect(() => {
     if (!window.document) {
@@ -45,7 +52,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
       icon: <LinkOutlined />,
       content: (
         <>
-          {generateSolutionPageUrl && (
+          {solutionPageUrl && (
             <Paragraph
               copyable
               style={{
@@ -54,7 +61,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                 padding: '.5rem 2rem',
               }}
             >
-              {generateSolutionPageUrl(id)}
+              {solutionPageUrl}
             </Paragraph>
           )}
         </>
@@ -96,6 +103,19 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                   size={'large'}
                   color={'default'}
                   style={{ backgroundColor: '#add8e6', color: primaryColor }}
+                  onClick={() => {
+                    shareSolution({
+                      imageUrl,
+                      name,
+                      url: solutionPageUrl,
+                    })
+                      .then((msg) => {
+                        message.success(msg);
+                      })
+                      .catch((error) => {
+                        message.error(error.message);
+                      });
+                  }}
                 />
               </Tooltip>
             </Col>

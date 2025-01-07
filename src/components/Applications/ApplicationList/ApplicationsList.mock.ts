@@ -12,7 +12,7 @@ export const generateApplicationsData = ({
   return Array.from({ length: count }).map(
     (_, i): ApplicationData => ({
       id: `werty-${getId(i)}`,
-      tag: `Version-${getId(i)}`,
+      tag: `Baby-${getId(i)}`,
       developer: {
         id: `dev-${getId(i)}`,
         name: `john ${getId(i)}`,

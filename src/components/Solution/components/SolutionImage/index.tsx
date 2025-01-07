@@ -33,7 +33,7 @@ const SolutionImage: React.FC<SolutionImageProps> = ({
       }}
     >
       {/* Solution Share button */}
-      <ShareButton {...shareButtonProps} />
+      <ShareButton imageUrl={imageUrl} {...shareButtonProps} />
 
       {loadingImage && (
         <div style={{ width: '100%', textAlign: 'center' }}>
