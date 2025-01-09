@@ -2,24 +2,36 @@ import { Typography } from 'antd';
 import React from 'react';
 import { ApplicationDeveloperNameProps } from './index.types';
 
-const { Text } = Typography;
+const { Text, Link } = Typography;
 
 const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
-  value,
+  developer,
+  dispatchDeveloper,
 }) => {
   return (
     <>
-      <Text type={'secondary'} ellipsis style={{ fontSize: '.7rem' }}>
+      <Text
+        type={'secondary'}
+        ellipsis
+        style={{ fontSize: '.7rem' }}
+        onMouseEnter={
+          dispatchDeveloper
+            ? () => {
+                dispatchDeveloper(developer);
+              }
+            : undefined
+        }
+      >
         By{' '}
-        <Text
+        <Link
           type={'secondary'}
           strong
           underline
           italic
           style={{ fontSize: '.75rem' }}
         >
-          {value}
-        </Text>
+          {developer.name}
+        </Link>
       </Text>
     </>
   );

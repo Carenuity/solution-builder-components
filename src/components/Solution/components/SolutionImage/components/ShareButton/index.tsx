@@ -27,12 +27,12 @@ const { Text, Paragraph } = Typography;
 const ShareButton: React.FC<ShareButtonProps> = ({
   id,
   name,
-  imageUrl,
   generateSolutionPageUrl,
   generateEmbedding,
 }) => {
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
+  const [canShare, setCanShare] = useState(false);
 
   const solutionPageUrl = generateSolutionPageUrl
     ? generateSolutionPageUrl(id)
@@ -45,6 +45,16 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 
     setIsMobile(width < screenThreshold);
   }, [width]);
+
+  useEffect(() => {
+    if (!window.document) {
+      return;
+    }
+
+    // feature detecting navigator.canShare() also implies
+    // the same for the navigator.share()
+    setCanShare(!!navigator.canShare);
+  }, []);
 
   const tabs: SolutionShareTab[] = [
     {
@@ -94,31 +104,32 @@ const ShareButton: React.FC<ShareButtonProps> = ({
       content: (
         <>
           <Row gutter={16}>
-            <Col xs={6}>
-              <Tooltip title={'Web Share'}>
-                <Button
-                  icon={<AndroidOutlined />}
-                  type={'link'}
-                  shape={'circle'}
-                  size={'large'}
-                  color={'default'}
-                  style={{ backgroundColor: '#add8e6', color: primaryColor }}
-                  onClick={() => {
-                    shareSolution({
-                      imageUrl,
-                      name,
-                      url: solutionPageUrl,
-                    })
-                      .then((msg) => {
-                        message.success(msg);
+            {canShare && (
+              <Col xs={6}>
+                <Tooltip title={'Web Share'}>
+                  <Button
+                    icon={<AndroidOutlined />}
+                    type={'link'}
+                    shape={'circle'}
+                    size={'large'}
+                    color={'default'}
+                    style={{ backgroundColor: '#add8e6', color: primaryColor }}
+                    onClick={async () => {
+                      shareSolution({
+                        name,
+                        url: solutionPageUrl,
                       })
-                      .catch((error) => {
-                        message.error(error.message);
-                      });
-                  }}
-                />
-              </Tooltip>
-            </Col>
+                        .then((msg) => {
+                          message.success(msg);
+                        })
+                        .catch((error) => {
+                          message.error(error.message);
+                        });
+                    }}
+                  />
+                </Tooltip>
+              </Col>
+            )}
           </Row>
         </>
       ),
@@ -159,9 +170,10 @@ const ShareButton: React.FC<ShareButtonProps> = ({
             ...(isMobile
               ? {
                   bottom: '-7%',
-                  right: '45%',
+                  right: '50%',
+                  transform: `translateX(50%)`,
                 }
-              : { top: '45%', transform: `translateY(-45%)`, right: '-1rem' }),
+              : { top: '45%', transform: `translateY(-45%)`, right: '-9.5%' }),
           }}
         />
       </Popover>

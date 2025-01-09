@@ -17,6 +17,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   solution,
   limit,
   InstallButton,
+  dispatchDeveloper,
   generateSolutionPageUrl,
   onInitialApplicationsLoad,
   onLoadMoreApplications,
@@ -91,6 +92,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
             {...item}
             InstallButton={InstallButton}
             solutionName={solution.name}
+            dispatchDeveloper={dispatchDeveloper}
           />
         )}
         loadMore={

@@ -2,7 +2,7 @@ import { ApplicationListRecordProps } from './components/ApplicationListRecord/i
 
 export type ApplicationData = Omit<
   ApplicationListRecordProps,
-  'InstallButton' | 'solutionName'
+  'InstallButton' | 'solutionName' | 'dispatchDeveloper'
 >;
 type ApplicationInstallButton = Omit<
   ApplicationListRecordProps,

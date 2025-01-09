@@ -62,6 +62,9 @@ export const HelloWorld: Story = {
         }, 5000);
       });
     },
+    dispatchDeveloper: ({ name }) => {
+      alert(name);
+    },
     // setSolutionPageUrl: (solutionId) => `/solutions/${solutionId}`,
   },
 };

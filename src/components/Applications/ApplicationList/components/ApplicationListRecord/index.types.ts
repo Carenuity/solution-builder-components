@@ -1,21 +1,11 @@
-type SocialHandle = {
-  id: string;
-  url: string;
-};
-
-type ApplicationDeveloper = {
-  id: string;
-  name: string;
-  avatar: string;
-  subtitle?: string;
-  socialHandles?: SocialHandle[];
-};
+import { ApplicationDeveloperNameProps } from '../ApplicationDeveloperName/index.types';
 
 export interface InstallButtonInterface {
   manifest: string;
 }
 
-export interface ApplicationListRecordProps {
+export interface ApplicationListRecordProps
+  extends ApplicationDeveloperNameProps {
   id: string;
   downloads?: number;
   upVotes?: number;
@@ -29,7 +19,6 @@ export interface ApplicationListRecordProps {
   repository: string;
   manifest: string;
   tag?: string;
-  developer: ApplicationDeveloper;
   InstallButton: React.ComponentType<InstallButtonInterface>;
   solutionName?: string;
 }

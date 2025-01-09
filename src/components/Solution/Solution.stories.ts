@@ -11,7 +11,8 @@ const actuatorImage = `https://solutions.carenuity.com/_next/image?url=https%3A%
 const ecosystemImage = `https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fecosystem%252Favatars%252FmxPH5kGodhJBicKPFXwx%252F1719573578337_Cloudfree_Profile-Preview_transp.PNG%3Falt%3Dmedia%26token%3D01a79023-fedd-4b0c-a758-b6a08019890d&w=32&q=75`;
 const companyImage = `https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fcompany%252Favatars%252FZpPTBErPqSiOwSxON6t5%252F1719655090636_carenuity.png%3Falt%3Dmedia%26token%3D41ced7d7-4d43-4e3f-9bc3-d3d441fa8e73&w=384&q=75`;
 const solutionImage =
-  'https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fsolution_template%252Favatars%252FeieQlkAmwh1LUePfYXmW%252F1723542605619_SGP30_C3-Mini_0.66-OLED_couldfree.png%3Falt%3Dmedia%26token%3D47a6d73a-8f26-4659-bbd0-3f5ec4a90979&w=640&q=75';
+  'https://firebasestorage.googleapis.com/v0/b/solution-builder-421307.appspot.com/o/images%2Fsolution_template%2Favatars%2F0Y4yJH5yr1JXd5PCjQih%2F1727429801621_HP303B_ESP32-Mini_0.66-OLED_cloudfree.png?alt=media&token=baa223ba-0ecd-41a9-8d4b-604b36b9b326';
+// 'https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fsolution_template%252Favatars%252FeieQlkAmwh1LUePfYXmW%252F1723542605619_SGP30_C3-Mini_0.66-OLED_couldfree.png%3Falt%3Dmedia%26token%3D47a6d73a-8f26-4659-bbd0-3f5ec4a90979&w=640&q=75';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -93,5 +94,8 @@ export const HelloWorld: Story = {
     },
     generateCreateApplicationUrl: (solutionId) =>
       `/${solutionId}/applications/create`,
+    dispatchDeveloper: ({ name }) => {
+      alert(name);
+    },
   },
 };

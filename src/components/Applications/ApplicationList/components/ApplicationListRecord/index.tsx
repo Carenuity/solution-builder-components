@@ -47,6 +47,7 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
   upVotes,
   totalValidators,
   solutionName,
+  dispatchDeveloper,
 }) => {
   const { width } = useScreenSize();
   const [actions, setActions] = useState<ReactNode[]>([]);
@@ -189,7 +190,12 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
             isVerified={isVerified}
           />
         }
-        description={<ApplicationDeveloperName value={developer.name} />}
+        description={
+          <ApplicationDeveloperName
+            developer={developer}
+            dispatchDeveloper={dispatchDeveloper}
+          />
+        }
       />
 
       <Flex gap={10} vertical={isMobile}>
