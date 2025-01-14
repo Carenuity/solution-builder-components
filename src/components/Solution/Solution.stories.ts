@@ -4,6 +4,8 @@ import Solution from '.';
 import { sliderProps } from '../common/Slider/index.mock';
 import { InstallButton } from '../Applications/ApplicationList/ApplicationsList.stories';
 import { generateApplicationsData } from '../Applications/ApplicationList/ApplicationsList.mock';
+import { fetchSolution } from './Solution.mock';
+import { SolutionProps } from './Solution.types';
 
 const sensorImage = `https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fiot_component%252Favatars%252FBw2OFYjZDgrDmFmRhC3B%252F1719586250894_S_BMP180.png%3Falt%3Dmedia%26token%3Da056fd8d-65c6-4e40-8b5a-977c3f1b205a&w=256&q=75`;
 const boardImage = `https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fiot_component%252Favatars%252F4OQQy4edGswvbN6boCKw%252F1719656936332_c3-mini_carenuity.png%3Falt%3Dmedia%26token%3D054555e4-e04b-466f-aef7-1c257c533b33&w=256&q=75`;
@@ -92,7 +94,7 @@ export const HelloWorld: Story = {
       const data = generateApplicationsData({ count: limit, page: 0 });
       return { data, cursor: String(data.length) };
     },
-    generateCreateApplicationUrl: (solutionId) =>
+    createApplicationUrlGenerator: (solutionId) =>
       `/${solutionId}/applications/create`,
     onDispatchDeveloper: ({ name }) => {
       // alert(name);
@@ -106,4 +108,12 @@ export const HelloWorld: Story = {
     developerApplicationsUrlGenerator: (developerId) =>
       `/developers/${developerId}`,
   },
+};
+
+const solution = (await fetchSolution({
+  id: 'GKSSP4Zxs7svuDAqbTP3',
+})) as SolutionProps;
+
+export const API: Story = {
+  args: { ...solution },
 };

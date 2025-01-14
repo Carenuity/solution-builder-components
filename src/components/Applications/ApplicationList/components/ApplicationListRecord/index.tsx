@@ -168,7 +168,7 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
     const [action1, action2, action3, ...moreActions] = _actions;
 
     // Set Show More Button
-    if (moreActions) {
+    if (moreActions.length > 0) {
       const moreActionsDropdown = (
         <MoreApplicationActions
           key={`more-app-actions-${id}`}

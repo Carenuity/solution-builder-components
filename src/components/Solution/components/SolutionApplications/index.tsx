@@ -12,7 +12,7 @@ const SolutionApplications: React.FC<SolutionApplicationsProps> = ({
   id,
   name,
   applicationsViewport,
-  generateCreateApplicationUrl,
+  createApplicationUrlGenerator,
   ...applicationListProps
 }) => {
   const { width } = useScreenSize();
@@ -29,9 +29,9 @@ const SolutionApplications: React.FC<SolutionApplicationsProps> = ({
           <Text strong>Applications</Text>
         </Space>
 
-        {generateCreateApplicationUrl && (
+        {createApplicationUrlGenerator && (
           <Button
-            href={generateCreateApplicationUrl(id)}
+            href={createApplicationUrlGenerator(id)}
             title={'Add your application'}
             icon={<PlusOutlined />}
             shape={'circle'}

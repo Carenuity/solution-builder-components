@@ -7,5 +7,5 @@ export type SolutionApplicationsProps = Omit<
   id: string;
   name: string;
   applicationsViewport: { height: number };
-  generateCreateApplicationUrl?: (solutionId: string) => string;
+  createApplicationUrlGenerator?: (solutionId: string) => string;
 };

@@ -19,7 +19,10 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   solutionUrlGenerator,
   onInitialApplicationsLoad,
   onLoadMoreApplications,
-  ...appListRecordProps
+  InstallButton,
+  developerApplicationsUrlGenerator,
+  onDispatchDeveloper,
+  onResetDeveloperDispatch,
 }) => {
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
@@ -89,8 +92,13 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
           <ApplicationListRecord
             key={item.id}
             {...item}
-            {...appListRecordProps}
             solutionName={solution.name}
+            InstallButton={InstallButton}
+            developerApplicationsUrlGenerator={
+              developerApplicationsUrlGenerator
+            }
+            onDispatchDeveloper={onDispatchDeveloper}
+            onResetDeveloperDispatch={onResetDeveloperDispatch}
           />
         )}
         loadMore={
