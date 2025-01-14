@@ -30,8 +30,8 @@ export type SolutionPreviewProps = {
   totalApplications?: number;
   rating?: number;
   shopUrl?: string;
-  setApplicationPageUrl?: (applicationId: string) => string;
-  setManufacturerSolutionsPageUrl?: (
+  applicationUrlGenerator?: (applicationId: string) => string;
+  manufacturerSolutionsUrlGenerator?: (
     manufacturerId: string,
     type: 'sensor' | 'micro-controller' | 'actuator'
   ) => string;

@@ -27,15 +27,15 @@ const { Text, Paragraph } = Typography;
 const ShareButton: React.FC<ShareButtonProps> = ({
   id,
   name,
-  generateSolutionPageUrl,
-  generateEmbedding,
+  embeddingGenerator,
+  solutionUrlGenerator,
 }) => {
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
   const [canShare, setCanShare] = useState(false);
 
-  const solutionPageUrl = generateSolutionPageUrl
-    ? generateSolutionPageUrl(id)
+  const solutionPageUrl = solutionUrlGenerator
+    ? solutionUrlGenerator(id)
     : undefined;
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
       icon: <CodeOutlined />,
       content: (
         <>
-          {generateEmbedding && (
+          {embeddingGenerator && (
             <Paragraph
               copyable
               type={'secondary'}
@@ -92,7 +92,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                 padding: '.5rem 1rem',
               }}
             >
-              {generateEmbedding(id)}
+              {embeddingGenerator(id)}
             </Paragraph>
           )}
         </>

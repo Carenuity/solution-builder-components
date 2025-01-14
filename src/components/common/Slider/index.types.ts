@@ -6,5 +6,5 @@ export type SliderItem = {
 
 export type SliderProps = {
   items: SliderItem[];
-  applicationPageUrlGenerator?: (id: string) => string;
+  applicationUrlGenerator?: (id: string) => string;
 };

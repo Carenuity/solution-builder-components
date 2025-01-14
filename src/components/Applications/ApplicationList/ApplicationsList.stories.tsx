@@ -62,7 +62,7 @@ export const HelloWorld: Story = {
         }, 5000);
       });
     },
-    dispatchDeveloper: ({ name }) => {
+    onDispatchDeveloper: ({ name }) => {
       alert(name);
     },
     // setSolutionPageUrl: (solutionId) => `/solutions/${solutionId}`,

@@ -8,10 +8,7 @@ const { Link } = Typography;
 
 const scrollValue = 200;
 
-const Slider: React.FC<SliderProps> = ({
-  items,
-  applicationPageUrlGenerator,
-}) => {
+const Slider: React.FC<SliderProps> = ({ items, applicationUrlGenerator }) => {
   // const [items, setItems] = useState<string[]>(testItems);
   const tabRef = useRef<HTMLUListElement>(null);
   const leftArrowRef = useRef<HTMLDivElement>(null);
@@ -74,8 +71,8 @@ const Slider: React.FC<SliderProps> = ({
             >
               <Link
                 href={
-                  applicationPageUrlGenerator
-                    ? applicationPageUrlGenerator(id)
+                  applicationUrlGenerator
+                    ? applicationUrlGenerator(id)
                     : undefined
                 }
                 style={{ color: 'inherit' }}

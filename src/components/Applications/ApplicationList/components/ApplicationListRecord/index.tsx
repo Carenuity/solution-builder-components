@@ -47,7 +47,7 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
   upVotes,
   totalValidators,
   solutionName,
-  dispatchDeveloper,
+  ...developerProps
 }) => {
   const { width } = useScreenSize();
   const [actions, setActions] = useState<ReactNode[]>([]);
@@ -191,10 +191,7 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
           />
         }
         description={
-          <ApplicationDeveloperName
-            developer={developer}
-            dispatchDeveloper={dispatchDeveloper}
-          />
+          <ApplicationDeveloperName {...developerProps} developer={developer} />
         }
       />
 

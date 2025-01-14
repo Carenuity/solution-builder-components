@@ -13,5 +13,7 @@ type ApplicationDeveloper = {
 
 export interface ApplicationDeveloperNameProps {
   developer: ApplicationDeveloper;
-  dispatchDeveloper?: (developer: ApplicationDeveloper) => void;
+  onDispatchDeveloper?: (developer: ApplicationDeveloper) => void;
+  onResetDeveloperDispatch?: () => void;
+  developerApplicationsUrlGenerator?: (developerId: string) => string;
 }

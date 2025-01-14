@@ -6,7 +6,9 @@ const { Text, Link } = Typography;
 
 const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
   developer,
-  dispatchDeveloper,
+  onDispatchDeveloper,
+  onResetDeveloperDispatch,
+  developerApplicationsUrlGenerator,
 }) => {
   return (
     <>
@@ -15,15 +17,27 @@ const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
         ellipsis
         style={{ fontSize: '.7rem' }}
         onMouseEnter={
-          dispatchDeveloper
+          onDispatchDeveloper
             ? () => {
-                dispatchDeveloper(developer);
+                onDispatchDeveloper(developer);
+              }
+            : undefined
+        }
+        onMouseLeave={
+          onResetDeveloperDispatch
+            ? () => {
+                onResetDeveloperDispatch();
               }
             : undefined
         }
       >
         By{' '}
         <Link
+          href={
+            developerApplicationsUrlGenerator
+              ? developerApplicationsUrlGenerator(developer.id)
+              : undefined
+          }
           type={'secondary'}
           strong
           underline

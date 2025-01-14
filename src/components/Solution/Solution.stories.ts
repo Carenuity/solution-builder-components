@@ -68,8 +68,8 @@ export const HelloWorld: Story = {
     totalApplications: 20,
     shopUrl: '#',
     description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium voluptatum consequuntur sit inventore explicabo maxime excepturi nihil iure eum dolorum rerum cum iusto nemo, itaque ea quaerat culpa a aspernatur impedit ut eaque possimus libero aliquid. Dolor architecto, vel harum quaerat distinctio pariatur quisquam asperiores eaque odio rem tempora quia consequatur expedita voluptatibus nam recusandae alias modi minus minima adipisci perferendis ad corrupti consectetur dignissimos! Rerum illum saepe quos dolorum accusamus doloribus provident cum nemo, deleniti fugiat sint incidunt amet similique harum numquam praesentium sit rem quia, eos molestias libero, explicabo iure consequuntur eaque. Quibusdam commodi saepe ipsa deserunt expedita perferendis, quis maxime molestiae nesciunt consectetur eius corrupti, libero tempora sint. Aspernatur tempore provident hic eligendi deleniti, earum eveniet aut voluptatum amet unde. Delectus neque hic, harum, nostrum commodi culpa voluptas repellat possimus, corrupti eveniet ducimus! Provident culpa doloribus eveniet nihil minus cupiditate beatae iste esse totam libero. Ipsa, adipisci!`,
-    setApplicationPageUrl: (id) => `/applications/${id}`,
-    setManufacturerSolutionsPageUrl: (id, type) => {
+    applicationUrlGenerator: (id) => `/applications/${id}`,
+    manufacturerSolutionsUrlGenerator: (id, type) => {
       switch (type) {
         case 'sensor':
           return `sensors/${id}`;
@@ -81,9 +81,9 @@ export const HelloWorld: Story = {
           return `actuators/${id}`;
       }
     },
-    generateSolutionPageUrl: (solutionId) =>
+    solutionUrlGenerator: (solutionId) =>
       `https://solutions.carenuity.com/solutions/${solutionId}`,
-    generateEmbedding(solutionId) {
+    embeddingGenerator: (solutionId) => {
       return `<iframe width="560" height="315" src="https://www.youtube.com/embed/l--a30OOf8k?si=qdLrk7g2qM7al6eD&id=${solutionId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
     },
     limit: 5,
@@ -94,8 +94,16 @@ export const HelloWorld: Story = {
     },
     generateCreateApplicationUrl: (solutionId) =>
       `/${solutionId}/applications/create`,
-    dispatchDeveloper: ({ name }) => {
-      alert(name);
+    onDispatchDeveloper: ({ name }) => {
+      // alert(name);
+      console.log(name);
     },
+    onResetDeveloperDispatch() {
+      setTimeout(() => {
+        console.log('Developer reset');
+      }, 100);
+    },
+    developerApplicationsUrlGenerator: (developerId) =>
+      `/developers/${developerId}`,
   },
 };

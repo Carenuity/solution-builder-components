@@ -2,7 +2,11 @@ import { ApplicationListRecordProps } from './components/ApplicationListRecord/i
 
 export type ApplicationData = Omit<
   ApplicationListRecordProps,
-  'InstallButton' | 'solutionName' | 'dispatchDeveloper'
+  | 'InstallButton'
+  | 'solutionName'
+  | 'onDispatchDeveloper'
+  | 'onResetDeveloperDispatch'
+  | 'developerApplicationsUrlGenerator'
 >;
 type ApplicationInstallButton = Omit<
   ApplicationListRecordProps,
@@ -22,7 +26,7 @@ export type LoadApplicationsFunction = (
 export type ApplicationsListProps = ApplicationInstallButton & {
   solution: { id: string; name?: string };
   limit: number;
-  generateSolutionPageUrl?: (solutionId: string) => string;
+  solutionUrlGenerator?: (solutionId: string) => string;
   onInitialApplicationsLoad: LoadApplicationsFunction;
   onLoadMoreApplications?: LoadApplicationsFunction;
 };

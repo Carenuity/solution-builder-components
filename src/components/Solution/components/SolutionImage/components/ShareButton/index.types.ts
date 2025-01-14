@@ -9,6 +9,6 @@ export interface SolutionShareTab {
 export type ShareButtonProps = {
   id: string;
   name: string;
-  generateSolutionPageUrl?: (solutionId: string) => string;
-  generateEmbedding?: (solutionId: string) => string;
+  solutionUrlGenerator?: (solutionId: string) => string;
+  embeddingGenerator?: (solutionId: string) => string;
 };

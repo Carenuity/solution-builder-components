@@ -27,8 +27,8 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
   shopUrl,
   totalApplications,
   viewport,
-  setApplicationPageUrl,
-  setManufacturerSolutionsPageUrl,
+  applicationUrlGenerator,
+  manufacturerSolutionsUrlGenerator,
 }) => {
   const { width } = useScreenSize();
   return (
@@ -51,7 +51,7 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
         {/* Applications slider */}
         <Slider
           items={applicationCategories}
-          applicationPageUrlGenerator={setApplicationPageUrl}
+          applicationUrlGenerator={applicationUrlGenerator}
         />
 
         {/* Hardware setup */}
@@ -75,8 +75,8 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
                   name: sensor.manufacturer.name,
                   logo: sensor.manufacturer.logo,
                   shopUrl: sensor.shopUrl,
-                  solutionsUrl: setManufacturerSolutionsPageUrl
-                    ? setManufacturerSolutionsPageUrl(
+                  solutionsUrl: manufacturerSolutionsUrlGenerator
+                    ? manufacturerSolutionsUrlGenerator(
                         sensor.manufacturer.id,
                         'sensor'
                       )
@@ -97,8 +97,8 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
                 name: microcontroller.manufacturer.name,
                 logo: microcontroller.manufacturer.logo,
                 shopUrl: microcontroller.shopUrl,
-                solutionsUrl: setManufacturerSolutionsPageUrl
-                  ? setManufacturerSolutionsPageUrl(
+                solutionsUrl: manufacturerSolutionsUrlGenerator
+                  ? manufacturerSolutionsUrlGenerator(
                       microcontroller.manufacturer.id,
                       'micro-controller'
                     )
@@ -119,8 +119,8 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
                   name: actuator.manufacturer.name,
                   logo: actuator.manufacturer.logo,
                   shopUrl: actuator.shopUrl,
-                  solutionsUrl: setManufacturerSolutionsPageUrl
-                    ? setManufacturerSolutionsPageUrl(
+                  solutionsUrl: manufacturerSolutionsUrlGenerator
+                    ? manufacturerSolutionsUrlGenerator(
                         actuator.manufacturer.id,
                         'actuator'
                       )
