@@ -170,6 +170,7 @@ export const shareSolution = async ({
 }) => {
   await navigator.share({
     url,
+    title: name,
     text: name,
   });
 
