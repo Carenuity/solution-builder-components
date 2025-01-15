@@ -1,4 +1,4 @@
-import { SliderItem } from '../../../common/Slider/index.types';
+import { SliderItem } from '../../../../common/Slider/index.types';
 
 type ShieldManufacturer = {
   id: string;
@@ -6,7 +6,7 @@ type ShieldManufacturer = {
   logo: string;
 };
 
-type SolutionShield = {
+type SolutionGroupShield = {
   id: string;
   name: string;
   logo: string;
@@ -14,18 +14,18 @@ type SolutionShield = {
   shopUrl?: string;
 };
 
-type SolutionEcosystem = {
+type SolutionGroupEcosystem = {
   name: string;
   logo: string;
 };
 
-export type SolutionPreviewProps = {
+export type SolutionGroupPreviewProps = {
   name: string;
   applicationCategories: SliderItem[];
-  sensor?: SolutionShield;
-  microcontroller: SolutionShield;
-  actuator?: SolutionShield;
-  ecosystem?: SolutionEcosystem;
+  sensor?: SolutionGroupShield;
+  microcontroller: SolutionGroupShield;
+  actuator?: SolutionGroupShield;
+  ecosystem?: SolutionGroupEcosystem;
   contributors?: number;
   totalApplications?: number;
   rating?: number;

@@ -5,25 +5,29 @@ import {
 } from '@ant-design/icons';
 import { Col, Row, Tabs } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
-import { useScreenSize } from '../common/hooks/ScreenSize.hook';
+import { useResizeObserver } from '../../common/hooks/ResizeObserver';
+import { useScreenSize } from '../../common/hooks/ScreenSize.hook';
+import SolutionApplications from './components/SolutionGroupApplications';
+import SolutionDescription from './components/SolutionGroupDescription';
+import SolutionImage from './components/SolutionGroupImage';
+import SolutionPreview from './components/SolutionGroupPreview';
+import './Solution.css';
 import {
   backgroundColor,
   borderRadius,
   screenThreshold,
-} from './Solution.constants';
-import { SolutionProps, SolutionTab, SolutionViewport } from './Solution.types';
-import SolutionImage from './components/SolutionImage';
-import SolutionPreview from './components/SolutionPreview';
-import './Solution.css';
-import SolutionApplications from './components/SolutionApplications';
-import { useResizeObserver } from '../common/hooks/ResizeObserver';
-import SolutionDescription from './components/SolutionDescription';
+} from './SolutionGroup.constants';
+import {
+  SolutionGroupProps,
+  SolutionGroupTab,
+  SolutionGroupViewport,
+} from './SolutionGroup.types';
 
-const Solution: React.FC<SolutionProps> = (props) => {
+const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
   const { width } = useScreenSize();
   const contentRef = useRef<HTMLDivElement>(null);
   const { observer, observerEntries } = useResizeObserver();
-  const [viewport, setViewport] = useState<SolutionViewport>({});
+  const [viewport, setViewport] = useState<SolutionGroupViewport>({});
 
   const contentId = 'content';
 
@@ -54,7 +58,7 @@ const Solution: React.FC<SolutionProps> = (props) => {
     }));
   }, [observerEntries]);
 
-  const tabs: SolutionTab[] = [
+  const tabs: SolutionGroupTab[] = [
     {
       label: 'Preview',
       icon: <HomeOutlined />,
@@ -128,4 +132,4 @@ const Solution: React.FC<SolutionProps> = (props) => {
   );
 };
 
-export default Solution;
+export default SolutionGroup;

@@ -1,13 +1,13 @@
 import { ReadOutlined } from '@ant-design/icons';
 import { Space, Typography } from 'antd';
-import React from 'react';
-import { primaryColor } from '../../Solution.constants';
 import parse from 'html-react-parser';
-import { SolutionDescriptionProps } from './index.types';
+import React from 'react';
+import { primaryColor } from '../../SolutionGroup.constants';
+import { SolutionGroupDescriptionProps } from './index.types';
 
 const { Text, Paragraph } = Typography;
 
-const SolutionDescription: React.FC<SolutionDescriptionProps> = ({
+const SolutionGroupDescription: React.FC<SolutionGroupDescriptionProps> = ({
   viewport,
   description,
 }) => {
@@ -39,4 +39,4 @@ const SolutionDescription: React.FC<SolutionDescriptionProps> = ({
   );
 };
 
-export default SolutionDescription;
+export default SolutionGroupDescription;

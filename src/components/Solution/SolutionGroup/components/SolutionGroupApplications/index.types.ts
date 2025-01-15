@@ -1,6 +1,6 @@
-import { ApplicationsListProps } from '../../../Applications/ApplicationList/ApplicationsList.types';
+import { ApplicationsListProps } from '../../../../Applications/ApplicationList/ApplicationsList.types';
 
-export type SolutionApplicationsProps = Omit<
+export type SolutionGroupApplicationsProps = Omit<
   ApplicationsListProps,
   'solution'
 > & {

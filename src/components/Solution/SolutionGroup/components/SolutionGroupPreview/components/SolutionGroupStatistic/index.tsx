@@ -1,12 +1,12 @@
 import { Statistic, Typography } from 'antd';
 import React, { ReactNode, useEffect, useState } from 'react';
-import { useScreenSize } from '../../../../../common/hooks/ScreenSize.hook';
-import { screenThreshold } from '../../../../Solution.constants';
-import { SolutionStatisticProps } from './index.types';
+import { useScreenSize } from '../../../../../../common/hooks/ScreenSize.hook';
+import { screenThreshold } from '../../../../SolutionGroup.constants';
+import { SolutionGroupStatisticProps } from './index.types';
 
 const { Text } = Typography;
 
-const SolutionStatistic: React.FC<SolutionStatisticProps> = ({
+const SolutionGroupStatistic: React.FC<SolutionGroupStatisticProps> = ({
   icon,
   title,
   value,
@@ -46,4 +46,4 @@ const SolutionStatistic: React.FC<SolutionStatisticProps> = ({
   );
 };
 
-export default SolutionStatistic;
+export default SolutionGroupStatistic;

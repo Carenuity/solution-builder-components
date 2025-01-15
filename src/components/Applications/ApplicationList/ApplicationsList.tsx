@@ -6,12 +6,12 @@ import {
 import { Button, List, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../common/hooks/ScreenSize.hook';
-import { screenThreshold } from '../../Solution/Solution.constants';
-import ApplicationListRecord from './components/ApplicationListRecord';
+import { screenThreshold } from '../../Solution/SolutionGroup/SolutionGroup.constants';
 import {
   ApplicationData,
   ApplicationsListProps,
 } from './ApplicationsList.types';
+import ApplicationListRecord from './components/ApplicationListRecord';
 
 const ApplicationsList: React.FC<ApplicationsListProps> = ({
   solution,

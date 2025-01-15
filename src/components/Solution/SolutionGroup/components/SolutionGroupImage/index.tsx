@@ -1,12 +1,12 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Flex, Image } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { borderRadius, screenThreshold } from '../../Solution.constants';
-import { SolutionImageProps } from './index.types';
+import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
+import { borderRadius, screenThreshold } from '../../SolutionGroup.constants';
 import ShareButton from './components/ShareButton';
-import { useScreenSize } from '../../../common/hooks/ScreenSize.hook';
+import { SolutionGroupImageProps } from './index.types';
 
-const SolutionImage: React.FC<SolutionImageProps> = ({
+const SolutionGroupImage: React.FC<SolutionGroupImageProps> = ({
   imageUrl,
   fallbackImage,
   ...shareButtonProps
@@ -64,4 +64,4 @@ const SolutionImage: React.FC<SolutionImageProps> = ({
   );
 };
 
-export default SolutionImage;
+export default SolutionGroupImage;

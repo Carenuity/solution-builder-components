@@ -3,9 +3,9 @@ import { Avatar, Popover } from 'antd';
 import React from 'react';
 import { ManufacturerPopup } from './components/ManufacturerPopup';
 import ManufacturerPopupTitle from './components/ManufacturerPopupTitle';
-import { SolutionHardwareProps } from './index.types';
+import { SolutionGroupHardwareProps } from './index.types';
 
-const SolutionHardware: React.FC<SolutionHardwareProps> = ({
+const SolutionGroupHardware: React.FC<SolutionGroupHardwareProps> = ({
   manufacturerPopoverContent,
   manufacturerPopoverTitle,
   borderColor,
@@ -30,4 +30,4 @@ const SolutionHardware: React.FC<SolutionHardwareProps> = ({
   );
 };
 
-export default SolutionHardware;
+export default SolutionGroupHardware;

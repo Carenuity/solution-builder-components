@@ -17,8 +17,11 @@ import {
   Typography,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useScreenSize } from '../../../../../common/hooks/ScreenSize.hook';
-import { primaryColor, screenThreshold } from '../../../../Solution.constants';
+import { useScreenSize } from '../../../../../../common/hooks/ScreenSize.hook';
+import {
+  primaryColor,
+  screenThreshold,
+} from '../../../../SolutionGroup.constants';
 import { ShareButtonProps, SolutionShareTab } from './index.types';
 import { shareSolution } from './index.utils';
 

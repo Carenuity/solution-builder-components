@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export type SolutionStatisticProps = {
+export type SolutionGroupStatisticProps = {
   icon?: ReactNode;
   value?: string | number;
   title?: string;

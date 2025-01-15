@@ -1,9 +1,9 @@
 import QueryString from 'qs';
-import { SolutionProps } from './Solution.types';
-import { InstallButton } from '../Applications/ApplicationList/ApplicationsList.stories';
-import { ApplicationData } from '../Applications/ApplicationList/ApplicationsList.types';
-import { sliderProps } from '../common/Slider/index.mock';
-import { generateApplicationsData } from '../Applications/ApplicationList/ApplicationsList.mock';
+import { generateApplicationsData } from '../../Applications/ApplicationList/ApplicationsList.mock';
+import { InstallButton } from '../../Applications/ApplicationList/ApplicationsList.stories';
+import { ApplicationData } from '../../Applications/ApplicationList/ApplicationsList.types';
+import { sliderProps } from '../../common/Slider/index.mock';
+import { SolutionGroupProps } from './SolutionGroup.types';
 
 const sensorImage = `https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fiot_component%252Favatars%252FBw2OFYjZDgrDmFmRhC3B%252F1719586250894_S_BMP180.png%3Falt%3Dmedia%26token%3Da056fd8d-65c6-4e40-8b5a-977c3f1b205a&w=256&q=75`;
 const boardImage = `https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fiot_component%252Favatars%252F4OQQy4edGswvbN6boCKw%252F1719656936332_c3-mini_carenuity.png%3Falt%3Dmedia%26token%3D054555e4-e04b-466f-aef7-1c257c533b33&w=256&q=75`;
@@ -14,7 +14,7 @@ const solutionImage =
   'https://firebasestorage.googleapis.com/v0/b/solution-builder-421307.appspot.com/o/images%2Fsolution_template%2Favatars%2F0Y4yJH5yr1JXd5PCjQih%2F1727429801621_HP303B_ESP32-Mini_0.66-OLED_cloudfree.png?alt=media&token=baa223ba-0ecd-41a9-8d4b-604b36b9b326';
 // 'https://solutions.carenuity.com/_next/image?url=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fsolution-builder-421307.appspot.com%2Fo%2Fimages%252Fsolution_template%252Favatars%252FeieQlkAmwh1LUePfYXmW%252F1723542605619_SGP30_C3-Mini_0.66-OLED_couldfree.png%3Falt%3Dmedia%26token%3D47a6d73a-8f26-4659-bbd0-3f5ec4a90979&w=640&q=75';
 
-export const defaultSolutionData: SolutionProps = {
+export const defaultSolutionData: SolutionGroupProps = {
   id: '1',
   defaultView: 'preview',
   applicationCategories: sliderProps.items,
@@ -113,7 +113,7 @@ export const fetchSolution = async ({ id }: { id: string }) => {
     const _data = await response.json();
     const data = _data.data;
 
-    const solutionData: SolutionProps = {
+    const solutionData: SolutionGroupProps = {
       id: data.id,
       name: data.name,
       description: data.description,

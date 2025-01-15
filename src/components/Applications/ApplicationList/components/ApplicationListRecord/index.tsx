@@ -1,25 +1,25 @@
 import {
-  LikeOutlined,
-  LikeFilled,
-  DislikeOutlined,
-  DislikeFilled,
-  SafetyCertificateOutlined,
-  GithubOutlined,
   CloudDownloadOutlined,
+  DislikeFilled,
+  DislikeOutlined,
+  GithubOutlined,
+  LikeFilled,
+  LikeOutlined,
+  SafetyCertificateOutlined,
 } from '@ant-design/icons';
 import { Flex, List } from 'antd';
 import React, { ReactNode, useEffect, useState } from 'react';
+import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
+import { screenThreshold } from '../../../../Solution/SolutionGroup/SolutionGroup.constants';
 import ActionButton from '../../../components/ActionButton';
 import ActionText from '../../../components/ActionText';
 import ApplicationDescription from '../../../components/ApplicationDescription';
 import ApplicationModificationRequest from '../../../components/ApplicationModificationRequest';
 import ApplicationReviews from '../../../components/ApplicationReviews';
+import MoreApplicationActions from '../../../components/MoreApplicationActions';
 import ApplicationDeveloperName from '../ApplicationDeveloperName';
 import ApplicationRecordTitleV1 from '../ApplicationRecordTitleV1';
 import { ApplicationListRecordProps } from './index.types';
-import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
-import { screenThreshold } from '../../../../Solution/Solution.constants';
-import MoreApplicationActions from '../../../components/MoreApplicationActions';
 // import dynamic from 'next/dynamic';
 
 // const ApplicationDescription = dynamic(

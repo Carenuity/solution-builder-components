@@ -6,16 +6,16 @@ import {
 } from '@ant-design/icons';
 import { Avatar, Button, Flex, Tooltip, Typography } from 'antd';
 import React from 'react';
-import Slider from '../../../common/Slider';
-import SolutionHardware from './components/SolutionHardware';
-import SolutionStatistic from './components/SolutionStatistic';
-import { SolutionPreviewProps } from './index.types';
-import { useScreenSize } from '../../../common/hooks/ScreenSize.hook';
-import { screenThreshold } from '../../Solution.constants';
+import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
+import Slider from '../../../../common/Slider';
+import { screenThreshold } from '../../SolutionGroup.constants';
+import SolutionHardware from './components/SolutionGroupHardware';
+import SolutionStatistic from './components/SolutionGroupStatistic';
+import { SolutionGroupPreviewProps } from './index.types';
 
 const { Title } = Typography;
 
-const SolutionPreview: React.FC<SolutionPreviewProps> = ({
+const SolutionGroupPreview: React.FC<SolutionGroupPreviewProps> = ({
   actuator,
   applicationCategories,
   ecosystem,
@@ -212,4 +212,4 @@ const SolutionPreview: React.FC<SolutionPreviewProps> = ({
   );
 };
 
-export default SolutionPreview;
+export default SolutionGroupPreview;

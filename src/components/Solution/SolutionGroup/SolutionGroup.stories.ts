@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { fn } from "@storybook/test";
 import Solution from '.';
-import { defaultSolutionData, fetchSolution } from './Solution.mock';
-import { SolutionProps } from './Solution.types';
+import { defaultSolutionData, fetchSolution } from './SolutionGroup.mock';
+import { SolutionGroupProps } from './SolutionGroup.types';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Components/Solution',
+  title: 'Components/Solution/SolutionGroup',
   component: Solution,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
@@ -26,7 +26,7 @@ export const HelloWorld: Story = {
 
 const solution = (await fetchSolution({
   id: 'GKSSP4Zxs7svuDAqbTP3',
-})) as SolutionProps;
+})) as SolutionGroupProps;
 
 export const API: Story = {
   args: { ...solution },

@@ -1,14 +1,14 @@
 import { AppstoreOutlined, PlusOutlined } from '@ant-design/icons';
-import { Flex, Space, Button, Typography } from 'antd';
+import { Button, Flex, Space, Typography } from 'antd';
 import React from 'react';
-import { ApplicationsList } from '../../../Applications';
-import { primaryColor, screenThreshold } from '../../Solution.constants';
-import { SolutionApplicationsProps } from './index.types';
-import { useScreenSize } from '../../../common/hooks/ScreenSize.hook';
+import { ApplicationsList } from '../../../../Applications';
+import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
+import { primaryColor, screenThreshold } from '../../SolutionGroup.constants';
+import { SolutionGroupApplicationsProps } from './index.types';
 
 const { Text } = Typography;
 
-const SolutionApplications: React.FC<SolutionApplicationsProps> = ({
+const SolutionGroupApplications: React.FC<SolutionGroupApplicationsProps> = ({
   id,
   name,
   applicationsViewport,
@@ -55,4 +55,4 @@ const SolutionApplications: React.FC<SolutionApplicationsProps> = ({
   );
 };
 
-export default SolutionApplications;
+export default SolutionGroupApplications;

@@ -27,7 +27,7 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../common/hooks/ScreenSize.hook';
-import { screenThreshold } from '../../Solution/Solution.constants';
+import { screenThreshold } from '../../Solution/SolutionGroup/SolutionGroup.constants';
 
 const { Text } = Typography;
 
