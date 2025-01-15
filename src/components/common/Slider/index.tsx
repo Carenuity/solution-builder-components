@@ -8,7 +8,7 @@ const { Link } = Typography;
 
 const scrollValue = 200;
 
-const Slider: React.FC<SliderProps> = ({ items, applicationUrlGenerator }) => {
+const Slider: React.FC<SliderProps> = ({ items, itemUrlGenerator }) => {
   // const [items, setItems] = useState<string[]>(testItems);
   const tabRef = useRef<HTMLUListElement>(null);
   const leftArrowRef = useRef<HTMLDivElement>(null);
@@ -70,11 +70,7 @@ const Slider: React.FC<SliderProps> = ({ items, applicationUrlGenerator }) => {
               }}
             >
               <Link
-                href={
-                  applicationUrlGenerator
-                    ? applicationUrlGenerator(id)
-                    : undefined
-                }
+                href={itemUrlGenerator ? itemUrlGenerator(id) : undefined}
                 style={{ color: 'inherit' }}
               >
                 <Flex vertical={false} justify={'center'} align={'center'}>

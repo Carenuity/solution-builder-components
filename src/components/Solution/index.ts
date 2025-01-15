@@ -1,2 +1,2 @@
 export { default as SolutionGroup } from './SolutionGroup';
-export { default as SolutionGroupList } from './SolutionGroupList';
+export { default as SolutionGroupListHoc } from './SolutionGroupList';

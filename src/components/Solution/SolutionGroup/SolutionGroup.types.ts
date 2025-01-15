@@ -10,11 +10,13 @@ export interface SolutionGroupTab {
   content: ReactNode;
 }
 
+export type SolutionGroupView = 'preview' | 'install-for-free' | 'more';
+
 export type SolutionGroupProps = Omit<SolutionGroupPreviewProps, 'viewport'> &
   SolutionGroupImageProps &
   Omit<SolutionGroupApplicationsProps, 'applicationsViewport'> &
   Omit<SolutionGroupDescriptionProps, 'viewport'> & {
-    defaultView: 'preview' | 'install-for-free' | 'more';
+    defaultView: SolutionGroupView;
   };
 
 export type SolutionGroupViewport = {

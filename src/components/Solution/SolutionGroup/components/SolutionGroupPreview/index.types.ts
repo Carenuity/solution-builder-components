@@ -19,9 +19,15 @@ type SolutionGroupEcosystem = {
   logo: string;
 };
 
+export type ITagUrlGenerator = (applicationId: string) => string;
+export type IManufacturerSolutionsUrlGenerator = (
+  manufacturerId: string,
+  type: 'sensor' | 'micro-controller' | 'actuator'
+) => string;
+
 export type SolutionGroupPreviewProps = {
   name: string;
-  applicationCategories: SliderItem[];
+  tags: SliderItem[];
   sensor?: SolutionGroupShield;
   microcontroller: SolutionGroupShield;
   actuator?: SolutionGroupShield;
@@ -30,10 +36,7 @@ export type SolutionGroupPreviewProps = {
   totalApplications?: number;
   rating?: number;
   shopUrl?: string;
-  applicationUrlGenerator?: (applicationId: string) => string;
-  manufacturerSolutionsUrlGenerator?: (
-    manufacturerId: string,
-    type: 'sensor' | 'micro-controller' | 'actuator'
-  ) => string;
+  tagUrlGenerator?: ITagUrlGenerator;
+  manufacturerSolutionsUrlGenerator?: IManufacturerSolutionsUrlGenerator;
   viewport: { height: number };
 };

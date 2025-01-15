@@ -16,7 +16,7 @@ export const sliderProps: SliderProps = {
     { name: 'Display', id: '7', avatar: '' },
     { name: 'API', id: '8', avatar: '' },
   ],
-  applicationUrlGenerator(id) {
+  itemUrlGenerator(id) {
     return `#${id}`;
   },
 };

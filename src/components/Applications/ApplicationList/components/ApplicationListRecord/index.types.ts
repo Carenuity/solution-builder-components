@@ -1,8 +1,10 @@
 import { ApplicationDeveloperNameProps } from '../ApplicationDeveloperName/index.types';
 
-export interface InstallButtonInterface {
+interface InstallButtonInterface {
   manifest: string;
 }
+
+export type IWebFlashButton = React.ComponentType<InstallButtonInterface>;
 
 export interface ApplicationListRecordProps
   extends ApplicationDeveloperNameProps {
@@ -19,6 +21,6 @@ export interface ApplicationListRecordProps
   repository: string;
   manifest: string;
   tag?: string;
-  InstallButton: React.ComponentType<InstallButtonInterface>;
+  InstallButton: IWebFlashButton;
   solutionName?: string;
 }

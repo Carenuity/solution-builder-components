@@ -17,7 +17,7 @@ const { Title } = Typography;
 
 const SolutionGroupPreview: React.FC<SolutionGroupPreviewProps> = ({
   actuator,
-  applicationCategories,
+  tags,
   ecosystem,
   microcontroller,
   name,
@@ -27,7 +27,7 @@ const SolutionGroupPreview: React.FC<SolutionGroupPreviewProps> = ({
   shopUrl,
   totalApplications,
   viewport,
-  applicationUrlGenerator,
+  tagUrlGenerator,
   manufacturerSolutionsUrlGenerator,
 }) => {
   const { width } = useScreenSize();
@@ -49,10 +49,7 @@ const SolutionGroupPreview: React.FC<SolutionGroupPreviewProps> = ({
         </Title>
 
         {/* Applications slider */}
-        <Slider
-          items={applicationCategories}
-          applicationUrlGenerator={applicationUrlGenerator}
-        />
+        <Slider items={tags} itemUrlGenerator={tagUrlGenerator} />
 
         {/* Hardware setup */}
         <Flex vertical={true} align={'end'}>

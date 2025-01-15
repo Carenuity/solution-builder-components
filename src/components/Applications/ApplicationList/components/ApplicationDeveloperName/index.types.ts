@@ -11,9 +11,15 @@ type ApplicationDeveloper = {
   socialHandles?: SocialHandle[];
 };
 
+export type IOnDispatchDeveloper = (developer: ApplicationDeveloper) => void;
+export type IOnResetDeveloperDispatch = () => void;
+export type IDeveloperApplicationsUrlGenerator = (
+  developerId: string
+) => string;
+
 export interface ApplicationDeveloperNameProps {
   developer: ApplicationDeveloper;
-  onDispatchDeveloper?: (developer: ApplicationDeveloper) => void;
-  onResetDeveloperDispatch?: () => void;
-  developerApplicationsUrlGenerator?: (developerId: string) => string;
+  onDispatchDeveloper?: IOnDispatchDeveloper;
+  onResetDeveloperDispatch?: IOnResetDeveloperDispatch;
+  developerApplicationsUrlGenerator?: IDeveloperApplicationsUrlGenerator;
 }

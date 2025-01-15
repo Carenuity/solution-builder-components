@@ -6,9 +6,11 @@ export interface SolutionShareTab {
   content: ReactNode;
 }
 
+export type ISolutionGroupInfoGenerator = (solutionId: string) => string;
+
 export type ShareButtonProps = {
   id: string;
   name: string;
-  solutionUrlGenerator?: (solutionId: string) => string;
-  embeddingGenerator?: (solutionId: string) => string;
+  solutionUrlGenerator?: ISolutionGroupInfoGenerator;
+  embeddingGenerator?: ISolutionGroupInfoGenerator;
 };

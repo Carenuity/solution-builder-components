@@ -1,3 +1,4 @@
+import { ISolutionGroupInfoGenerator } from '../../Solution/SolutionGroup/components/SolutionGroupImage/components/ShareButton/index.types';
 import { ApplicationListRecordProps } from './components/ApplicationListRecord/index.types';
 
 export type ApplicationData = Omit<
@@ -26,7 +27,7 @@ export type LoadApplicationsFunction = (
 export type ApplicationsListProps = ApplicationInstallButton & {
   solution: { id: string; name?: string };
   limit: number;
-  solutionUrlGenerator?: (solutionId: string) => string;
+  solutionUrlGenerator?: ISolutionGroupInfoGenerator;
   onInitialApplicationsLoad: LoadApplicationsFunction;
   onLoadMoreApplications?: LoadApplicationsFunction;
 };
