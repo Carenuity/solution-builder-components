@@ -31,6 +31,10 @@ export type SolutionGroupListHocProps = {
   onDispatchDeveloper?: IOnDispatchDeveloper;
   onResetDeveloperDispatch?: IOnResetDeveloperDispatch;
   developerApplicationsUrlGenerator?: IDeveloperApplicationsUrlGenerator;
+  onLoadMoreSolutionGroups: (params: {
+    signal?: AbortSignal;
+    limit: number;
+  }) => Promise<SolutionGroupData[]>;
 };
 
 export type SolutionGroupData = Omit<

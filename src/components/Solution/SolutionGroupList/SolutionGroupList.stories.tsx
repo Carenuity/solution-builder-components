@@ -1,31 +1,55 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { fn } from "@storybook/test";
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import SolutionGroupListHoc from '.';
 import { InstallButton } from '../../Applications/ApplicationList/ApplicationsList.stories';
 import { generateApplicationsData } from '../../Applications/ApplicationList/ApplicationsList.mock';
 import { generateSolutionGroupData } from '../SolutionGroup/SolutionGroup.mock';
 
 const SolutionGroups = () => {
-  const { SolutionGroupList, setData, setInitialLoading } =
-    SolutionGroupListHoc({
-      defaultView: 'preview',
-      limit: 5,
-      InstallButton: InstallButton,
-      onInitialApplicationsLoad: async (solutionId, { limit }) => {
-        const data = generateApplicationsData({ count: limit, page: 0 });
-        return { data, cursor: String(data.length) };
-      },
-    });
+  const offsetRef = useRef<number>(1);
 
-  useEffect(() => {
-    const data = Array.from({ length: 5 }).map((_, index) => {
-      return generateSolutionGroupData({ id: index });
-    });
-    // const data = [generateSolutionGroupData({ id: 1 })];
-    setData((old) => [...old, ...data]);
-    setInitialLoading(false);
-  }, []);
+  const { SolutionGroupList } = SolutionGroupListHoc({
+    defaultView: 'preview',
+    limit: 5,
+    InstallButton: InstallButton,
+    onInitialApplicationsLoad: async (solutionId, { limit }) => {
+      const data = generateApplicationsData({ count: limit, page: 0 });
+      return { data, cursor: String(data.length) };
+    },
+    onLoadMoreSolutionGroups: async ({ limit }) => {
+      return await new Promise((resolve, reject) => {
+        try {
+          if (offsetRef.current >= 20) {
+            resolve([]);
+            return;
+          }
+
+          setTimeout(() => {
+            const data = Array.from({ length: limit }).map((_, index) => {
+              return generateSolutionGroupData({
+                id: index + offsetRef.current,
+              });
+            });
+            // setOffset((old) => old + data.length);
+            offsetRef.current = offsetRef.current + data.length;
+            resolve(data);
+          }, 1500);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    },
+  });
+
+  // useEffect(() => {
+  //   const data = Array.from({ length: 5 }).map((_, index) => {
+  //     return generateSolutionGroupData({ id: index });
+  //   });
+  //   // const data = [generateSolutionGroupData({ id: 1 })];
+  //   setData((old) => [...old, ...data]);
+  //   setInitialLoading(false);
+  // }, []);
 
   return <SolutionGroupList />;
 };
