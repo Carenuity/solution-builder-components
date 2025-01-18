@@ -1,5 +1,4 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { Flex, Image } from 'antd';
+import { Flex, Image, Skeleton } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
 import { borderRadius, screenThreshold } from '../../SolutionGroup.constants';
@@ -37,7 +36,9 @@ const SolutionGroupImage: React.FC<SolutionGroupImageProps> = ({
 
       {loadingImage && (
         <div style={{ width: '40rem', textAlign: 'center' }}>
-          <LoadingOutlined style={{ fontSize: '2rem' }} />
+          {/* <LoadingOutlined style={{ fontSize: '2rem' }} /> */}
+
+          <Skeleton.Image active style={{ width: '12rem', height: '12rem' }} />
         </div>
       )}
 

@@ -1,4 +1,4 @@
-import { Divider, List, message, Skeleton } from 'antd';
+import { Divider, List, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import {
   SolutionGroupData,
@@ -6,6 +6,7 @@ import {
 } from './SolutionGroupList.types';
 import SolutionGroup from '../SolutionGroup/SolutionGroup';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import SolutionGroupSkeleton from '../skeletons/SolutionGroupSkeleton';
 
 const SolutionGroupListHoc = ({
   onLoadMoreSolutionGroups,
@@ -70,7 +71,9 @@ const SolutionGroupListHoc = ({
             dataLength={data.length}
             next={loadMoreData}
             hasMore={hasMoreData}
-            loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
+            loader={
+              <SolutionGroupSkeleton /> /*<Skeleton avatar paragraph={{ rows: 1 }} active />*/
+            }
             endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
             scrollableTarget="scrollableDiv"
           >
