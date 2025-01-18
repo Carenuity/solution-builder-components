@@ -28,8 +28,17 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { observer, observerEntries } = useResizeObserver();
   const [viewport, setViewport] = useState<SolutionGroupViewport>({});
+  const [isMobile, setIsMobile] = useState(width < screenThreshold);
 
   const contentId = 'content';
+
+  useEffect(() => {
+    if (!window.document) {
+      return;
+    }
+
+    setIsMobile(width < screenThreshold);
+  }, [width]);
 
   useEffect(() => {
     if (!window.document) {
@@ -64,7 +73,7 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
       icon: <HomeOutlined />,
       content: (
         <SolutionPreview
-          viewport={{ height: viewport.preview?.height || 0 }}
+          viewport={{ height: viewport.preview?.height || 172 }}
           {...props}
         />
       ),
@@ -97,18 +106,20 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
     <>
       <Row
         style={{
-          ...(width > screenThreshold && {
+          ...(!isMobile && {
             backgroundColor: backgroundColor,
             borderRadius: borderRadius,
             overflow: 'hidden',
           }),
+          marginBottom: isMobile ? '.8rem' : undefined,
+          width: '100%',
         }}
       >
         <Col xs={24} md={7} lg={5} xl={4}>
           <SolutionImage {...props} />
         </Col>
 
-        <Col ref={contentRef} id={contentId} xs={24} md={17} lg={19} xl={20}>
+        <Col ref={contentRef} id={contentId} xl={20} lg={19} md={17} xs={24}>
           <Tabs
             defaultActiveKey={`${props.defaultView}-${props.id}`}
             tabPosition={'bottom'}
@@ -121,8 +132,8 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
             }))}
             style={{
               height: '100%',
-              marginLeft: width > screenThreshold ? '.7rem' : undefined,
-              marginTop: width < screenThreshold ? '1.2rem' : undefined,
+              marginLeft: !isMobile ? '.7rem' : undefined,
+              marginTop: isMobile ? '1.2rem' : undefined,
             }}
             size={'small'}
           />

@@ -40,6 +40,9 @@ const SolutionGroups = () => {
         }
       });
     },
+    createApplicationUrlGenerator: (solutionId) =>
+      `/applications/create?solution=${solutionId}`,
+    solutionUrlGenerator: (solutionId) => `/solutions/${solutionId}`,
   });
 
   // useEffect(() => {

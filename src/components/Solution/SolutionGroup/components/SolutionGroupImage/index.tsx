@@ -36,7 +36,7 @@ const SolutionGroupImage: React.FC<SolutionGroupImageProps> = ({
       <ShareButton {...shareButtonProps} />
 
       {loadingImage && (
-        <div style={{ width: '100%', textAlign: 'center' }}>
+        <div style={{ width: '40rem', textAlign: 'center' }}>
           <LoadingOutlined style={{ fontSize: '2rem' }} />
         </div>
       )}
