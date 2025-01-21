@@ -32,7 +32,7 @@ const SolutionGroupSkeleton = () => {
           width: '100%',
         }}
       >
-        <Col xs={24} md={7} lg={5} xl={4}>
+        <Col xs={24} md={8} lg={6} xl={4}>
           <Flex
             justify={isMobile ? 'center' : 'start'}
             align={'center'}
@@ -53,19 +53,23 @@ const SolutionGroupSkeleton = () => {
                   : {
                       top: '50%',
                       transform: `translateY(-50%)`,
-                      right: '5%',
+                      right: '3%',
                     }),
               }}
             />
 
             <Skeleton.Image
               active
-              style={{ width: '12rem', height: '12rem' }}
+              style={{
+                width: '15rem',
+                height: '15rem',
+                borderRadius: borderRadius,
+              }}
             />
           </Flex>
         </Col>
 
-        <Col xl={20} lg={19} md={17} xs={24}>
+        <Col xs={24} md={16} lg={18} xl={20}>
           <Flex
             vertical={true}
             gap={7}

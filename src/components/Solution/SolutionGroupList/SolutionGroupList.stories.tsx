@@ -1,60 +1,80 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { fn } from "@storybook/test";
 import React, { useRef } from 'react';
-import SolutionGroupListHoc from '.';
 import { InstallButton } from '../../Applications/ApplicationList/ApplicationsList.stories';
 import { generateApplicationsData } from '../../Applications/ApplicationList/ApplicationsList.mock';
-import { generateSolutionGroupData } from '../SolutionGroup/SolutionGroup.mock';
+import {
+  fetchApplications,
+  generateSolutionGroupData,
+} from '../SolutionGroup/SolutionGroup.mock';
+import SolutionGroupList from './SolutionGroupList';
+import { fetchSolutionGroups, IFilter } from './SolutionGroupList.mocks';
 
-const SolutionGroups = () => {
+const SolutionGroups = ({
+  filter,
+  filterId,
+}: {
+  filter: IFilter;
+  filterId: string;
+}) => {
   const offsetRef = useRef<number>(1);
+  const cursorRef = useRef<string>();
 
-  const { SolutionGroupList } = SolutionGroupListHoc({
-    defaultView: 'preview',
-    limit: 5,
-    InstallButton: InstallButton,
-    onInitialApplicationsLoad: async (solutionId, { limit }) => {
-      const data = generateApplicationsData({ count: limit, page: 0 });
-      return { data, cursor: String(data.length) };
-    },
-    onLoadMoreSolutionGroups: async ({ limit }) => {
-      return await new Promise((resolve, reject) => {
+  return (
+    <SolutionGroupList
+      defaultView={'preview'}
+      limit={5}
+      InstallButton={InstallButton}
+      onInitialApplicationsLoad={async (solutionId, { limit }) => {
         try {
-          if (offsetRef.current >= 20) {
-            resolve([]);
-            return;
-          }
-
-          setTimeout(() => {
-            const data = Array.from({ length: limit }).map((_, index) => {
-              return generateSolutionGroupData({
-                id: index + offsetRef.current,
-              });
-            });
-            // setOffset((old) => old + data.length);
-            offsetRef.current = offsetRef.current + data.length;
-            resolve(data);
-          }, 1500);
+          return await fetchApplications({ solutionId, limit });
         } catch (error) {
-          reject(error);
+          console.debug(error);
+          const data = generateApplicationsData({ count: limit, page: 0 });
+          return { data, cursor: String(data.length) };
         }
-      });
-    },
-    createApplicationUrlGenerator: (solutionId) =>
-      `/applications/create?solution=${solutionId}`,
-    solutionUrlGenerator: (solutionId) => `/solutions/${solutionId}`,
-  });
+      }}
+      onLoadMoreSolutionGroups={async ({ limit }) => {
+        if (navigator.onLine) {
+          const { data, offset } = await fetchSolutionGroups({
+            limit,
+            offset: cursorRef.current,
+            filter, // : 'microcontroller',
+            filterId, // : '4tiaoJOa4F54jiwbAhwj', // 'IRlvP0nds3LbQAhA1XS6', '4OQQy4edGswvbN6boCKw'
+          });
+          cursorRef.current = offset;
 
-  // useEffect(() => {
-  //   const data = Array.from({ length: 5 }).map((_, index) => {
-  //     return generateSolutionGroupData({ id: index });
-  //   });
-  //   // const data = [generateSolutionGroupData({ id: 1 })];
-  //   setData((old) => [...old, ...data]);
-  //   setInitialLoading(false);
-  // }, []);
+          return data;
+        }
 
-  return <SolutionGroupList />;
+        return await new Promise((resolve, reject) => {
+          try {
+            if (offsetRef.current >= 20) {
+              resolve([]);
+              return;
+            }
+
+            setTimeout(() => {
+              const data = Array.from({ length: limit }).map((_, index) => {
+                return generateSolutionGroupData({
+                  id: index + offsetRef.current,
+                });
+              });
+
+              offsetRef.current = offsetRef.current + data.length;
+              resolve(data);
+            }, 1500);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      }}
+      createApplicationUrlGenerator={(solutionId) =>
+        `/applications/create?solution=${solutionId}`
+      }
+      solutionUrlGenerator={(solutionId) => `/solutions/${solutionId}`}
+    />
+  );
 };
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -74,5 +94,8 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const HelloWorld: Story = {
-  args: {},
+  args: {
+    filter: 'microcontroller',
+    filterId: '4OQQy4edGswvbN6boCKw',
+  },
 };

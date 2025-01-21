@@ -35,10 +35,17 @@ const SolutionGroupImage: React.FC<SolutionGroupImageProps> = ({
       <ShareButton {...shareButtonProps} />
 
       {loadingImage && (
-        <div style={{ width: '40rem', textAlign: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
           {/* <LoadingOutlined style={{ fontSize: '2rem' }} /> */}
 
-          <Skeleton.Image active style={{ width: '12rem', height: '12rem' }} />
+          <Skeleton.Image
+            active
+            style={{
+              width: '16rem',
+              height: '15rem',
+              borderRadius: borderRadius,
+            }}
+          />
         </div>
       )}
 

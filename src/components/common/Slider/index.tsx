@@ -14,6 +14,10 @@ const Slider: React.FC<SliderProps> = ({ items, itemUrlGenerator }) => {
   const leftArrowRef = useRef<HTMLDivElement>(null);
   const rightArrowRef = useRef<HTMLDivElement>(null);
 
+  if (!items || items.length === 0) {
+    items = [{ id: 'default-id', name: 'No Tag' }];
+  }
+
   const handleScrollLeft = (scrolledLeft: number) => {
     if (leftArrowRef.current) {
       leftArrowRef.current.classList.toggle('hide', scrolledLeft <= 1);

@@ -203,7 +203,7 @@ export const fetchSolution = async ({ id }: { id: string }) => {
   }
 };
 
-const fetchApplications = async ({
+export const fetchApplications = async ({
   solutionId,
   limit,
 }: {
