@@ -16,7 +16,7 @@ import {
   SolutionGroupView,
 } from '../SolutionGroup/SolutionGroup.types';
 
-export type SolutionGroupListHocProps = {
+export type SolutionGroupListProps = {
   defaultView: SolutionGroupView;
   limit: number;
   fallbackImage?: string;
@@ -37,7 +37,13 @@ export type SolutionGroupListHocProps = {
   }) => Promise<SolutionGroupData[]>;
 };
 
+export type SolutionGroupListContainer = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> &
+  SolutionGroupListProps;
+
 export type SolutionGroupData = Omit<
   SolutionGroupProps,
-  keyof SolutionGroupListHocProps
+  keyof SolutionGroupListProps
 >;
