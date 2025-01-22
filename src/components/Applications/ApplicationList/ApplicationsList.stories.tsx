@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { fn } from "@storybook/test";
-import ApplicationsList from '.';
 import { generateApplicationsData } from './ApplicationsList.mock';
 import { Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import React from 'react';
+import { ApplicationsList } from '.';
 
 export const InstallButton = ({ manifest }: { manifest: string }) => {
   return (
@@ -35,6 +35,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+let count = 0;
+
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const HelloWorld: Story = {
   args: {
@@ -44,19 +46,21 @@ export const HelloWorld: Story = {
     },
     limit: 5,
     InstallButton: InstallButton,
-    onInitialApplicationsLoad: async (solutionId, { limit }) => {
-      const data = generateApplicationsData({ count: limit, page: 0 });
-
-      return { data, cursor: String(data.length) };
-    },
     onLoadMoreApplications: async (solutionId, { limit, cursor }) => {
       return new Promise((resolve) => {
+        if (count >= 25) {
+          resolve({ data: [] });
+          return;
+        }
+
         setTimeout(() => {
-          const page = Number(cursor);
+          const page = Number(cursor) || 0;
           const data = generateApplicationsData({
             count: limit,
             page,
           });
+
+          count += data.length;
 
           resolve({ data, cursor: String(data.length + page) });
         }, 5000);

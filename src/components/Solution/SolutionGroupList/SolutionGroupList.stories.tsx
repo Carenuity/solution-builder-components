@@ -25,7 +25,7 @@ const SolutionGroups = ({
       defaultView={'preview'}
       limit={5}
       InstallButton={InstallButton}
-      onInitialApplicationsLoad={async (solutionId, { limit }) => {
+      onLoadMoreApplications={async (solutionId, { limit }) => {
         try {
           return await fetchApplications({ solutionId, limit });
         } catch (error) {

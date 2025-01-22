@@ -3,7 +3,7 @@ import {
   LinkOutlined,
   LoadingOutlined,
 } from '@ant-design/icons';
-import { Button, List, message } from 'antd';
+import { Button, Divider, List, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../common/hooks/ScreenSize.hook';
 import { screenThreshold } from '../../Solution/SolutionGroup/SolutionGroup.constants';
@@ -17,7 +17,6 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   solution,
   limit,
   solutionUrlGenerator,
-  onInitialApplicationsLoad,
   onLoadMoreApplications,
   InstallButton,
   developerApplicationsUrlGenerator,
@@ -37,7 +36,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   useEffect(() => {
     if (!window.document) return;
 
-    onInitialApplicationsLoad(solution.id, { signal: controller.signal, limit })
+    onLoadMoreApplications(solution.id, { signal: controller.signal, limit })
       .then(({ cursor: c, data: _initialData }) => {
         setInitialLoading(false);
         setData(_initialData);
@@ -67,12 +66,13 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
       })
         .then(({ cursor: c, data: moreData }) => {
           setLoading(false);
-          if (moreData.length === 0) {
+          setCursor(c);
+          setData((prevData) => [...prevData, ...moreData]);
+
+          if (moreData.length < limit || moreData.length === 0) {
             setHasMoreData(false);
             return;
           }
-          setCursor(c);
-          setData((prevData) => [...prevData, ...moreData]);
         })
         .catch((err) => {
           setLoading(false);
@@ -123,7 +123,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                 </Button>
               )}
 
-              {onLoadMoreApplications && hasMoreData && (
+              {!solutionUrlGenerator && hasMoreData && (
                 <Button
                   disabled={loading}
                   shape={'round'}
@@ -134,6 +134,20 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                   {!loading && 'Load More'}
                   {loading && 'Loading...'}
                 </Button>
+              )}
+
+              {!hasMoreData && (
+                <Divider plain>
+                  That's all! Request application{' '}
+                  <a
+                    href={
+                      'mailto:max.mergenthaler@chipglobe.com?subject=Request%20Solution%20Group&body=I%20would%20like%20to%20'
+                    }
+                  >
+                    here
+                  </a>
+                  .
+                </Divider>
               )}
             </div>
           </>

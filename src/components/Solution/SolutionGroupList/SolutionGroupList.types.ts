@@ -25,8 +25,7 @@ export type SolutionGroupListProps = {
   solutionUrlGenerator?: ISolutionGroupInfoGenerator;
   embeddingGenerator?: ISolutionGroupInfoGenerator;
   InstallButton: IWebFlashButton;
-  onInitialApplicationsLoad: LoadApplicationsFunction;
-  onLoadMoreApplications?: LoadApplicationsFunction;
+  onLoadMoreApplications: LoadApplicationsFunction;
   createApplicationUrlGenerator?: ICreateApplicationUrlGenerator;
   onDispatchDeveloper?: IOnDispatchDeveloper;
   onResetDeveloperDispatch?: IOnResetDeveloperDispatch;

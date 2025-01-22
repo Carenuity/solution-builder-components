@@ -80,7 +80,7 @@ export const defaultSolutionData: SolutionGroupProps = {
   },
   limit: 5,
   InstallButton: InstallButton,
-  onInitialApplicationsLoad: async (solutionId, { limit }) => {
+  onLoadMoreApplications: async (solutionId, { limit }) => {
     const data = generateApplicationsData({ count: limit, page: 0 });
     return { data, cursor: String(data.length) };
   },
@@ -170,7 +170,7 @@ export const fetchSolution = async ({ id }: { id: string }) => {
           avatar: application.avatars?.[0].url,
         })
       ),
-      onInitialApplicationsLoad: async (solutionId, { limit }) => {
+      onLoadMoreApplications: async (solutionId, { limit }) => {
         return await fetchApplications({ solutionId, limit });
       },
       tagUrlGenerator: (applicationId) => `/applications/${applicationId}`,
