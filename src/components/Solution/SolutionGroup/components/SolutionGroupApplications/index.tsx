@@ -1,10 +1,12 @@
 import { AppstoreOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Flex, Space, Typography } from 'antd';
+import { Flex, Space, Typography } from 'antd';
 import React from 'react';
 import { ApplicationsList } from '../../../../Applications';
 import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
 import { primaryColor, screenThreshold } from '../../SolutionGroup.constants';
 import { SolutionGroupApplicationsProps } from './index.types';
+import Link from 'next/link';
+import { useTheme } from 'antd-style';
 
 const { Text } = Typography;
 
@@ -16,6 +18,8 @@ const SolutionGroupApplications: React.FC<SolutionGroupApplicationsProps> = ({
   ...applicationListProps
 }) => {
   const { width } = useScreenSize();
+  const token = useTheme();
+
   return (
     <>
       <Flex justify={'space-between'}>
@@ -30,15 +34,20 @@ const SolutionGroupApplications: React.FC<SolutionGroupApplicationsProps> = ({
         </Space>
 
         {createApplicationUrlGenerator && (
-          <Button
+          <Link
             href={createApplicationUrlGenerator(id)}
             title={'Add your application'}
-            icon={<PlusOutlined />}
-            shape={'circle'}
-            type={'primary'}
-            size={'small'}
-            style={{ margin: '.3rem' }}
-          />
+            style={{
+              margin: '.3rem',
+              backgroundColor: token.colorPrimary,
+              color: '#fff',
+              borderRadius: '50%',
+              padding: '.1rem .34rem',
+              textAlign: 'center',
+            }}
+          >
+            <PlusOutlined style={{ padding: 0, margin: 0 }} />
+          </Link>
         )}
       </Flex>
 

@@ -246,7 +246,12 @@ export const fetchApplications = async ({
           last_name: string;
           occupation: string;
           image: string;
-          social_handles: { id: string; url: string }[];
+          social_handles: {
+            id: string;
+            url: string;
+            icon: string;
+            tag: string;
+          }[];
         };
       }): ApplicationData => {
         return {
@@ -263,6 +268,8 @@ export const fetchApplications = async ({
               (handle) => ({
                 id: handle.id,
                 url: handle.url,
+                icon: handle.icon,
+                tag: handle.tag,
               })
             ),
           },

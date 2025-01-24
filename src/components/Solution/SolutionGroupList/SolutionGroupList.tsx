@@ -1,5 +1,5 @@
 import { Divider, List, message } from 'antd';
-import React, { PropsWithRef, useEffect, useState } from 'react';
+import React, { PropsWithRef, useEffect, useRef, useState } from 'react';
 import {
   SolutionGroupData,
   SolutionGroupListContainer,
@@ -18,6 +18,7 @@ const SolutionGroupList = React.forwardRef<
       InstallButton,
       defaultView,
       limit,
+      refresh,
       createApplicationUrlGenerator,
       developerApplicationsUrlGenerator,
       embeddingGenerator,
@@ -36,6 +37,7 @@ const SolutionGroupList = React.forwardRef<
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<SolutionGroupData[]>([]);
     const [hasMoreData, setHasMoreData] = useState(true);
+    const loadMoreControllerRef = useRef<AbortController>();
 
     const solutionGroupProps = {
       InstallButton,
@@ -53,9 +55,13 @@ const SolutionGroupList = React.forwardRef<
       tagUrlGenerator,
     };
 
-    const abortController = new AbortController();
-
-    const loadMoreData = async () => {
+    const loadMoreData = async ({
+      hasRefreshed,
+      signal,
+    }: {
+      hasRefreshed?: boolean;
+      signal?: AbortSignal;
+    }) => {
       if (loading) {
         return;
       }
@@ -63,15 +69,20 @@ const SolutionGroupList = React.forwardRef<
 
       try {
         const _data = await onLoadMoreSolutionGroups({
-          signal: abortController.signal,
           limit: solutionGroupProps.limit,
+          signal,
         });
 
         if (_data.length < solutionGroupProps.limit || _data.length === 0) {
           setHasMoreData(false);
         }
 
-        setData((old) => [...old, ..._data]);
+        if (!hasRefreshed) {
+          setData((old) => [...old, ..._data]);
+        } else {
+          setData(() => _data);
+        }
+
         setLoading(false);
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -82,14 +93,42 @@ const SolutionGroupList = React.forwardRef<
     };
 
     useEffect(() => {
-      loadMoreData().then(() => {
-        setInitialLoading(false);
-      });
+      if (!window.document) return;
+
+      const controller = new AbortController();
+
+      const timeoutId = setTimeout(() => {
+        loadMoreData({ signal: controller.signal }).then(() => {
+          setInitialLoading(false);
+        });
+      }, 0);
 
       return () => {
-        abortController.abort();
+        controller.abort();
+        clearTimeout(timeoutId);
+        loadMoreControllerRef.current?.abort();
       };
     }, []);
+
+    useEffect(() => {
+      if (!window.document || !refresh) return;
+
+      const controller = new AbortController();
+      setInitialLoading(true);
+
+      const timeoutId = setTimeout(() => {
+        loadMoreData({ hasRefreshed: true, signal: controller.signal }).then(
+          () => {
+            setInitialLoading(false);
+          }
+        );
+      }, 0);
+
+      return () => {
+        controller.abort();
+        clearTimeout(timeoutId);
+      };
+    }, [refresh]);
 
     return (
       <>
@@ -107,7 +146,10 @@ const SolutionGroupList = React.forwardRef<
         >
           <InfiniteScroll
             dataLength={data.length}
-            next={loadMoreData}
+            next={() => {
+              loadMoreControllerRef.current = new AbortController();
+              loadMoreData({ signal: loadMoreControllerRef.current.signal });
+            }}
             hasMore={hasMoreData}
             loader={!initialLoading && <SolutionGroupSkeleton />}
             endMessage={

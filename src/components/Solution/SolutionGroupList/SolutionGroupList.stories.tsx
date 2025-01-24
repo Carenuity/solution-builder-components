@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 // import { fn } from "@storybook/test";
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { InstallButton } from '../../Applications/ApplicationList/ApplicationsList.stories';
 import { generateApplicationsData } from '../../Applications/ApplicationList/ApplicationsList.mock';
 import {
@@ -13,17 +13,26 @@ import { fetchSolutionGroups, IFilter } from './SolutionGroupList.mocks';
 const SolutionGroups = ({
   filter,
   filterId,
+  refresh,
 }: {
   filter: IFilter;
   filterId: string;
+  refresh?: boolean;
 }) => {
   const offsetRef = useRef<number>(1);
   const cursorRef = useRef<string>();
+
+  useEffect(() => {
+    if (!window.document || !refresh) return;
+
+    cursorRef.current = undefined;
+  }, [refresh]);
 
   return (
     <SolutionGroupList
       defaultView={'preview'}
       limit={5}
+      refresh={refresh}
       InstallButton={InstallButton}
       onLoadMoreApplications={async (solutionId, { limit }) => {
         try {
@@ -73,6 +82,11 @@ const SolutionGroups = ({
         `/applications/create?solution=${solutionId}`
       }
       solutionUrlGenerator={(solutionId) => `/solutions/${solutionId}`}
+      embeddingGenerator={(solutionId) => {
+        return `
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/l--a30OOf8k?si=qdLrk7g2qM7al6eD&id=${solutionId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        `;
+      }}
     />
   );
 };
@@ -97,5 +111,6 @@ export const HelloWorld: Story = {
   args: {
     filter: 'microcontroller',
     filterId: '4OQQy4edGswvbN6boCKw',
+    refresh: false,
   },
 };

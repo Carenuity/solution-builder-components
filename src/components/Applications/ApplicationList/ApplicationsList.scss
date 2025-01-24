@@ -1,0 +1,7 @@
+.solution-link {
+  color: #3f8600 !important;
+
+  &:hover {
+    color: lighten($color: #3f8600, $amount: 15) !important;
+  }
+}

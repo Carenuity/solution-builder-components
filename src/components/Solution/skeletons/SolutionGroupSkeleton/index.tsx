@@ -32,7 +32,13 @@ const SolutionGroupSkeleton = () => {
           width: '100%',
         }}
       >
-        <Col xs={24} md={8} lg={6} xl={4}>
+        <Col
+          xs={24}
+          md={{ span: 10 }}
+          lg={{ span: 8 }}
+          xl={{ span: 9 }}
+          xxl={{ span: 7 }}
+        >
           <Flex
             justify={isMobile ? 'center' : 'start'}
             align={'center'}
@@ -69,7 +75,13 @@ const SolutionGroupSkeleton = () => {
           </Flex>
         </Col>
 
-        <Col xs={24} md={16} lg={18} xl={20}>
+        <Col
+          xs={24}
+          md={{ span: 14 }}
+          lg={{ span: 16 }}
+          xl={{ span: 15 }}
+          xxl={{ span: 17 }}
+        >
           <Flex
             vertical={true}
             gap={7}

@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 import './index.css';
-import { Avatar, Flex, Typography } from 'antd';
+import { Avatar, Flex } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import { SliderProps } from './index.types';
+import Link from 'next/link';
 
-const { Link } = Typography;
+// const { Link } = Typography;
 
 const scrollValue = 200;
 
@@ -74,10 +75,17 @@ const Slider: React.FC<SliderProps> = ({ items, itemUrlGenerator }) => {
               }}
             >
               <Link
-                href={itemUrlGenerator ? itemUrlGenerator(id) : undefined}
-                style={{ color: 'inherit' }}
+                href={itemUrlGenerator ? itemUrlGenerator(id) : '#'}
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
               >
-                <Flex vertical={false} justify={'center'} align={'center'}>
+                <Flex
+                  justify={'center'}
+                  align={'center'}
+                  style={{ height: '100%' }}
+                >
                   {avatar && (
                     <Avatar
                       src={avatar}

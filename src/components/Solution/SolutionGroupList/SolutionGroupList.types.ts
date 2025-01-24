@@ -20,6 +20,7 @@ export type SolutionGroupListProps = {
   defaultView: SolutionGroupView;
   limit: number;
   fallbackImage?: string;
+  refresh?: boolean;
   tagUrlGenerator?: ITagUrlGenerator;
   manufacturerSolutionsUrlGenerator?: IManufacturerSolutionsUrlGenerator;
   solutionUrlGenerator?: ISolutionGroupInfoGenerator;

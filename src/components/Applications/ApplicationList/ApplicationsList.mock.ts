@@ -18,7 +18,9 @@ export const generateApplicationsData = ({
         name: `john ${getId(i)}`,
         subtitle: 'Embedded Systems developer',
         avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${getId(i)}`,
-        socialHandles: [{ id: `handle-${getId(i)}`, url: '#' }],
+        socialHandles: [
+          { id: `handle-${getId(i)}`, url: '#', icon: '#', tag: 'linkedin' },
+        ],
       },
       manifest: `https://api.dicebear.com/7.x/miniavs/svg?seed=${getId(i)}`,
       repository: 'https://github.com/ant-design/ant-design',

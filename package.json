@@ -1,6 +1,6 @@
 {
   "name": "test-carenuity-sbc",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Solution Builder UI component library",
   "license": "MIT",
   "author": "Paul Otieno",
@@ -78,9 +78,10 @@
   ],
   "types": "dist/index.d.ts",
   "peerDependencies": {
-    "@ant-design/icons": "^5.5.2",
+    "@ant-design/icons": "^5.6.0",
     "antd": "^5.23.2",
     "axios": "^1.7.9",
+    "next": "^14",
     "react": "^18",
     "react-dom": "^18"
   },

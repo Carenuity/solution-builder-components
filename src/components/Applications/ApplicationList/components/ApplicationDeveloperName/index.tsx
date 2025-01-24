@@ -1,8 +1,10 @@
 import { Typography } from 'antd';
 import React from 'react';
 import { ApplicationDeveloperNameProps } from './index.types';
+import Link from 'next/link';
+import './index.css';
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
   developer,
@@ -36,15 +38,16 @@ const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
           href={
             developerApplicationsUrlGenerator
               ? developerApplicationsUrlGenerator(developer.id)
-              : undefined
+              : '#'
           }
-          type={'secondary'}
-          strong
-          underline
-          italic
-          style={{ fontSize: '.75rem' }}
+          style={{
+            fontSize: '.75rem',
+            fontWeight: 'bold',
+            textDecoration: 'underline',
+          }}
+          className={'custom-link'}
         >
-          {developer.name}
+          <em>{developer.name}</em>
         </Link>
       </Text>
     </>

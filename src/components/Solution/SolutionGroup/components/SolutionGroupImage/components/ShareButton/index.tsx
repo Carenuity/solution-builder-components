@@ -68,13 +68,14 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           {solutionPageUrl && (
             <Paragraph
               copyable
+              ellipsis={{ rows: 1, expandable: true, symbol: 'expand' }}
               style={{
                 backgroundColor: '#ccca',
                 borderRadius: '5rem',
                 padding: '.5rem 2rem',
               }}
             >
-              {solutionPageUrl}
+              {`${location.protocol}//${location.host}${solutionPageUrl}`}
             </Paragraph>
           )}
         </>

@@ -11,7 +11,7 @@ import SolutionApplications from './components/SolutionGroupApplications';
 import SolutionDescription from './components/SolutionGroupDescription';
 import SolutionImage from './components/SolutionGroupImage';
 import SolutionPreview from './components/SolutionGroupPreview';
-import './Solution.css';
+import './SolutionGroup.css';
 import {
   backgroundColor,
   borderRadius,
@@ -115,11 +115,26 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
           width: '100%',
         }}
       >
-        <Col xs={24} md={8} lg={6} xl={4}>
+        <Col
+          span={24}
+          xs={{ span: 24 }}
+          md={{ span: 10 }}
+          lg={{ span: 8 }}
+          xl={{ span: 9 }}
+          xxl={{ span: 7 }}
+        >
           <SolutionImage {...props} />
         </Col>
 
-        <Col ref={contentRef} id={contentId} xs={24} md={16} lg={18} xl={20}>
+        <Col
+          ref={contentRef}
+          id={contentId}
+          xs={{ span: 24 }}
+          md={{ span: 14 }}
+          lg={{ span: 16 }}
+          xl={{ span: 15 }}
+          xxl={{ span: 17 }}
+        >
           <Tabs
             defaultActiveKey={`${props.defaultView}-${props.id}`}
             tabPosition={'bottom'}

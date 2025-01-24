@@ -1,15 +1,17 @@
 * {
   ::-webkit-scrollbar {
-    width: 0.5vw;
+    width: 4px; // 0.25vw;
+    height: 4px;
+    box-sizing: border-box;
   }
 
   ::-webkit-scrollbar-thumb {
     background-color: #3f8600;
-    border-radius: 2rem;
+    border-radius: 5rem;
   }
 
   ::-webkit-scrollbar-track {
-    border-radius: 2rem;
+    border-radius: 5rem;
     background-color: lighten($color: #111c, $amount: 60);
 
     &:hover {

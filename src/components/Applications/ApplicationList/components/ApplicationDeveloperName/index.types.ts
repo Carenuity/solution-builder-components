@@ -1,6 +1,8 @@
 type SocialHandle = {
   id: string;
   url: string;
+  icon: string;
+  tag: string;
 };
 
 type ApplicationDeveloper = {

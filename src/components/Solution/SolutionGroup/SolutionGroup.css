@@ -1,0 +1,16 @@
+* ::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  box-sizing: border-box;
+}
+* ::-webkit-scrollbar-thumb {
+  background-color: #3f8600;
+  border-radius: 5rem;
+}
+* ::-webkit-scrollbar-track {
+  border-radius: 5rem;
+  background-color: rgba(170, 170, 170, 0.8);
+}
+* ::-webkit-scrollbar-track:hover {
+  background-color: rgba(145, 145, 145, 0.8);
+} /*# sourceMappingURL=SolutionGroup.css.map */
