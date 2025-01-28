@@ -34,21 +34,43 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   const [data, setData] = useState<ApplicationData[]>([]);
   const loadMoreControllerRef = useRef<AbortController>();
 
+  const onLoadMore = async ({ signal }: { signal?: AbortSignal }) => {
+    try {
+      const { cursor: c, data: moreData } = await onLoadMoreApplications(
+        solution.id,
+        {
+          signal,
+          limit,
+          cursor,
+        }
+      );
+
+      setData((prevData) => [...prevData, ...moreData]);
+      setCursor(c);
+
+      if (moreData.length < limit || moreData.length === 0) {
+        setHasMoreData(false);
+      }
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const err = error as any;
+      message.error(err.message);
+    }
+  };
+
   useEffect(() => {
     if (!window.document) return;
 
     const controller = new AbortController();
 
     const timeoutId = setTimeout(() => {
-      onLoadMoreApplications(solution.id, { signal: controller.signal, limit })
-        .then(({ cursor: c, data: _initialData }) => {
+      onLoadMoreApplications(solution.id, { signal: controller.signal, limit });
+      onLoadMore({ signal: controller.signal })
+        .then(() => {
           setInitialLoading(false);
-          setData(_initialData);
-          setCursor(c);
         })
-        .catch((err) => {
+        .catch(() => {
           setInitialLoading(false);
-          message.error(err.message);
         });
     }, 0);
 
@@ -62,33 +84,6 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   useEffect(() => {
     setIsMobile(width < screenThreshold);
   }, [width]);
-
-  const onLoadMore = () => {
-    if (onLoadMoreApplications) {
-      setLoading(true);
-      loadMoreControllerRef.current = new AbortController();
-
-      onLoadMoreApplications(solution.id, {
-        signal: loadMoreControllerRef.current.signal,
-        limit,
-        cursor,
-      })
-        .then(({ cursor: c, data: moreData }) => {
-          setLoading(false);
-          setCursor(c);
-          setData((prevData) => [...prevData, ...moreData]);
-
-          if (moreData.length < limit || moreData.length === 0) {
-            setHasMoreData(false);
-            return;
-          }
-        })
-        .catch((err) => {
-          setLoading(false);
-          message.error(err.message);
-        });
-    }
-  };
 
   return (
     <>
@@ -137,7 +132,20 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                     shape={'round'}
                     type={'primary'}
                     icon={loading ? <LoadingOutlined /> : <DownloadOutlined />}
-                    onClick={onLoadMore}
+                    onClick={() => {
+                      setLoading(true);
+                      loadMoreControllerRef.current = new AbortController();
+
+                      onLoadMore({
+                        signal: loadMoreControllerRef.current.signal,
+                      })
+                        .then(() => {
+                          setLoading(false);
+                        })
+                        .catch(() => {
+                          setLoading(false);
+                        });
+                    }}
                   >
                     {!loading && 'Load More'}
                     {loading && 'Loading...'}

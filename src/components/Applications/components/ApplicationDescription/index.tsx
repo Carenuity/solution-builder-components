@@ -1,5 +1,5 @@
 import { Divider, Modal, Typography } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ActionButton from '../ActionButton';
 import { ReadOutlined } from '@ant-design/icons';
 import { ApplicationDescriptionProps } from './index.types';
@@ -16,7 +16,14 @@ const ApplicationDescription: React.FC<ApplicationDescriptionProps> = ({
   tag,
 }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const token = useTheme();
+
+  useEffect(() => {
+    if (!window.document) return;
+
+    setIsReady(true);
+  }, []);
 
   const modalStyles = {
     header: {
@@ -41,66 +48,67 @@ const ApplicationDescription: React.FC<ApplicationDescriptionProps> = ({
 
   return (
     <>
-      {createPortal(
-        <>
-          <Modal
-            title={
-              <>
-                {tag} <Divider type={'vertical'} />{' '}
-                <Text
-                  type={'secondary'}
-                  ellipsis={{ tooltip: developerName }}
-                  style={{ fontSize: '.75rem', width: '12rem' }}
-                >
-                  By {developerName}
-                </Text>
-              </>
-            }
-            open={openModal}
-            onOk={() => setOpenModal(false)}
-            onCancel={() => setOpenModal(false)}
-            width={{
-              xs: '95%',
-              sm: '85%',
-              md: '75%',
-              lg: '65%',
-              xl: '55%',
-              xxl: '45%',
-            }}
-            footer={
-              <>
-                <Text
-                  type={'secondary'}
-                  ellipsis={{
-                    tooltip: solutionName,
-                  }}
-                >
-                  {solutionName}
-                </Text>
-              </>
-            }
-            styles={modalStyles}
-            style={{ fontSize: '.6rem' }}
-          >
-            <Paragraph
-              ellipsis={{
-                rows: 6,
-                expandable: true,
-                symbol: (
+      {isReady &&
+        createPortal(
+          <>
+            <Modal
+              title={
+                <>
+                  {tag} <Divider type={'vertical'} />{' '}
                   <Text
-                    style={{ fontSize: '.8rem', color: token.colorPrimary }}
+                    type={'secondary'}
+                    ellipsis={{ tooltip: developerName }}
+                    style={{ fontSize: '.75rem', width: '12rem' }}
                   >
-                    Read More
+                    By {developerName}
                   </Text>
-                ),
+                </>
+              }
+              open={openModal}
+              onOk={() => setOpenModal(false)}
+              onCancel={() => setOpenModal(false)}
+              width={{
+                xs: '95%',
+                sm: '85%',
+                md: '75%',
+                lg: '65%',
+                xl: '55%',
+                xxl: '45%',
               }}
+              footer={
+                <>
+                  <Text
+                    type={'secondary'}
+                    ellipsis={{
+                      tooltip: solutionName,
+                    }}
+                  >
+                    {solutionName}
+                  </Text>
+                </>
+              }
+              styles={modalStyles}
+              style={{ fontSize: '.6rem' }}
             >
-              {parse(description || '')}
-            </Paragraph>
-          </Modal>
-        </>,
-        document.body
-      )}
+              <Paragraph
+                ellipsis={{
+                  rows: 6,
+                  expandable: true,
+                  symbol: (
+                    <Text
+                      style={{ fontSize: '.8rem', color: token.colorPrimary }}
+                    >
+                      Read More
+                    </Text>
+                  ),
+                }}
+              >
+                {parse(description || '')}
+              </Paragraph>
+            </Modal>
+          </>,
+          document.body
+        )}
 
       <ActionButton
         icon={<ReadOutlined />}
