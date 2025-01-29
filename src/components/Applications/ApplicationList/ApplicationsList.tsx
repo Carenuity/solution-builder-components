@@ -152,7 +152,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                   </Button>
                 )}
 
-                {!hasMoreData && (
+                {!hasMoreData && !solutionUrlGenerator && (
                   <Divider plain>
                     That's all! Request application{' '}
                     <a

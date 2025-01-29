@@ -75,6 +75,8 @@ const SolutionGroupList = React.forwardRef<
 
         if (_data.length < solutionGroupProps.limit || _data.length === 0) {
           setHasMoreData(false);
+        } else if (!hasMoreData && _data.length >= solutionGroupProps.limit) {
+          setHasMoreData(true);
         }
 
         if (!hasRefreshed) {
