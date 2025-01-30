@@ -21,6 +21,7 @@ export type IDeveloperApplicationsUrlGenerator = (
 
 export interface ApplicationDeveloperNameProps {
   developer: ApplicationDeveloper;
+  label?: string;
   onDispatchDeveloper?: IOnDispatchDeveloper;
   onResetDeveloperDispatch?: IOnResetDeveloperDispatch;
   developerApplicationsUrlGenerator?: IDeveloperApplicationsUrlGenerator;

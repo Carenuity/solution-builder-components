@@ -18,6 +18,7 @@ import './ApplicationsList.css';
 const ApplicationsList: React.FC<ApplicationsListProps> = ({
   solution,
   limit,
+  label,
   solutionUrlGenerator,
   onLoadMoreApplications,
   InstallButton,
@@ -96,6 +97,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
           <ApplicationListRecord
             key={item.id}
             {...item}
+            label={label}
             solutionName={solution.name}
             InstallButton={InstallButton}
             developerApplicationsUrlGenerator={

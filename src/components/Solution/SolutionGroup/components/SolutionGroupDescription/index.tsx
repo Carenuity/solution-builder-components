@@ -2,8 +2,8 @@ import { ReadOutlined } from '@ant-design/icons';
 import { Space, Typography } from 'antd';
 import parse from 'html-react-parser';
 import React from 'react';
-import { primaryColor } from '../../SolutionGroup.constants';
 import { SolutionGroupDescriptionProps } from './index.types';
+import { useTheme } from 'antd-style';
 
 const { Text, Paragraph } = Typography;
 
@@ -11,12 +11,14 @@ const SolutionGroupDescription: React.FC<SolutionGroupDescriptionProps> = ({
   viewport,
   description,
 }) => {
+  const token = useTheme();
+
   return (
     <>
       <Space
         style={{
           marginLeft: '.3rem',
-          borderBottom: `.1rem solid ${primaryColor}`,
+          borderBottom: `.1rem solid ${token.colorPrimary}`,
         }}
       >
         <ReadOutlined />

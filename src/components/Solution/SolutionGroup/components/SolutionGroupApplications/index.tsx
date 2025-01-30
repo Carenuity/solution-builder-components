@@ -3,7 +3,7 @@ import { Flex, Space, Typography } from 'antd';
 import React from 'react';
 import { ApplicationsList } from '../../../../Applications';
 import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
-import { primaryColor, screenThreshold } from '../../SolutionGroup.constants';
+import { screenThreshold } from '../../SolutionGroup.constants';
 import { SolutionGroupApplicationsProps } from './index.types';
 import Link from 'next/link';
 import { useTheme } from 'antd-style';
@@ -26,7 +26,7 @@ const SolutionGroupApplications: React.FC<SolutionGroupApplicationsProps> = ({
         <Space
           style={{
             marginLeft: '.7rem',
-            borderBottom: `.1rem solid ${primaryColor}`,
+            borderBottom: `.1rem solid ${token.colorPrimary}`,
           }}
         >
           <AppstoreOutlined />

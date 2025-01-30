@@ -18,12 +18,10 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useScreenSize } from '../../../../../../common/hooks/ScreenSize.hook';
-import {
-  primaryColor,
-  screenThreshold,
-} from '../../../../SolutionGroup.constants';
+import { screenThreshold } from '../../../../SolutionGroup.constants';
 import { ShareButtonProps, SolutionShareTab } from './index.types';
 import { shareSolution } from './index.utils';
+import { useTheme } from 'antd-style';
 
 const { Text, Paragraph } = Typography;
 
@@ -33,6 +31,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
   embeddingGenerator,
   solutionUrlGenerator,
 }) => {
+  const token = useTheme();
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
   const [canShare, setCanShare] = useState(false);
@@ -117,7 +116,10 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                     shape={'circle'}
                     size={'large'}
                     color={'default'}
-                    style={{ backgroundColor: '#add8e6', color: primaryColor }}
+                    style={{
+                      backgroundColor: '#add8e6',
+                      color: token.colorPrimary,
+                    }}
                     onClick={async () => {
                       shareSolution({
                         name,

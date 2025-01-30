@@ -3,15 +3,20 @@ import React from 'react';
 import { ApplicationDeveloperNameProps } from './index.types';
 import Link from 'next/link';
 import './index.css';
+import { LinkOutlined } from '@ant-design/icons';
+import { useTheme } from 'antd-style';
 
 const { Text } = Typography;
 
 const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
   developer,
+  label,
   onDispatchDeveloper,
   onResetDeveloperDispatch,
   developerApplicationsUrlGenerator,
 }) => {
+  const token = useTheme();
+
   return (
     <>
       <Text
@@ -33,7 +38,8 @@ const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
             : undefined
         }
       >
-        By{' '}
+        {label || 'By'}
+        {': '}
         <Link
           href={
             developerApplicationsUrlGenerator
@@ -47,6 +53,9 @@ const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
           }}
           className={'custom-link'}
         >
+          <LinkOutlined
+            style={{ marginRight: '.15rem', color: token.colorPrimary }}
+          />
           <em>{developer.name}</em>
         </Link>
       </Text>

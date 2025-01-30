@@ -8,6 +8,7 @@ export type ApplicationData = Omit<
   | 'onDispatchDeveloper'
   | 'onResetDeveloperDispatch'
   | 'developerApplicationsUrlGenerator'
+  | 'label'
 >;
 type ApplicationInstallButton = Omit<
   ApplicationListRecordProps,
