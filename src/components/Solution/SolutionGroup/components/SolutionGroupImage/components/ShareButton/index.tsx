@@ -173,6 +173,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           icon={<ShareAltOutlined />}
           style={{
             position: 'absolute',
+            zIndex: 1,
             ...(isMobile
               ? {
                   bottom: '-7%',

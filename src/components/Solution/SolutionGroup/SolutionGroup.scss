@@ -12,10 +12,10 @@
 
   ::-webkit-scrollbar-track {
     border-radius: 5rem;
-    background-color: lighten($color: #111c, $amount: 60);
+    background-color: lighten($color: #111c, $amount: 80);
 
     &:hover {
-      background-color: lighten($color: #111c, $amount: 50);
+      background-color: lighten($color: #111c, $amount: 65);
     }
   }
 }

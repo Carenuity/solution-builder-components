@@ -156,13 +156,13 @@ const SolutionGroupList = React.forwardRef<
             loader={!initialLoading && <SolutionGroupSkeleton />}
             endMessage={
               <Divider plain>
-                That's all. Couldn't find your solution group? Request it{' '}
+                Need more? Describe the use case and request yours{' '}
                 <a
                   href={
                     'mailto:max.mergenthaler@chipglobe.com?subject=Request%20Solution%20Group&body=I%20would%20like%20to%20'
                   }
                 >
-                  here
+                  for free
                 </a>
                 .
               </Divider>

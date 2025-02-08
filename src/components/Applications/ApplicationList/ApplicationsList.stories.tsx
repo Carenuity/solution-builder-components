@@ -48,7 +48,7 @@ export const HelloWorld: Story = {
     InstallButton: InstallButton,
     onLoadMoreApplications: async (solutionId, { limit, cursor }) => {
       return new Promise((resolve) => {
-        if (count >= 25) {
+        if (count >= 15) {
           resolve({ data: [] });
           return;
         }

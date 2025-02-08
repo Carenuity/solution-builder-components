@@ -26,7 +26,6 @@ const customViewPorts = Object.fromEntries(
 
 const preview: Preview = {
   parameters: {
-    // actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -34,7 +33,6 @@ const preview: Preview = {
       },
     },
     viewport: { viewports: customViewPorts },
-    // layout: 'fullscreen',
   },
 };
 

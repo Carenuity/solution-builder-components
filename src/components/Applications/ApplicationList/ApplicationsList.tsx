@@ -14,6 +14,7 @@ import {
 import ApplicationListRecord from './components/ApplicationListRecord';
 import Link from 'next/link';
 import './ApplicationsList.css';
+import { useTheme } from 'antd-style';
 
 const ApplicationsList: React.FC<ApplicationsListProps> = ({
   solution,
@@ -34,6 +35,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   const [hasMoreData, setHasMoreData] = useState(true);
   const [data, setData] = useState<ApplicationData[]>([]);
   const loadMoreControllerRef = useRef<AbortController>();
+  const style = useTheme();
 
   const onLoadMore = async ({ signal }: { signal?: AbortSignal }) => {
     try {
@@ -121,9 +123,10 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                 {solutionUrlGenerator && (
                   <Link
                     href={solutionUrlGenerator(solution.id)}
-                    className={'solution-link'}
+                    style={{ color: style.colorPrimary }}
+                    // className={'solution-link'}
                   >
-                    <LinkOutlined style={{ marginRight: '.3rem' }} />
+                    <LinkOutlined style={{ marginRight: '.2rem' }} />
                     Load More
                   </Link>
                 )}
@@ -156,13 +159,13 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
 
                 {!hasMoreData && !solutionUrlGenerator && (
                   <Divider plain>
-                    That's all! Request application{' '}
+                    Need more? Just drop your request for a new application{' '}
                     <a
                       href={
                         'mailto:max.mergenthaler@chipglobe.com?subject=Request%20Solution%20Group&body=I%20would%20like%20to%20'
                       }
                     >
-                      here
+                      for free
                     </a>
                     .
                   </Divider>
