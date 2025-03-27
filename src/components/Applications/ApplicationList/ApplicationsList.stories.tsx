@@ -44,6 +44,7 @@ export const HelloWorld: Story = {
       id: '1',
       name: `Air-Quality-Meter: Air Quality (VOCs, CO2 and Humidity) by SGP30 (SENSIRION)`,
     },
+    canLoadMore: true,
     limit: 5,
     InstallButton: InstallButton,
     onLoadMoreApplications: async (solutionId, { limit, cursor }) => {

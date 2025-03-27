@@ -11,10 +11,11 @@ $secondary: #3d8346; // #32396b;
   width: 100%;
   background-color: $primary;
   color: #fff;
-  padding: 0.5rem 0.5rem;
-  border-radius: 2rem;
+  padding: 7px 7px; // 0.5rem 0.5rem;
+  border-radius: 30px; // 2rem;
   position: relative;
   overflow: hidden;
+  max-height: 39px;
 }
 
 .slider .icon {

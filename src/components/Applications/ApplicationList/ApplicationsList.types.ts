@@ -28,6 +28,7 @@ export type LoadApplicationsFunction = (
 export type ApplicationsListProps = ApplicationInstallButton & {
   solution: { id: string; name?: string };
   limit: number;
+  canLoadMore: boolean;
   solutionUrlGenerator?: ISolutionGroupInfoGenerator;
   onLoadMoreApplications: LoadApplicationsFunction;
 };

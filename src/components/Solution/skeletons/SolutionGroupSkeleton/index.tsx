@@ -30,14 +30,18 @@ const SolutionGroupSkeleton = () => {
           }),
           //   marginBottom: isMobile ? '.8rem' : undefined,
           width: '100%',
+          maxWidth: '970px',
+          margin: 'auto',
         }}
       >
         <Col
           xs={24}
-          md={{ span: 10 }}
-          lg={{ span: 8 }}
-          xl={{ span: 9 }}
-          xxl={{ span: 7 }}
+          // md={{ span: 10 }}
+          // lg={{ span: 8 }}
+          // xl={{ span: 9 }}
+          // xxl={{ span: 7 }}
+          md={{ span: 9 }}
+          lg={{ span: 7 }}
         >
           <Flex
             justify={isMobile ? 'center' : 'start'}
@@ -67,7 +71,8 @@ const SolutionGroupSkeleton = () => {
             <Skeleton.Image
               active
               style={{
-                width: '15rem',
+                width: '16rem',
+                // width: '15rem',
                 height: '15rem',
                 borderRadius: borderRadius,
               }}
@@ -77,10 +82,12 @@ const SolutionGroupSkeleton = () => {
 
         <Col
           xs={24}
-          md={{ span: 14 }}
-          lg={{ span: 16 }}
-          xl={{ span: 15 }}
-          xxl={{ span: 17 }}
+          // md={{ span: 14 }}
+          // lg={{ span: 16 }}
+          // xl={{ span: 15 }}
+          // xxl={{ span: 17 }}
+          md={{ span: 15 }}
+          lg={{ span: 17 }}
         >
           <Flex
             vertical={true}

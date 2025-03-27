@@ -21,6 +21,7 @@ export type SolutionGroupListProps = {
   limit: number;
   fallbackImage?: string;
   refresh?: boolean;
+  canLoadMore: boolean;
   tagUrlGenerator?: ITagUrlGenerator;
   manufacturerSolutionsUrlGenerator?: IManufacturerSolutionsUrlGenerator;
   solutionUrlGenerator?: ISolutionGroupInfoGenerator;

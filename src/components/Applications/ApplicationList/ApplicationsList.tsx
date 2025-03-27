@@ -20,6 +20,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
   solution,
   limit,
   label,
+  canLoadMore,
   solutionUrlGenerator,
   onLoadMoreApplications,
   InstallButton,
@@ -67,7 +68,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
     const controller = new AbortController();
 
     const timeoutId = setTimeout(() => {
-      onLoadMoreApplications(solution.id, { signal: controller.signal, limit });
+      // onLoadMoreApplications(solution.id, { signal: controller.signal, limit });
       onLoadMore({ signal: controller.signal })
         .then(() => {
           setInitialLoading(false);
@@ -120,7 +121,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                   lineHeight: '32px',
                 }}
               >
-                {solutionUrlGenerator && (
+                {!canLoadMore && solutionUrlGenerator && (
                   <Link
                     href={solutionUrlGenerator(solution.id)}
                     style={{ color: style.colorPrimary }}
@@ -131,7 +132,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                   </Link>
                 )}
 
-                {!solutionUrlGenerator && hasMoreData && (
+                {canLoadMore && hasMoreData && (
                   <Button
                     disabled={loading}
                     shape={'round'}
@@ -157,7 +158,7 @@ const ApplicationsList: React.FC<ApplicationsListProps> = ({
                   </Button>
                 )}
 
-                {!hasMoreData && !solutionUrlGenerator && (
+                {!hasMoreData && canLoadMore && (
                   <Divider plain>
                     Need more? Just drop your request for a new application{' '}
                     <a

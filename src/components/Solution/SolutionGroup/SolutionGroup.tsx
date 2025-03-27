@@ -91,7 +91,7 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
       ),
     },
     {
-      label: 'More',
+      label: 'Description',
       icon: <ReadOutlined />,
       content: (
         <SolutionDescription
@@ -113,15 +113,19 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
           }),
           marginBottom: isMobile ? '.8rem' : undefined,
           width: '100%',
+          maxWidth: '970px',
+          margin: 'auto',
         }}
       >
         <Col
           span={24}
           xs={{ span: 24 }}
-          md={{ span: 10 }}
-          lg={{ span: 8 }}
-          xl={{ span: 9 }}
-          xxl={{ span: 7 }}
+          // md={{ span: 10 }}
+          // lg={{ span: 8 }}
+          // xl={{ span: 9 }}
+          // xxl={{ span: 7 }}
+          md={{ span: 9 }}
+          lg={{ span: 7 }}
         >
           <SolutionImage {...props} />
         </Col>
@@ -130,10 +134,12 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
           ref={contentRef}
           id={contentId}
           xs={{ span: 24 }}
-          md={{ span: 14 }}
-          lg={{ span: 16 }}
-          xl={{ span: 15 }}
-          xxl={{ span: 17 }}
+          // md={{ span: 14 }}
+          // lg={{ span: 16 }}
+          // xl={{ span: 15 }}
+          // xxl={{ span: 17 }}
+          md={{ span: 15 }}
+          lg={{ span: 17 }}
         >
           <Tabs
             defaultActiveKey={`${props.defaultView}-${props.id}`}

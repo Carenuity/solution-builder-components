@@ -32,6 +32,7 @@ const SolutionGroups = ({
     <SolutionGroupList
       defaultView={'preview'}
       limit={5}
+      canLoadMore={false}
       refresh={refresh}
       InstallButton={InstallButton}
       onLoadMoreApplications={async (solutionId, { limit }) => {

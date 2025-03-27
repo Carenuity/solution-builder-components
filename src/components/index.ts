@@ -13,3 +13,4 @@ export { default as RichTextEditor } from './RichTextEditor';
 export * from './Solution';
 export { default as UpdateApplicationForm } from './UpdateApplicationForm';
 export * from './Applications';
+export { default as PageShareButton } from './PageShareButton';
