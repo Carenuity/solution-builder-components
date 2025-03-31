@@ -37,7 +37,7 @@ const PageShareButton: React.FC<PageShareButtonProps> = ({ name, url }) => {
         <Button
           icon={<ShareAltOutlined />}
           type={'default'}
-          shape={'round'}
+          shape={isMobile ? 'circle' : 'round'}
           size={'middle'}
           variant={'outlined'}
           onClick={async () => {
@@ -53,8 +53,12 @@ const PageShareButton: React.FC<PageShareButtonProps> = ({ name, url }) => {
               });
           }}
         >
-          <Divider type={'vertical'} />
-          Share
+          {!isMobile && (
+            <>
+              <Divider type={'vertical'} />
+              Share
+            </>
+          )}
         </Button>
       )}
 
@@ -87,12 +91,16 @@ const PageShareButton: React.FC<PageShareButtonProps> = ({ name, url }) => {
           <Button
             icon={<ShareAltOutlined />}
             type={'default'}
-            shape={'round'}
+            shape={isMobile ? 'circle' : 'round'}
             size={'middle'}
             variant={'outlined'}
           >
-            <Divider type={'vertical'} />
-            Share
+            {!isMobile && (
+              <>
+                <Divider type={'vertical'} />
+                Share
+              </>
+            )}
           </Button>
         </Popover>
       )}

@@ -61,6 +61,7 @@
 .slider .tabs {
   max-width: 100%;
   list-style: none;
+  margin: auto;
   display: flex;
   gap: 0.8rem;
   overflow-x: auto;

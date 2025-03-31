@@ -30,7 +30,7 @@ const SolutionGroups = ({
 
   return (
     <SolutionGroupList
-      defaultView={'preview'}
+      defaultView={'install-for-free'}
       limit={5}
       canLoadMore={false}
       refresh={refresh}

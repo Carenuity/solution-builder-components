@@ -1,18 +1,21 @@
 import { Flex, Image, Skeleton } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useScreenSize } from '../../../../common/hooks/ScreenSize.hook';
 import { borderRadius, screenThreshold } from '../../SolutionGroup.constants';
 import ShareButton from './components/ShareButton';
 import { SolutionGroupImageProps } from './index.types';
+import { SolutionGroupContext } from '../../context';
 
 const SolutionGroupImage: React.FC<SolutionGroupImageProps> = ({
   imageUrl,
   fallbackImage,
+  isEmbedding,
   ...shareButtonProps
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
   const { width } = useScreenSize();
   const [isMobile, setIsMobile] = useState(width < screenThreshold);
+  const { dispatch, state } = useContext(SolutionGroupContext);
 
   useEffect(() => {
     if (!window.document) {
@@ -21,6 +24,16 @@ const SolutionGroupImage: React.FC<SolutionGroupImageProps> = ({
 
     setIsMobile(width < screenThreshold);
   }, [width]);
+
+  useEffect(() => {
+    if (!window.document) {
+      return;
+    }
+
+    if (state.isWidget !== isEmbedding) {
+      dispatch({ type: 'SET', value: !!isEmbedding });
+    }
+  }, []);
 
   return (
     <Flex

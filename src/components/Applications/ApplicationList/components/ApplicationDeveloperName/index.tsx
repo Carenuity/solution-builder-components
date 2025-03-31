@@ -1,10 +1,11 @@
 import { Typography } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
 import { ApplicationDeveloperNameProps } from './index.types';
 import Link from 'next/link';
 import './index.css';
 import { LinkOutlined } from '@ant-design/icons';
 import { useTheme } from 'antd-style';
+import { SolutionGroupContext } from '../../../../Solution/SolutionGroup/context';
 
 const { Text } = Typography;
 
@@ -16,6 +17,7 @@ const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
   developerApplicationsUrlGenerator,
 }) => {
   const token = useTheme();
+  const { state } = useContext(SolutionGroupContext);
 
   return (
     <>
@@ -52,6 +54,7 @@ const ApplicationDeveloperName: React.FC<ApplicationDeveloperNameProps> = ({
             textDecoration: 'underline',
           }}
           className={'custom-link'}
+          target={state.isWidget ? '_blank' : '_self'}
         >
           <LinkOutlined
             style={{ marginRight: '.15rem', color: token.colorPrimary }}

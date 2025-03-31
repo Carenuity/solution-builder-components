@@ -131,6 +131,7 @@ export const fetchSolution = async ({ id }: { id: string }) => {
       limit: 5,
       defaultView: 'preview',
       canLoadMore: true,
+      isEmbedding: true,
       sensor: {
         id: data.sensor.id,
         logo: data.sensor.avatars?.[0].url,

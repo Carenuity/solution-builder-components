@@ -1,17 +1,19 @@
 import { ReadOutlined } from '@ant-design/icons';
-import { Space, Typography } from 'antd';
+import { Divider, Space, Typography } from 'antd';
 import parse from 'html-react-parser';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SolutionGroupDescriptionProps } from './index.types';
 import { useTheme } from 'antd-style';
+import { SolutionGroupContext } from '../../context';
 
-const { Text, Paragraph } = Typography;
+const { Text, Paragraph, Link } = Typography;
 
 const SolutionGroupDescription: React.FC<SolutionGroupDescriptionProps> = ({
   viewport,
   description,
 }) => {
   const token = useTheme();
+  const { state } = useContext(SolutionGroupContext);
 
   return (
     <>
@@ -36,6 +38,34 @@ const SolutionGroupDescription: React.FC<SolutionGroupDescriptionProps> = ({
         }}
       >
         {parse(description || '')}
+        <Divider />
+        <Paragraph>
+          <ul>
+            <li>
+              Learn how to build within 3 minutes{' '}
+              <Link
+                href={'https://carenuity.com/install-for-free/'}
+                target={'_blank'}
+              >
+                here
+              </Link>
+              .
+            </li>
+
+            <li>
+              Find more applications with{' '}
+              <Link
+                href={
+                  'https://solutions.carenuity.com/microcontrollers/4OQQy4edGswvbN6boCKw'
+                }
+                target={state.isWidget ? '_blank' : '_self'}
+              >
+                C3-Mini
+              </Link>
+              .
+            </li>
+          </ul>
+        </Paragraph>
       </Paragraph>
     </>
   );

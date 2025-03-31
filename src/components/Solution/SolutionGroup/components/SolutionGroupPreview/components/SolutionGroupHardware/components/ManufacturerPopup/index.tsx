@@ -4,9 +4,10 @@ import {
   ShoppingCartOutlined,
 } from '@ant-design/icons';
 import { Row, Col, Flex, Button, Image } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ManufacturerPopupProps } from './index.types';
 import Link from 'next/link';
+import { SolutionGroupContext } from '../../../../../../context';
 
 // const { Link } = Typography;
 
@@ -19,11 +20,16 @@ export const ManufacturerPopup: React.FC<ManufacturerPopupProps> = ({
   solutionsUrl,
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
+  const { state } = useContext(SolutionGroupContext);
 
   return (
     <>
       <div style={{ maxWidth: '15rem' }}>
-        <Link href={solutionsUrl || '#'} style={{ color: 'inherit' }}>
+        <Link
+          href={solutionsUrl || '#'}
+          style={{ color: 'inherit' }}
+          target={state.isWidget ? '_blank' : '_self'}
+        >
           <Row gutter={16} style={{ marginBottom: '.3rem' }}>
             <Col xs={10}>
               <Flex

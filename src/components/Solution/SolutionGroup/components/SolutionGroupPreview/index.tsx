@@ -13,7 +13,7 @@ import SolutionHardware from './components/SolutionGroupHardware';
 import SolutionStatistic from './components/SolutionGroupStatistic';
 import { SolutionGroupPreviewProps } from './index.types';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const SolutionGroupPreview: React.FC<SolutionGroupPreviewProps> = ({
   actuator,
@@ -49,7 +49,10 @@ const SolutionGroupPreview: React.FC<SolutionGroupPreviewProps> = ({
         </Title>
 
         {/* Applications slider */}
-        <Slider items={tags} itemUrlGenerator={tagUrlGenerator} />
+        <div>
+          <Text type={'secondary'}>Related Applications</Text>
+          <Slider items={tags} itemUrlGenerator={tagUrlGenerator} />
+        </div>
 
         {/* Hardware setup */}
         <Flex vertical={true} align={'end'}>

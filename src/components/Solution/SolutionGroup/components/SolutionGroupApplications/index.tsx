@@ -30,7 +30,9 @@ const SolutionGroupApplications: React.FC<SolutionGroupApplicationsProps> = ({
           }}
         >
           <AppstoreOutlined />
-          <Text strong>Applications</Text>
+          <Text strong ellipsis>
+            Free Installable Applications
+          </Text>
         </Space>
 
         {createApplicationUrlGenerator && (

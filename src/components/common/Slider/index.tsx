@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import './index.css';
 import { Avatar, Flex } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import { SliderProps } from './index.types';
 import Link from 'next/link';
+import { SolutionGroupContext } from '../../Solution/SolutionGroup/context';
 
 // const { Link } = Typography;
 
@@ -14,6 +15,7 @@ const Slider: React.FC<SliderProps> = ({ items, itemUrlGenerator }) => {
   const tabRef = useRef<HTMLUListElement>(null);
   const leftArrowRef = useRef<HTMLDivElement>(null);
   const rightArrowRef = useRef<HTMLDivElement>(null);
+  const { state } = useContext(SolutionGroupContext);
 
   if (!items || items.length === 0) {
     items = [{ id: 'default-id', name: 'No Tag' }];
@@ -80,6 +82,7 @@ const Slider: React.FC<SliderProps> = ({ items, itemUrlGenerator }) => {
                   color: 'inherit',
                   textDecoration: 'none',
                 }}
+                target={state.isWidget ? '_blank' : '_self'}
               >
                 <Flex
                   justify={'center'}
