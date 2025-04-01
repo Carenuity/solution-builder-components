@@ -115,7 +115,7 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
             }),
             marginBottom: isMobile ? '.8rem' : undefined,
             width: '100%',
-            maxWidth: '970px',
+            maxWidth: '800px', // 970px
             margin: 'auto',
           }}
         >
@@ -126,8 +126,9 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
             // lg={{ span: 8 }}
             // xl={{ span: 9 }}
             // xxl={{ span: 7 }}
-            sm={{ span: 9 }}
-            lg={{ span: 7 }}
+            sm={{ span: 10 }}
+            md={{ span: 9 }}
+            // lg={{ span: 8 }}
           >
             <SolutionImage {...props} />
           </Col>
@@ -140,8 +141,9 @@ const SolutionGroup: React.FC<SolutionGroupProps> = (props) => {
             // lg={{ span: 16 }}
             // xl={{ span: 15 }}
             // xxl={{ span: 17 }}
-            sm={{ span: 15 }}
-            lg={{ span: 17 }}
+            sm={{ span: 14 }}
+            md={{ span: 15 }}
+            // lg={{ span: 16 }}
           >
             <Tabs
               defaultActiveKey={`${props.defaultView}-${props.id}`}

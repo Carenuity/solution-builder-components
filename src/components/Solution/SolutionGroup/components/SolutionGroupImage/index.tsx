@@ -54,8 +54,8 @@ const SolutionGroupImage: React.FC<SolutionGroupImageProps> = ({
           <Skeleton.Image
             active
             style={{
-              width: '16rem',
-              height: '15rem',
+              width: '18rem',
+              height: '17rem',
               borderRadius: borderRadius,
             }}
           />

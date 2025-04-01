@@ -30,7 +30,7 @@ const SolutionGroupSkeleton = () => {
           }),
           //   marginBottom: isMobile ? '.8rem' : undefined,
           width: '100%',
-          maxWidth: '970px',
+          maxWidth: '800px',
           margin: 'auto',
         }}
       >
@@ -40,8 +40,8 @@ const SolutionGroupSkeleton = () => {
           // lg={{ span: 8 }}
           // xl={{ span: 9 }}
           // xxl={{ span: 7 }}
-          sm={{ span: 9 }}
-          lg={{ span: 7 }}
+          sm={{ span: 10 }}
+          md={{ span: 9 }}
         >
           <Flex
             justify={isMobile ? 'center' : 'start'}
@@ -63,7 +63,7 @@ const SolutionGroupSkeleton = () => {
                   : {
                       top: '50%',
                       transform: `translateY(-50%)`,
-                      right: '3%',
+                      right: '-5%',
                     }),
               }}
             />
@@ -71,9 +71,9 @@ const SolutionGroupSkeleton = () => {
             <Skeleton.Image
               active
               style={{
-                width: '16rem',
+                width: '18rem',
                 // width: '15rem',
-                height: '15rem',
+                height: '17rem',
                 borderRadius: borderRadius,
               }}
             />
@@ -86,8 +86,8 @@ const SolutionGroupSkeleton = () => {
           // lg={{ span: 16 }}
           // xl={{ span: 15 }}
           // xxl={{ span: 17 }}
-          sm={{ span: 15 }}
-          lg={{ span: 17 }}
+          sm={{ span: 14 }}
+          md={{ span: 15 }}
         >
           <Flex
             vertical={true}
@@ -97,12 +97,16 @@ const SolutionGroupSkeleton = () => {
               marginRight: !isMobile ? '1rem' : undefined,
               paddingBottom: '1rem',
               height: '100%',
+              marginLeft: '2rem',
             }}
           >
             <Skeleton.Input
               active
               size={'small'}
-              style={{ width: '100%', marginTop: '.5rem' }}
+              style={{
+                width: '100%',
+                marginTop: '.5rem',
+              }}
             />
 
             <Skeleton.Button
