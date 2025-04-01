@@ -40,7 +40,7 @@ const SolutionGroupSkeleton = () => {
           // lg={{ span: 8 }}
           // xl={{ span: 9 }}
           // xxl={{ span: 7 }}
-          md={{ span: 9 }}
+          sm={{ span: 9 }}
           lg={{ span: 7 }}
         >
           <Flex
@@ -86,7 +86,7 @@ const SolutionGroupSkeleton = () => {
           // lg={{ span: 16 }}
           // xl={{ span: 15 }}
           // xxl={{ span: 17 }}
-          md={{ span: 15 }}
+          sm={{ span: 15 }}
           lg={{ span: 17 }}
         >
           <Flex
