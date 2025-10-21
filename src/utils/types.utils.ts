@@ -1,5 +1,6 @@
 export type ListApiResponse<Item> = {
   data: {
+    offset?: string;
     items: Item[];
   };
 };

@@ -60,3 +60,12 @@ export type IMyApplications = {
   editUrlCallback: (applicationId: string) => string;
   manifestCallback?: (manifest: string) => void;
 };
+
+export type TableParams = {
+  total: number;
+  currentPage?: number;
+};
+
+export type NextPageOffset = {
+  [key: number]: string | undefined;
+};

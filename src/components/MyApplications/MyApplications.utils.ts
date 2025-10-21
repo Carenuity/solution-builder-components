@@ -10,11 +10,14 @@ import { processAxiosError } from '../../utils/common.utils';
 export const getMyApplications = async ({
   developerId,
   signal,
+  offset,
 }: {
   developerId: string;
   signal?: AbortSignal;
+  offset?: string;
 }) => {
-  let result: MyApplicationDataType[] = [];
+  let apps: MyApplicationDataType[] = [];
+  let nextPageStart = undefined;
 
   const url = `${solutionsApiHostname}/v1/binaries`;
 
@@ -22,6 +25,8 @@ export const getMyApplications = async ({
     const response = await axios.get<ListApiResponse<ApplicationRecord>>(url, {
       params: {
         mode: 'full',
+        offset,
+        limit: 10,
         props:
           'id,solution,application,repository,manifest,ecosystem,tag,created_at', // ,developer
         developer_id: developerId,
@@ -30,8 +35,10 @@ export const getMyApplications = async ({
     });
 
     if (response.status === 200) {
-      const applications = response.data.data.items;
-      result = applications.map(
+      const { items: applications, offset: _offset } = response.data.data;
+      nextPageStart = _offset;
+
+      apps = applications.map(
         ({
           application,
           ecosystem,
@@ -58,7 +65,7 @@ export const getMyApplications = async ({
     console.error(error);
   }
 
-  return result;
+  return { apps, nextPageStart };
 };
 
 export const deleteMyApplication = async ({

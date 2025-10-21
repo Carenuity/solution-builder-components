@@ -5,6 +5,8 @@ import {
   FilterListItem,
   IMyApplications,
   MyApplicationDataType,
+  NextPageOffset,
+  TableParams,
 } from './MyApplications.types';
 import { imageFallback } from '../../utils/constants.utils';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -16,6 +18,8 @@ type Filters = Parameters<OnChange>[1];
 
 type GetSingle<T> = T extends (infer U)[] ? U : never;
 type Sorts = GetSingle<Parameters<OnChange>[2]>;
+
+const ITEMS_PER_PAGE = 10;
 
 const MyApplications: React.FC<IMyApplications> = ({
   developerId,
@@ -35,6 +39,13 @@ const MyApplications: React.FC<IMyApplications> = ({
   const [filteredInfo, setFilteredInfo] = useState<Filters>({});
   const [sortedInfo, setSortedInfo] = useState<Sorts>({});
   const [totalApplications, setTotalApplications] = useState(0);
+  const [nextPageOffset, setNextPageOffset] = useState<NextPageOffset>({
+    1: undefined,
+  });
+  const [tableParams, setTableParams] = useState<TableParams>({
+    total: ITEMS_PER_PAGE,
+    currentPage: 1,
+  });
   const [context, openNotification] = useSbNotification();
 
   const applicationDeletionController = new AbortController();
@@ -44,6 +55,13 @@ const MyApplications: React.FC<IMyApplications> = ({
     // console.log('Various parameters', pagination, filters, sorter);
     setFilteredInfo(filters);
     setSortedInfo(sorter as Sorts);
+
+    if (pagination.current !== tableParams.currentPage) {
+      setTableParams((old) => ({ ...old, currentPage: pagination.current }));
+      setApplications(() => []);
+      setFilteredInfo({});
+      setSortedInfo({});
+    }
   };
 
   const columns: TableColumnsType<MyApplicationDataType> = [
@@ -224,7 +242,10 @@ const MyApplications: React.FC<IMyApplications> = ({
     scroll,
     title: () => `${totalApplications} Applications`,
     showHeader: true,
-    pagination: { position: ['none', 'bottomRight'] },
+    pagination: {
+      position: ['none', 'bottomRight'],
+      total: tableParams.total,
+    },
     onChange: handleChange,
   };
 
@@ -237,9 +258,10 @@ const MyApplications: React.FC<IMyApplications> = ({
 
       setLoading(true);
       // Load my applications
-      const data = await getMyApplications({
+      const { nextPageStart, apps: data } = await getMyApplications({
         developerId,
         signal: controller.signal,
+        offset: nextPageOffset[tableParams.currentPage as number],
       });
 
       const ecosystemSet: Set<string> = new Set();
@@ -256,7 +278,25 @@ const MyApplications: React.FC<IMyApplications> = ({
           typeSet.add(type);
         }
       });
-      setTotalApplications(data.length);
+
+      const nextPage = (tableParams.currentPage as number) + 1;
+
+      if (!Object.keys(nextPageOffset).includes(String(nextPage))) {
+        setTableParams((old) => ({
+          ...old,
+          total: nextPageStart ? old.total + data.length : old.total,
+        }));
+
+        setTotalApplications((old) => old + data.length);
+      }
+
+      if (nextPageStart) {
+        setNextPageOffset((old) => ({
+          ...old,
+          [nextPage]: nextPageStart,
+        }));
+      }
+
       setApplications(() => data);
       setEcosystemFilters(() => ecoFilters);
       setTypeFilters(() => typeFilters);
@@ -269,7 +309,7 @@ const MyApplications: React.FC<IMyApplications> = ({
       controller.abort();
       applicationDeletionController.abort();
     };
-  }, []);
+  }, [tableParams.currentPage]);
 
   // rowSelection object indicates the need for row selection
   const rowSelection: TableProps<MyApplicationDataType>['rowSelection'] = {
