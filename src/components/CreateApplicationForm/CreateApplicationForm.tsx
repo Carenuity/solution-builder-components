@@ -108,22 +108,32 @@ const CreateApplicationForm: React.FC<ICreateApplicationForm> = ({
           }}
         />
 
-        <Steps
-          current={current}
-          percent={steps[current].percent}
-          items={items}
-        />
-        <div style={contentStyle}>{steps[current].content}</div>
-        <div style={{ marginTop: 24 }}>
-          {current < steps.length - 1 && <NextButton onClick={() => next()} />}
-          {current === steps.length - 1 && (
-            <CreateButton accessToken={accessToken} />
-          )}
-          {current > 0 && (
-            <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-              Previous
-            </Button>
-          )}
+        <div
+          style={{
+            maxHeight: '30rem',
+            overflowY: 'scroll',
+            paddingRight: '1.5rem',
+          }}
+        >
+          <Steps
+            current={current}
+            percent={steps[current].percent}
+            items={items}
+          />
+          <div style={contentStyle}>{steps[current].content}</div>
+          <div style={{ marginTop: 24 }}>
+            {current < steps.length - 1 && (
+              <NextButton onClick={() => next()} />
+            )}
+            {current === steps.length - 1 && (
+              <CreateButton accessToken={accessToken} />
+            )}
+            {current > 0 && (
+              <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+                Previous
+              </Button>
+            )}
+          </div>
         </div>
       </CreateApplicationProvider>
     </>

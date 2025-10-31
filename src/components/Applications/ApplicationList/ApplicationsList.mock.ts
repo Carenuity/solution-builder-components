@@ -36,6 +36,7 @@ export const generateApplicationsData = ({
       hasReviewed: getId(i) % 5 === 0,
       totalValidators: getId(i) * 2,
       upVotes: getId(i) * 3,
+      editAppUrl: 'https://github.com/ant-design/ant-design',
     })
   );
 };

@@ -4,11 +4,8 @@ import {
   UpdateApplicationData,
   UpdateApplicationReducerObject,
 } from './index.types';
-import {
-  ApplicationBinaryRecord,
-  ApplicationDataItem,
-} from '../../common/developer/index.types';
-import { BinaryFormat, ChipFamily } from '../../../utils/types.utils';
+import { ApplicationBinaryRecord } from '../../common/developer/index.types';
+import { BinaryFormat } from '../../../utils/types.utils';
 
 // const imageFallback =
 //   'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
@@ -24,54 +21,6 @@ const reducer = (
   switch (action.type) {
     case 'SET':
       switch (action.category) {
-        // case 'sensor':
-        //   return {
-        //     ...state,
-        //     sensor: action.data,
-        //   };
-
-        case 'chip_family':
-          return {
-            ...state,
-            chipFamily: action.value as ChipFamily,
-          };
-
-        // case 'actuator':
-        //   return {
-        //     ...state,
-        //     actuator: action.data,
-        //   };
-
-        // case 'solution':
-        //   return {
-        //     ...state,
-        //     solution: action.data,
-        //   };
-
-        case 'ecosystem':
-          return {
-            ...state,
-            ecosystem: action.value as ApplicationDataItem,
-          };
-
-        case 'application':
-          return {
-            ...state,
-            application: action.value as ApplicationDataItem,
-          };
-
-        case 'repository':
-          return {
-            ...state,
-            repository: action.value as string,
-          };
-
-        case 'tag':
-          return {
-            ...state,
-            tag: action.value as string,
-          };
-
         case 'binary_type':
           return {
             ...state,

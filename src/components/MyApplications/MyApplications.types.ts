@@ -57,7 +57,8 @@ export type IMyApplications = {
   developerId: string;
   accessToken: string;
   onDeleteApplication?: () => void;
-  editUrlCallback: (applicationId: string) => string;
+  editMetadataUrlCallback: (applicationId: string) => string;
+  editBinariesUrlCallback: (applicationId: string) => string;
   manifestCallback?: (manifest: string) => void;
 };
 

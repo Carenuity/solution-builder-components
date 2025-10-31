@@ -262,6 +262,7 @@ export const fetchApplications = async ({
           tag: application.tag,
           manifest: application.manifest,
           repository: application.repository,
+          editAppUrl: `/apps/${application.id}`,
           developer: {
             id: application.developer.id,
             name: `${application.developer.first_name} ${application.developer.last_name}`,

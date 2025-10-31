@@ -23,4 +23,5 @@ export interface ApplicationListRecordProps
   tag?: string;
   InstallButton: IWebFlashButton;
   solutionName?: string;
+  editAppUrl?: string;
 }

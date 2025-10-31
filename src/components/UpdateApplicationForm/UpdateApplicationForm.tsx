@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, Steps, theme } from 'antd';
 import { IUpdateApplicationForm } from './UpdateApplication.types';
 import NextButton from './NextButton';
-import Details from './Details';
 import Binaries from './Binaries';
 import UpdateButton from './UpdateButton';
 import { UpdateApplicationProvider } from './UpdateApplicationProvider';
@@ -25,16 +24,10 @@ const UpdateApplicationForm: React.FC<IUpdateApplicationForm> = ({
 
   const steps = [
     {
-      title: 'Metadata',
-      content: <Details applicationId={applicationId} />,
-      description: 'Assign details',
-      percent: 30,
-    },
-    {
       title: 'Prepare',
       content: <BinaryFormatForm />,
       description: 'Select what you have',
-      percent: 60,
+      percent: 50,
     },
     {
       title: 'Share',
@@ -63,22 +56,34 @@ const UpdateApplicationForm: React.FC<IUpdateApplicationForm> = ({
   return (
     <>
       <UpdateApplicationProvider>
-        <Steps
-          current={current}
-          percent={steps[current].percent}
-          items={items}
-        />
-        <div style={contentStyle}>{steps[current].content}</div>
-        <div style={{ marginTop: 24 }}>
-          {current < steps.length - 1 && <NextButton onClick={() => next()} />}
-          {current === steps.length - 1 && (
-            <UpdateButton accessToken={accessToken} id={applicationId} />
-          )}
-          {current > 0 && (
-            <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-              Previous
-            </Button>
-          )}
+        <div
+          style={{
+            maxHeight: '35rem',
+            overflowY: 'scroll',
+            paddingRight: '1.5rem',
+          }}
+        >
+          <Steps
+            size={'small'}
+            responsive={true}
+            current={current}
+            percent={steps[current].percent}
+            items={items}
+          />
+          <div style={contentStyle}>{steps[current].content}</div>
+          <div style={{ marginTop: 24 }}>
+            {current < steps.length - 1 && (
+              <NextButton onClick={() => next()} />
+            )}
+            {current === steps.length - 1 && (
+              <UpdateButton accessToken={accessToken} id={applicationId} />
+            )}
+            {current > 0 && (
+              <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+                Previous
+              </Button>
+            )}
+          </div>
         </div>
       </UpdateApplicationProvider>
     </>

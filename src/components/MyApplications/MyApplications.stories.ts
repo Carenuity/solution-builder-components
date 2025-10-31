@@ -25,7 +25,10 @@ export const HelloWorld: Story = {
     onDeleteApplication: () => {
       window.location.reload();
     },
-    editUrlCallback(applicationId) {
+    editBinariesUrlCallback(applicationId) {
+      return `/profile/binaries/edit/${applicationId}`;
+    },
+    editMetadataUrlCallback(applicationId) {
       return `/profile/binaries/edit/${applicationId}`;
     },
     manifestCallback(manifest) {

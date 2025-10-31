@@ -1,13 +1,8 @@
-import { BinaryFileId, ChipFamily } from '../../../utils/types.utils';
+import { BinaryFileId } from '../../../utils/types.utils';
 import { ApplicationBinaryRecord } from '../../common/developer/index.types';
 
 export type IHandleUpdateApplication = {
   id: string;
-  application_id?: string;
-  ecosystem_id?: string;
-  chip_family: ChipFamily;
-  repository?: string;
-  tag?: string;
   binaries?: Partial<Record<BinaryFileId, ApplicationBinaryRecord>>;
   access_token: string;
   signal: AbortSignal;

@@ -31,7 +31,7 @@ const SolutionGroupApplications: React.FC<SolutionGroupApplicationsProps> = ({
         >
           <AppstoreOutlined />
           <Text strong ellipsis>
-            Free Installable Applications
+            HW for Free Installable Applications
           </Text>
         </Space>
 

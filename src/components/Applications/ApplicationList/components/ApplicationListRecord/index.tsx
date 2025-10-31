@@ -2,6 +2,7 @@ import {
   CloudDownloadOutlined,
   DislikeFilled,
   DislikeOutlined,
+  EditOutlined,
   GithubOutlined,
   LikeFilled,
   LikeOutlined,
@@ -47,6 +48,7 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
   upVotes,
   totalValidators,
   solutionName,
+  editAppUrl,
   ...developerProps
 }) => {
   const { width } = useScreenSize();
@@ -164,6 +166,19 @@ const ApplicationListRecord: React.FC<ApplicationListRecordProps> = ({
     _actions.push(
       <ApplicationModificationRequest key={`modification-${id}`} />
     );
+
+    // Set Edit App Url
+    if (editAppUrl) {
+      _actions.push(
+        <ActionButton
+          key={`edit-app-${id}`}
+          href={editAppUrl}
+          title={'Edit Application'}
+          type={'link'}
+          icon={<EditOutlined />}
+        />
+      );
+    }
 
     const [action1, action2, action3, ...moreActions] = _actions;
 

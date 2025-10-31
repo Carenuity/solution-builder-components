@@ -9,7 +9,11 @@ import {
   TableParams,
 } from './MyApplications.types';
 import { imageFallback } from '../../utils/constants.utils';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import { deleteMyApplication, getMyApplications } from './MyApplications.utils';
 import useSbNotification from '../Notification';
 
@@ -25,7 +29,8 @@ const MyApplications: React.FC<IMyApplications> = ({
   developerId,
   accessToken,
   onDeleteApplication,
-  editUrlCallback,
+  editBinariesUrlCallback,
+  editMetadataUrlCallback,
   manifestCallback,
 }) => {
   const [applications, setApplications] = useState<MyApplicationDataType[]>([]);
@@ -81,7 +86,19 @@ const MyApplications: React.FC<IMyApplications> = ({
       ),
     },
     {
-      title: 'Solution',
+      title: 'App Name',
+      dataIndex: 'tag',
+      ellipsis: true,
+      width: 150,
+      render: (text: string | undefined) => (
+        <>
+          {text && <Tag color={'green'}>{text}</Tag>}
+          {!text && <span>-</span>}
+        </>
+      ),
+    },
+    {
+      title: 'GitHub Repository URL',
       dataIndex: 'name',
       ellipsis: true,
       fixed: 'left',
@@ -97,8 +114,8 @@ const MyApplications: React.FC<IMyApplications> = ({
       sortDirections: ['descend', 'ascend'],
       render: (_, record) => (
         <>
-          <a title={record.name} href={record.repository}>
-            {record.name}
+          <a title={record.repository} href={record.repository}>
+            {record.repository}
           </a>
         </>
       ),
@@ -120,18 +137,6 @@ const MyApplications: React.FC<IMyApplications> = ({
       filters: typeFilters,
       filteredValue: filteredInfo.type || null,
       onFilter: (value, record) => record.type.includes(value as string),
-    },
-    {
-      title: 'Tag',
-      dataIndex: 'tag',
-      ellipsis: true,
-      width: 150,
-      render: (text: string | undefined) => (
-        <>
-          {text && <Tag color={'green'}>{text}</Tag>}
-          {!text && <span>-</span>}
-        </>
-      ),
     },
     {
       title: 'Date',
@@ -156,7 +161,7 @@ const MyApplications: React.FC<IMyApplications> = ({
       },
     },
     {
-      title: 'Action',
+      title: 'Actions',
       dataIndex: 'key',
       fixed: 'right',
       width: 100,
@@ -218,14 +223,25 @@ const MyApplications: React.FC<IMyApplications> = ({
               icon={<DeleteOutlined />}
             />
           </Popconfirm>
+
           <Button
             type={'link'}
             color={'primary'}
             variant={'outlined'}
             shape="circle"
-            title="Edit"
-            href={editUrlCallback(record.key as string)}
+            title="Edit Metadata"
+            href={editMetadataUrlCallback(record.key as string)}
             icon={<EditOutlined />}
+          />
+
+          <Button
+            type={'link'}
+            color={'primary'}
+            variant={'outlined'}
+            shape="circle"
+            title="Replace Binary"
+            href={editBinariesUrlCallback(record.key as string)}
+            icon={<UploadOutlined />}
           />
         </Space>
       ),
@@ -233,7 +249,7 @@ const MyApplications: React.FC<IMyApplications> = ({
   ];
 
   const scroll: { x?: number | string; y?: number | string } = {};
-  scroll.y = '100vh';
+  scroll.y = '23rem';
   scroll.x = '100vw';
 
   const tableProps: TableProps<MyApplicationDataType> = {
@@ -245,6 +261,7 @@ const MyApplications: React.FC<IMyApplications> = ({
     pagination: {
       position: ['none', 'bottomRight'],
       total: tableParams.total,
+      showSizeChanger: false,
     },
     onChange: handleChange,
   };
