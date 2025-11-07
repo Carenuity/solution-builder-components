@@ -5,8 +5,6 @@ import {
   FilterListItem,
   IMyApplications,
   MyApplicationDataType,
-  NextPageOffset,
-  TableParams,
 } from './MyApplications.types';
 import { imageFallback } from '../../utils/constants.utils';
 import {
@@ -16,6 +14,7 @@ import {
 } from '@ant-design/icons';
 import { deleteMyApplication, getMyApplications } from './MyApplications.utils';
 import useSbNotification from '../Notification';
+import { NextPageOffset, TableParams } from '../../utils/types.utils';
 
 type OnChange = NonNullable<TableProps<MyApplicationDataType>['onChange']>;
 type Filters = Parameters<OnChange>[1];
@@ -168,6 +167,27 @@ const MyApplications: React.FC<IMyApplications> = ({
       render: (_, record) => (
         <Space size="middle">
           {context}
+
+          <Button
+            type={'link'}
+            color={'primary'}
+            variant={'outlined'}
+            shape="circle"
+            title="Edit Metadata"
+            href={editMetadataUrlCallback(record.key as string)}
+            icon={<EditOutlined />}
+          />
+
+          <Button
+            type={'link'}
+            color={'primary'}
+            variant={'outlined'}
+            shape="circle"
+            title="Replace Binary"
+            href={editBinariesUrlCallback(record.key as string)}
+            icon={<UploadOutlined />}
+          />
+
           <Popconfirm
             title={
               <>
@@ -223,26 +243,6 @@ const MyApplications: React.FC<IMyApplications> = ({
               icon={<DeleteOutlined />}
             />
           </Popconfirm>
-
-          <Button
-            type={'link'}
-            color={'primary'}
-            variant={'outlined'}
-            shape="circle"
-            title="Edit Metadata"
-            href={editMetadataUrlCallback(record.key as string)}
-            icon={<EditOutlined />}
-          />
-
-          <Button
-            type={'link'}
-            color={'primary'}
-            variant={'outlined'}
-            shape="circle"
-            title="Replace Binary"
-            href={editBinariesUrlCallback(record.key as string)}
-            icon={<UploadOutlined />}
-          />
         </Space>
       ),
     },

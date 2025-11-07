@@ -1,5 +1,6 @@
 import QueryString from 'qs';
 import { SolutionGroupData } from './SolutionGroupList.types';
+import { solutionsApiHostname } from '../../../utils/constants.utils';
 
 export type IFilter =
   | 'microcontroller'
@@ -23,11 +24,11 @@ export const fetchSolutionGroups = async ({
     limit,
     offset,
     props:
-      'id,name,description,sensor,microcontroller,actuator,applications,avatars',
+      'id,name,description,sensor,microcontroller,actuator,applications,avatars,manufacturer',
     filter,
     filterId,
   });
-  const url = `https://solutions-api.carenuity.com/v1/solution-templates?${query}`;
+  const url = `${solutionsApiHostname}/v1/solution-templates?${query}`;
 
   try {
     const response = await fetch(url, {
@@ -101,7 +102,7 @@ export const fetchSolutionGroups = async ({
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const err = error as any;
-    console.log(err.message);
+    console.error(err.message, err);
     return { data: [] };
   }
 };

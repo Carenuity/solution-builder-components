@@ -20,6 +20,8 @@ export const getSolutionTemplates = async ({
   searchParam.set('mode', 'full');
   searchParam.set('filter', 'microcontroller');
   searchParam.set('filterId', microcontrollerId);
+  searchParam.set('sensor_id', sensorId);
+  searchParam.set('actuator_id', actuatorId);
   searchParam.set(
     'props',
     'id,name,sensor_id,microcontroller_id,actuator_id,avatars'

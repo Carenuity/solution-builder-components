@@ -8,6 +8,7 @@ export const getIotShields = async ({ signal }: IGetIotShields) => {
 
   const searchParam = new URLSearchParams();
   searchParam.set('mode', 'full');
+  searchParam.set('limit', '100');
   searchParam.set('props', 'id,name,avatars,category');
   const query = searchParam.toString();
 
@@ -29,5 +30,19 @@ export const getIotShields = async ({ signal }: IGetIotShields) => {
     }
   }
 
-  return iotShields;
+  // return iotShields;
+
+  return iotShields.map((shield) => {
+    if (shield.name.toLowerCase() === 'none') {
+      switch (shield.category) {
+        case 'actuator':
+          return { ...shield, name: 'No Actuator' };
+
+        case 'sensor':
+          return { ...shield, name: 'No Sensor' };
+      }
+    }
+
+    return shield;
+  });
 };

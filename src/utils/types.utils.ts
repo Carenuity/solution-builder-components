@@ -30,3 +30,12 @@ export type IApiErrorResponse = {
 export type ChipFamily = 'ESP8266' | 'ESP32-C3' | 'ESP32';
 export type BinaryFileId = 'boot' | 'bootloader' | 'partitions' | 'main';
 export type BinaryFormat = 'merged' | 'arduino_parts';
+
+export type TableParams = {
+  total: number;
+  currentPage?: number;
+};
+
+export type NextPageOffset = {
+  [key: number]: string | undefined;
+};
