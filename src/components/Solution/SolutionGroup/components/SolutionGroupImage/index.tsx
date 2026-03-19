@@ -67,7 +67,7 @@ const SolutionGroupImage: React.FC<SolutionGroupImageProps> = ({
         loading={'lazy'}
         style={{
           borderRadius: borderRadius,
-          display: loadingImage ? 'none' : 'block',
+          // display: loadingImage ? 'none' : 'block',
         }}
         onLoad={() => {
           setLoadingImage(false);
